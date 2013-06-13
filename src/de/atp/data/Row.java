@@ -1,96 +1,158 @@
 package de.atp.data;
 
+import android.annotation.SuppressLint;
+
+@SuppressLint("DefaultLocale")
 public class Row {
-    
-    public final static int DATA_LENGTH = 8;
-    
-    private String code;
-    private String date;
-    private String alarmTime;
-    private String answerTime;
-    private int abortStatus;
-    private int contacts;
-    private int hours;
-    private int minutes;
 
-    public Row(String code, String date, String alarmTime, String answerTime, int abortStatus, int contacts, int hours, int minutes) {
-        this.code = code;
-        this.date = date;
-        this.alarmTime = alarmTime;
-        this.answerTime = answerTime;
-        this.abortStatus = abortStatus;
-        this.contacts = contacts;
-        this.hours = hours;
-        this.minutes = minutes;
-    }
+	public final static int DATA_LENGTH = 8;
 
-    public String getCode() {
-        return code;
-    }
+	private String code;
+	private String date;
+	private String alarmTime;
+	private String answerTime;
+	private RowStatus status;
+	private int contacts;
+	private int hours;
+	private int minutes;
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	public Row(String code, String date, String alarmTime, String answerTime,
+			RowStatus status, int contacts, int hours, int minutes) {
+		this.code = code;
+		this.date = date;
+		this.alarmTime = alarmTime;
+		this.answerTime = answerTime;
+		this.status = status;
+		this.contacts = contacts;
+		this.hours = hours;
+		this.minutes = minutes;
+	}
 
-    public String getDate() {
-        return date;
-    }
+	/**
+	 * @return The code of the proband
+	 */
+	public String getCode() {
+		return code;
+	}
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+	/**
+	 * @param code
+	 *            The code of the proband
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public String getAlarmTime() {
-        return alarmTime;
-    }
+	/**
+	 * @return Creation date of the row
+	 */
+	public String getDate() {
+		return date;
+	}
 
-    public void setAlarmTime(String alarmTime) {
-        this.alarmTime = alarmTime;
-    }
+	/**
+	 * @param date
+	 *            Creation date of the row
+	 */
+	public void setDate(String date) {
+		this.date = date;
+	}
 
-    public String getAnswerTime() {
-        return answerTime;
-    }
+	/**
+	 * @return The desired to ring the alarm
+	 */
+	public String getAlarmTime() {
+		return alarmTime;
+	}
 
-    public void setAnswerTime(String answerTime) {
-        this.answerTime = answerTime;
-    }
+	/**
+	 * @param alarmTime
+	 *            The desired to ring the alarm
+	 */
+	public void setAlarmTime(String alarmTime) {
+		this.alarmTime = alarmTime;
+	}
 
-    public int getAbortStatus() {
-        return abortStatus;
-    }
+	/**
+	 * @return Time where the user answered the request
+	 */
+	public String getAnswerTime() {
+		return answerTime;
+	}
 
-    public void setAbortStatus(int abortStatus) {
-        this.abortStatus = abortStatus;
-    }
+	/**
+	 * @param answerTime
+	 *            Time where the user answered the request
+	 */
+	public void setAnswerTime(String answerTime) {
+		this.answerTime = answerTime;
+	}
 
-    public int getContacts() {
-        return contacts;
-    }
+	/**
+	 * @return The status of the row, see {@link RowStatus} for more information
+	 */
+	public RowStatus getStatus() {
+		return status;
+	}
 
-    public void setContacts(int contacts) {
-        this.contacts = contacts;
-    }
+	/**
+	 * @param status
+	 *            The status of the row, see {@link RowStatus} for more
+	 *            information
+	 */
+	public void setStatus(RowStatus status) {
+		this.status = status;
+	}
 
-    public int getHours() {
-        return hours;
-    }
+	/**
+	 * @return Number of social contacts
+	 */
+	public int getContacts() {
+		return contacts;
+	}
 
-    public void setHours(int hours) {
-        this.hours = hours;
-    }
+	/**
+	 * @param contacts
+	 *            Number of social contacts
+	 */
+	public void setContacts(int contacts) {
+		this.contacts = contacts;
+	}
 
-    public int getMinutes() {
-        return minutes;
-    }
+	/**
+	 * @return Time of social contact in hours
+	 */
+	public int getHours() {
+		return hours;
+	}
 
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
-    }
+	/**
+	 * @param hours
+	 *            Time of social contact in hours
+	 */
+	public void setHours(int hours) {
+		this.hours = hours;
+	}
 
-    @Override
-    public String toString() {
-        return String.format("%s;%s;%s;%s;%d;%d;%d;%d", code, date, alarmTime, answerTime, abortStatus, contacts, hours, minutes);
-    }
+	/**
+	 * @return Time of social contact in minutes
+	 */
+	public int getMinutes() {
+		return minutes;
+	}
+
+	/**
+	 * @param minutes
+	 *            Time of social contact in hours
+	 */
+	public void setMinutes(int minutes) {
+		this.minutes = minutes;
+	}
+
+	@Override
+	protected Object clone() {
+		return new Row(code, date, alarmTime, answerTime, status, contacts,
+				hours, minutes);
+	}
 
 }
