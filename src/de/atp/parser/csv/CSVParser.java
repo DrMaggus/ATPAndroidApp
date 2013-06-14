@@ -6,9 +6,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import android.annotation.SuppressLint;
@@ -121,16 +127,28 @@ public class CSVParser implements Parser, RowConverter {
 	 *         format
 	 */
 	public String writeRow(Row row) {
-		return String.format("%s;%s;%s;%s;%d;%d;%d;%d", row.getCode(), row
-				.getDate(), row.getAlarmTime(), row.getAnswerTime(), row
-				.getStatus().getStatus(), row.getContacts(), row.getHours(),
-				row.getMinutes());
+		StringBuilder sBuilder = new StringBuilder();
+		sBuilder.append(row.getCode());
+		sBuilder.append(DateFormat.getDateInstance().format(row.getDate()));
+		sBuilder.append(TIME_FORMAT.format(row.getAlarmTime()));
+		if (row.getStatus().equals(RowStatus.ABORTED))
+			sBuilder.append("-1");
+		else
+			sBuilder.append(TIME_FORMAT.format(row.getAnswerTime()));
+		sBuilder.append(row.getStatus().getStatus());
+		sBuilder.append(row.getContacts()).append(row.getHours())
+				.append(row.getMinutes());
+
+		return sBuilder.toString();
 	}
 
 	/**
 	 * Pattern to split a single string - compile once to save performance
 	 */
 	private final static Pattern SPLIT_PATTERN = Pattern.compile(";");
+
+	private final static DateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm",
+			Locale.getDefault());
 
 	/**
 	 * Parse a Row from a single line
@@ -141,13 +159,46 @@ public class CSVParser implements Parser, RowConverter {
 	 *         parsing failed
 	 */
 	public Row readRow(String line) {
-		String[] split = SPLIT_PATTERN.split(line);
-		if (split == null || split.length != Row.DATA_LENGTH) {
+		try {
+			String[] split = SPLIT_PATTERN.split(line);
+			if (split == null || split.length != Row.DATA_LENGTH) {
+				return null;
+			}
+
+			int p = 0;
+			String probandCode = split[p++];
+			Date day = DateFormat.getDateInstance().parse(split[p++]);
+			Date alarmTime = getTimeForToday(TIME_FORMAT.parse(split[p++]));
+			Date answerTime = getTimeForToday(TIME_FORMAT.parse(split[p++]));
+			RowStatus status = RowStatus
+					.getStatus(Integer.parseInt(split[p++]));
+			int contacts = Integer.parseInt(split[p++]);
+			int hours = Integer.parseInt(split[p++]);
+			int minutes = Integer.parseInt(split[p++]);
+
+			return new Row(probandCode, day, alarmTime, answerTime, status,
+					contacts, hours, minutes);
+		} catch (Exception e) {
 			return null;
 		}
-		return new Row(split[0], split[1], split[2], split[3],
-				RowStatus.getStatus(Integer.parseInt(split[4])),
-				Integer.parseInt(split[5]), Integer.parseInt(split[6]),
-				Integer.parseInt(split[7]));
 	}
+
+	/**
+	 * Set the year, month and date for a timestamp for today
+	 * 
+	 * @param time
+	 *            Date object containing values for hours, minutes and seconds
+	 * @return Date object with the current date
+	 */
+	private Date getTimeForToday(Date time) {
+		Calendar cal = GregorianCalendar.getInstance();
+		Calendar res = GregorianCalendar.getInstance();
+
+		res.setTime(time);
+		res.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+				cal.get(Calendar.DAY_OF_MONTH));
+
+		return res.getTime();
+	}
+
 }

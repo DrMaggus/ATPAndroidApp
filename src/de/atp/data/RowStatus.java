@@ -14,11 +14,11 @@ public enum RowStatus {
 	/**
 	 * Question of user was aborted
 	 */
-	ABORTED(-1),
+	ABORTED(1),
 	/**
 	 * User hasn't answered the questions yet
 	 */
-	DIRTY(-2);
+	DIRTY(2);
 
 	/**
 	 * Number in the target file format

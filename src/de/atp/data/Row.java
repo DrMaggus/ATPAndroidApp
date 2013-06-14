@@ -1,5 +1,7 @@
 package de.atp.data;
 
+import java.util.Date;
+
 import android.annotation.SuppressLint;
 
 @SuppressLint("DefaultLocale")
@@ -8,15 +10,19 @@ public class Row {
 	public final static int DATA_LENGTH = 8;
 
 	private String code;
-	private String date;
-	private String alarmTime;
-	private String answerTime;
+	private Date date;
+	private Date alarmTime;
+	private Date answerTime;
 	private RowStatus status;
 	private int contacts;
 	private int hours;
 	private int minutes;
 
-	public Row(String code, String date, String alarmTime, String answerTime,
+	public Row(String code, Date date, Date alarmTime) {
+		this(code, date, alarmTime, null, RowStatus.DIRTY, -1, -1, -1);
+	}
+
+	public Row(String code, Date date, Date alarmTime, Date answerTime,
 			RowStatus status, int contacts, int hours, int minutes) {
 		this.code = code;
 		this.date = date;
@@ -46,7 +52,7 @@ public class Row {
 	/**
 	 * @return Creation date of the row
 	 */
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
@@ -54,14 +60,14 @@ public class Row {
 	 * @param date
 	 *            Creation date of the row
 	 */
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
 	/**
 	 * @return The desired to ring the alarm
 	 */
-	public String getAlarmTime() {
+	public Date getAlarmTime() {
 		return alarmTime;
 	}
 
@@ -69,14 +75,14 @@ public class Row {
 	 * @param alarmTime
 	 *            The desired to ring the alarm
 	 */
-	public void setAlarmTime(String alarmTime) {
+	public void setAlarmTime(Date alarmTime) {
 		this.alarmTime = alarmTime;
 	}
 
 	/**
 	 * @return Time where the user answered the request
 	 */
-	public String getAnswerTime() {
+	public Date getAnswerTime() {
 		return answerTime;
 	}
 
@@ -84,7 +90,7 @@ public class Row {
 	 * @param answerTime
 	 *            Time where the user answered the request
 	 */
-	public void setAnswerTime(String answerTime) {
+	public void setAnswerTime(Date answerTime) {
 		this.answerTime = answerTime;
 	}
 
