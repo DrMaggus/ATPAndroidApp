@@ -76,13 +76,12 @@ public class DataTable {
 	 * @param row
 	 *            The content of the row
 	 */
-	public void setRow(int rowIndex, Row row) {
-		if (rowIndex < 0 || rowIndex >= table.size())
-			return;
-		table.set(rowIndex, row);
+	public void updateRow(Row row) {
+		table.set(row.index, row);
 		onUpdate();
 	}
 
+	
 	/**
 	 * Add a new row the table. This operations start a flush of the tableto the
 	 * drive
@@ -91,6 +90,8 @@ public class DataTable {
 	 *            New row to insert
 	 */
 	public void addRow(Row row) {
+
+		row.index = table.size();
 		table.add(row);
 		onUpdate();
 	}

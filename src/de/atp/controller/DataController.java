@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import de.atp.data.DataTable;
 import de.atp.data.Row;
+import de.atp.data.RowStatus;
 
 public class DataController {
 
@@ -139,5 +140,58 @@ public class DataController {
 		return c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH)
 				&& c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH)
 				&& c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
+	}
+
+	/**
+	 * The proband has completed a questions. This function persists the data
+	 * 
+	 * @param hour
+	 *            How many hours of social contact
+	 * @param minutes
+	 *            How many minutes of social contact
+	 * @param contacts
+	 *            How many social contacts
+	 */
+	public void completeQuestions(int hour, int minutes, int contacts) {
+
+		Row row = getCurrentRow();
+		row.setAnswerTime(new Date());
+		row.setStatus(RowStatus.OK);
+		row.setHours(hour);
+		row.setMinutes(minutes);
+		row.setContacts(contacts);
+
+		table.updateRow(row);
+	}
+
+	/**
+	 * The proband has aborted the question
+	 */
+	public void abortedQuestion() {
+		Row row = getCurrentRow();
+		row.setStatus(RowStatus.ABORTED);
+		table.updateRow(row);
+	}
+
+	/**
+	 * Search for the row containing the alarm time which is the most current
+	 * time
+	 * 
+	 * @return
+	 */
+	private Row getCurrentRow() {
+		Date now = new Date();
+		Row minimum = table.getRow(0);
+		long min = Long.MAX_VALUE;
+		for (Row row : table.getRows()) {
+			if (row.getAlarmTime().after(now)) {
+				long diff = now.getTime() - row.getAlarmTime().getTime();
+				if (diff <= min) {
+					min = diff;
+					minimum = row;
+				}
+			}
+		}
+		return minimum;
 	}
 }

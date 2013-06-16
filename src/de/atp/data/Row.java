@@ -8,6 +8,8 @@ import android.annotation.SuppressLint;
 public class Row {
 
 	public final static int DATA_LENGTH = 8;
+	
+	protected int index;
 
 	private String code;
 	private Date date;
