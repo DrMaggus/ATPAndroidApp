@@ -194,4 +194,37 @@ public class DataController {
 		}
 		return minimum;
 	}
+
+	/**
+	 * Change the time of one alarm
+	 * 
+	 * @param oldHour
+	 *            The old time in hours (from 0-23)
+	 * @param oldMinute
+	 *            The old time in minutes (from 0-59)
+	 * @param newHour
+	 *            The new time in hours (from 0-23)
+	 * @param newMinute
+	 *            The new time in minutes (from 0-59)
+	 */
+	public void changeAlarmTime(int oldHour, int oldMinute, int newHour,
+			int newMinute) {
+		Calendar cal = GregorianCalendar.getInstance();
+		// Search for the old alarm time
+		for (Row row : table.getRows()) {
+			// Change only times for unused rows
+			if (row.getStatus().equals(RowStatus.DIRTY)) {
+				cal.setTime(row.getAlarmTime());
+				// Old time matches the row
+				if (cal.get(Calendar.HOUR_OF_DAY) == oldHour
+						&& cal.get(Calendar.MINUTE) == oldMinute) {
+					// Update the row
+					cal.set(Calendar.HOUR_OF_DAY, newHour);
+					cal.set(Calendar.MINUTE, newMinute);
+					row.setAlarmTime(cal.getTime());
+					table.updateRow(row);
+				}
+			}
+		}
+	}
 }
