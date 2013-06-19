@@ -20,22 +20,34 @@
     
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        
+        android:layout_height="wrap_content" >
+
         <EditText
             android:id="@+id/editTextCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:ems="5"
-            android:hint="@string/startcodehint" />
-
+            android:hint="@string/startcodehint"
+            android:maxLength="5" />
+        
         <Button
+            android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/editTextCode"
-            android:text="@string/buttonstart" />
+            android:text="@string/buttonstart" 
+            android:clickable="false"/>
+        <!--  android:enabled="false"       -->
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/button1"
+            android:layout_alignBottom="@+id/button1"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
 
 </LinearLayout>
