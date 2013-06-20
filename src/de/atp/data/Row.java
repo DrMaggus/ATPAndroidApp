@@ -7,160 +7,158 @@ import android.annotation.SuppressLint;
 @SuppressLint("DefaultLocale")
 public class Row {
 
-	public final static int DATA_LENGTH = 8;
-	
-	protected int index;
+    public final static int DATA_LENGTH = 8;
 
-	private String code;
-	private Date date;
-	private Date alarmTime;
-	private Date answerTime;
-	private RowStatus status;
-	private int contacts;
-	private int hours;
-	private int minutes;
+    protected int index;
 
-	public Row(String code, Date date, Date alarmTime) {
-		this(code, date, alarmTime, null, RowStatus.DIRTY, -1, -1, -1);
-	}
+    private String code;
+    private Date date;
+    private Date alarmTime;
+    private Date answerTime;
+    private RowStatus status;
+    private int contacts;
+    private int hours;
+    private int minutes;
 
-	public Row(String code, Date date, Date alarmTime, Date answerTime,
-			RowStatus status, int contacts, int hours, int minutes) {
-		this.code = code;
-		this.date = date;
-		this.alarmTime = alarmTime;
-		this.answerTime = answerTime;
-		this.status = status;
-		this.contacts = contacts;
-		this.hours = hours;
-		this.minutes = minutes;
-	}
+    public Row(String code, Date date, Date alarmTime) {
+        this(code, date, alarmTime, null, RowStatus.DIRTY, -1, -1, -1);
+    }
 
-	/**
-	 * @return The code of the proband
-	 */
-	public String getCode() {
-		return code;
-	}
+    public Row(String code, Date date, Date alarmTime, Date answerTime, RowStatus status, int contacts, int hours, int minutes) {
+        this.code = code;
+        this.date = date;
+        this.alarmTime = alarmTime;
+        this.answerTime = answerTime;
+        this.status = status;
+        this.contacts = contacts;
+        this.hours = hours;
+        this.minutes = minutes;
+    }
 
-	/**
-	 * @param code
-	 *            The code of the proband
-	 */
-	public void setCode(String code) {
-		this.code = code;
-	}
+    /**
+     * @return The code of the proband
+     */
+    public String getCode() {
+        return code;
+    }
 
-	/**
-	 * @return Creation date of the row
-	 */
-	public Date getDate() {
-		return date;
-	}
+    /**
+     * @param code
+     *            The code of the proband
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	/**
-	 * @param date
-	 *            Creation date of the row
-	 */
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    /**
+     * @return Creation date of the row
+     */
+    public Date getDate() {
+        return date;
+    }
 
-	/**
-	 * @return The desired to ring the alarm
-	 */
-	public Date getAlarmTime() {
-		return alarmTime;
-	}
+    /**
+     * @param date
+     *            Creation date of the row
+     */
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-	/**
-	 * @param alarmTime
-	 *            The desired to ring the alarm
-	 */
-	public void setAlarmTime(Date alarmTime) {
-		this.alarmTime = alarmTime;
-	}
+    /**
+     * @return The desired to ring the alarm
+     */
+    public Date getAlarmTime() {
+        return alarmTime;
+    }
 
-	/**
-	 * @return Time where the user answered the request
-	 */
-	public Date getAnswerTime() {
-		return answerTime;
-	}
+    /**
+     * @param alarmTime
+     *            The desired to ring the alarm
+     */
+    public void setAlarmTime(Date alarmTime) {
+        this.alarmTime = alarmTime;
+    }
 
-	/**
-	 * @param answerTime
-	 *            Time where the user answered the request
-	 */
-	public void setAnswerTime(Date answerTime) {
-		this.answerTime = answerTime;
-	}
+    /**
+     * @return Time where the user answered the request
+     */
+    public Date getAnswerTime() {
+        return answerTime;
+    }
 
-	/**
-	 * @return The status of the row, see {@link RowStatus} for more information
-	 */
-	public RowStatus getStatus() {
-		return status;
-	}
+    /**
+     * @param answerTime
+     *            Time where the user answered the request
+     */
+    public void setAnswerTime(Date answerTime) {
+        this.answerTime = answerTime;
+    }
 
-	/**
-	 * @param status
-	 *            The status of the row, see {@link RowStatus} for more
-	 *            information
-	 */
-	public void setStatus(RowStatus status) {
-		this.status = status;
-	}
+    /**
+     * @return The status of the row, see {@link RowStatus} for more information
+     */
+    public RowStatus getStatus() {
+        return status;
+    }
 
-	/**
-	 * @return Number of social contacts
-	 */
-	public int getContacts() {
-		return contacts;
-	}
+    /**
+     * @param status
+     *            The status of the row, see {@link RowStatus} for more
+     *            information
+     */
+    public void setStatus(RowStatus status) {
+        this.status = status;
+    }
 
-	/**
-	 * @param contacts
-	 *            Number of social contacts
-	 */
-	public void setContacts(int contacts) {
-		this.contacts = contacts;
-	}
+    /**
+     * @return Number of social contacts
+     */
+    public int getContacts() {
+        return contacts;
+    }
 
-	/**
-	 * @return Time of social contact in hours
-	 */
-	public int getHours() {
-		return hours;
-	}
+    /**
+     * @param contacts
+     *            Number of social contacts
+     */
+    public void setContacts(int contacts) {
+        this.contacts = contacts;
+    }
 
-	/**
-	 * @param hours
-	 *            Time of social contact in hours
-	 */
-	public void setHours(int hours) {
-		this.hours = hours;
-	}
+    /**
+     * @return Time of social contact in hours
+     */
+    public int getHours() {
+        return hours;
+    }
 
-	/**
-	 * @return Time of social contact in minutes
-	 */
-	public int getMinutes() {
-		return minutes;
-	}
+    /**
+     * @param hours
+     *            Time of social contact in hours
+     */
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
 
-	/**
-	 * @param minutes
-	 *            Time of social contact in hours
-	 */
-	public void setMinutes(int minutes) {
-		this.minutes = minutes;
-	}
+    /**
+     * @return Time of social contact in minutes
+     */
+    public int getMinutes() {
+        return minutes;
+    }
 
-	@Override
-	protected Object clone() {
-		return new Row(code, date, alarmTime, answerTime, status, contacts,
-				hours, minutes);
-	}
+    /**
+     * @param minutes
+     *            Time of social contact in hours
+     */
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    @Override
+    protected Object clone() {
+        return new Row(code, date, alarmTime, answerTime, status, contacts, hours, minutes);
+    }
 
 }

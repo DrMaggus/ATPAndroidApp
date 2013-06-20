@@ -16,215 +16,210 @@ import de.atp.data.RowStatus;
 
 public class DataController {
 
-	private final String probandCode;
-	private final DataTable table;
+    private final String probandCode;
+    private final DataTable table;
 
-	/**
-	 * Construct a data controlling and search for the proband code
-	 */
-	public DataController() {
-		this.probandCode = searchProbandCode();
-		this.table = new DataTable(probandCode);
-	}
+    /**
+     * Construct a data controlling and search for the proband code
+     */
+    public DataController() {
+        this.probandCode = searchProbandCode();
+        this.table = new DataTable(probandCode);
+    }
 
-	/**
-	 * Construct a data controlling using the proband code
-	 * 
-	 * @param probandCode
-	 *            The unique proband code
-	 */
-	public DataController(String probandCode) {
-		this.probandCode = probandCode;
-		this.table = new DataTable(probandCode);
-	}
+    /**
+     * Construct a data controlling using the proband code
+     * 
+     * @param probandCode
+     *            The unique proband code
+     */
+    public DataController(String probandCode) {
+        this.probandCode = probandCode;
+        this.table = new DataTable(probandCode);
+    }
 
-	@SuppressWarnings("deprecation")
-	private String searchProbandCode() {
-		File f = new File("").getParentFile();
-		String[] fNames = f.list(new FilenameFilter() {
+    @SuppressWarnings("deprecation")
+    private String searchProbandCode() {
+        File f = new File("").getParentFile();
+        String[] fNames = f.list(new FilenameFilter() {
 
-			@Override
-			public boolean accept(File dir, String filename) {
-				return filename.endsWith(".csv");
-			}
-		});
+            @Override
+            public boolean accept(File dir, String filename) {
+                return filename.endsWith(".csv");
+            }
+        });
 
-		if (fNames.length != 1) {
-			Logger.global.log(Level.SEVERE,
-					"More than one .csv files in the system");
-			return null;
-		}
-		return fNames[0].substring(0, fNames[0].indexOf(".csv"));
+        if (fNames.length != 1) {
+            Logger.global.log(Level.SEVERE, "More than one .csv files in the system");
+            return null;
+        }
+        return fNames[0].substring(0, fNames[0].indexOf(".csv"));
 
-	}
+    }
 
-	/**
-	 * @return A list containing todays alarm times
-	 */
-	public List<Date> getTodaysAlarms() {
-		List<Date> res = new ArrayList<Date>();
+    /**
+     * @return A list containing todays alarm times
+     */
+    public List<Date> getTodaysAlarms() {
+        List<Date> res = new ArrayList<Date>();
 
-		// Todays calendar
-		Calendar today = GregorianCalendar.getInstance();
-		// Calendar for values from the table
-		Calendar date = GregorianCalendar.getInstance();
+        // Todays calendar
+        Calendar today = GregorianCalendar.getInstance();
+        // Calendar for values from the table
+        Calendar date = GregorianCalendar.getInstance();
 
-		// Search for the alarm times
-		for (Row row : table.getRows()) {
-			date.setTime(row.getDate());
+        // Search for the alarm times
+        for (Row row : table.getRows()) {
+            date.setTime(row.getDate());
 
-			// Entry in table has the same date as today
-			if (sameDay(today, date)) {
-				res.add(row.getAlarmTime());
-			}
-		}
+            // Entry in table has the same date as today
+            if (sameDay(today, date)) {
+                res.add(row.getAlarmTime());
+            }
+        }
 
-		return res;
-	}
+        return res;
+    }
 
-	/**
-	 * Generate a new row using the information about the alarmtime from the
-	 * copy
-	 * 
-	 * @param copy
-	 *            Delivers information about the alarmtime and date
-	 */
-	public void generateNewRow(Row copy) {
-		Calendar cal = GregorianCalendar.getInstance();
-		cal.setTime(copy.getDate());
-		cal.roll(Calendar.DAY_OF_MONTH, true);
-		Date date = cal.getTime();
+    /**
+     * Generate a new row using the information about the alarmtime from the
+     * copy
+     * 
+     * @param copy
+     *            Delivers information about the alarmtime and date
+     */
+    public void generateNewRow(Row copy) {
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTime(copy.getDate());
+        cal.roll(Calendar.DAY_OF_MONTH, true);
+        Date date = cal.getTime();
 
-		cal.setTime(copy.getAlarmTime());
-		cal.roll(Calendar.DAY_OF_MONTH, true);
-		Date alarmTime = cal.getTime();
+        cal.setTime(copy.getAlarmTime());
+        cal.roll(Calendar.DAY_OF_MONTH, true);
+        Date alarmTime = cal.getTime();
 
-		Row row = new Row(probandCode, date, alarmTime);
+        Row row = new Row(probandCode, date, alarmTime);
 
-		table.addRow(row);
-	}
+        table.addRow(row);
+    }
 
-	/**
-	 * Create a new row using the alarm hour and alarm minute. Use this function
-	 * after first creation of alarms
-	 * 
-	 * @param alarmHour
-	 *            Time from 1-23
-	 * @param alarmMinute
-	 *            Time from 1-59
-	 */
-	public void createDummyRow(int alarmHour, int alarmMinute) {
-		Calendar cal = GregorianCalendar.getInstance();
-		cal.roll(Calendar.DAY_OF_MONTH, true);
-		Date date = cal.getTime();
+    /**
+     * Create a new row using the alarm hour and alarm minute. Use this function
+     * after first creation of alarms
+     * 
+     * @param alarmHour
+     *            Time from 1-23
+     * @param alarmMinute
+     *            Time from 1-59
+     */
+    public void createDummyRow(int alarmHour, int alarmMinute) {
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.roll(Calendar.DAY_OF_MONTH, true);
+        Date date = cal.getTime();
 
-		cal.set(Calendar.HOUR_OF_DAY, alarmHour);
-		cal.set(Calendar.MINUTE, alarmMinute);
+        cal.set(Calendar.HOUR_OF_DAY, alarmHour);
+        cal.set(Calendar.MINUTE, alarmMinute);
 
-		Date alarmTime = cal.getTime();
-		Row row = new Row(probandCode, date, alarmTime);
+        Date alarmTime = cal.getTime();
+        Row row = new Row(probandCode, date, alarmTime);
 
-		table.addRow(row);
-	}
+        table.addRow(row);
+    }
 
-	/**
-	 * Checks if both dates are on the same day
-	 * 
-	 * @param c1
-	 *            Date one
-	 * @param c2
-	 *            Date two
-	 * @return True, when both cal have the same day
-	 */
-	private boolean sameDay(Calendar c1, Calendar c2) {
-		return c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH)
-				&& c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH)
-				&& c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
-	}
+    /**
+     * Checks if both dates are on the same day
+     * 
+     * @param c1
+     *            Date one
+     * @param c2
+     *            Date two
+     * @return True, when both cal have the same day
+     */
+    private boolean sameDay(Calendar c1, Calendar c2) {
+        return c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH) && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) && c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
+    }
 
-	/**
-	 * The proband has completed a questions. This function persists the data
-	 * 
-	 * @param hour
-	 *            How many hours of social contact
-	 * @param minutes
-	 *            How many minutes of social contact
-	 * @param contacts
-	 *            How many social contacts
-	 */
-	public void completeQuestions(int hour, int minutes, int contacts) {
+    /**
+     * The proband has completed a questions. This function persists the data
+     * 
+     * @param hour
+     *            How many hours of social contact
+     * @param minutes
+     *            How many minutes of social contact
+     * @param contacts
+     *            How many social contacts
+     */
+    public void completeQuestions(int hour, int minutes, int contacts) {
 
-		Row row = getCurrentRow();
-		row.setAnswerTime(new Date());
-		row.setStatus(RowStatus.OK);
-		row.setHours(hour);
-		row.setMinutes(minutes);
-		row.setContacts(contacts);
+        Row row = getCurrentRow();
+        row.setAnswerTime(new Date());
+        row.setStatus(RowStatus.OK);
+        row.setHours(hour);
+        row.setMinutes(minutes);
+        row.setContacts(contacts);
 
-		table.updateRow(row);
-	}
+        table.updateRow(row);
+    }
 
-	/**
-	 * The proband has aborted the question
-	 */
-	public void abortedQuestion() {
-		Row row = getCurrentRow();
-		row.setStatus(RowStatus.ABORTED);
-		table.updateRow(row);
-	}
+    /**
+     * The proband has aborted the question
+     */
+    public void abortedQuestion() {
+        Row row = getCurrentRow();
+        row.setStatus(RowStatus.ABORTED);
+        table.updateRow(row);
+    }
 
-	/**
-	 * Search for the row containing the alarm time which is the most current
-	 * time
-	 * 
-	 * @return
-	 */
-	private Row getCurrentRow() {
-		Date now = new Date();
-		Row minimum = table.getRow(0);
-		long min = Long.MAX_VALUE;
-		for (Row row : table.getRows()) {
-			if (row.getAlarmTime().after(now)) {
-				long diff = now.getTime() - row.getAlarmTime().getTime();
-				if (diff <= min) {
-					min = diff;
-					minimum = row;
-				}
-			}
-		}
-		return minimum;
-	}
+    /**
+     * Search for the row containing the alarm time which is the most current
+     * time
+     * 
+     * @return
+     */
+    private Row getCurrentRow() {
+        Date now = new Date();
+        Row minimum = table.getRow(0);
+        long min = Long.MAX_VALUE;
+        for (Row row : table.getRows()) {
+            if (row.getAlarmTime().after(now)) {
+                long diff = now.getTime() - row.getAlarmTime().getTime();
+                if (diff <= min) {
+                    min = diff;
+                    minimum = row;
+                }
+            }
+        }
+        return minimum;
+    }
 
-	/**
-	 * Change the time of one alarm
-	 * 
-	 * @param oldHour
-	 *            The old time in hours (from 0-23)
-	 * @param oldMinute
-	 *            The old time in minutes (from 0-59)
-	 * @param newHour
-	 *            The new time in hours (from 0-23)
-	 * @param newMinute
-	 *            The new time in minutes (from 0-59)
-	 */
-	public void changeAlarmTime(int oldHour, int oldMinute, int newHour,
-			int newMinute) {
-		Calendar cal = GregorianCalendar.getInstance();
-		// Search for the old alarm time
-		for (Row row : table.getRows()) {
-			// Change only times for unused rows
-			if (row.getStatus().equals(RowStatus.DIRTY)) {
-				cal.setTime(row.getAlarmTime());
-				// Old time matches the row
-				if (cal.get(Calendar.HOUR_OF_DAY) == oldHour
-						&& cal.get(Calendar.MINUTE) == oldMinute) {
-					// Update the row
-					cal.set(Calendar.HOUR_OF_DAY, newHour);
-					cal.set(Calendar.MINUTE, newMinute);
-					row.setAlarmTime(cal.getTime());
-					table.updateRow(row);
-				}
-			}
-		}
-	}
+    /**
+     * Change the time of one alarm
+     * 
+     * @param oldHour
+     *            The old time in hours (from 0-23)
+     * @param oldMinute
+     *            The old time in minutes (from 0-59)
+     * @param newHour
+     *            The new time in hours (from 0-23)
+     * @param newMinute
+     *            The new time in minutes (from 0-59)
+     */
+    public void changeAlarmTime(int oldHour, int oldMinute, int newHour, int newMinute) {
+        Calendar cal = GregorianCalendar.getInstance();
+        // Search for the old alarm time
+        for (Row row : table.getRows()) {
+            // Change only times for unused rows
+            if (row.getStatus().equals(RowStatus.DIRTY)) {
+                cal.setTime(row.getAlarmTime());
+                // Old time matches the row
+                if (cal.get(Calendar.HOUR_OF_DAY) == oldHour && cal.get(Calendar.MINUTE) == oldMinute) {
+                    // Update the row
+                    cal.set(Calendar.HOUR_OF_DAY, newHour);
+                    cal.set(Calendar.MINUTE, newMinute);
+                    row.setAlarmTime(cal.getTime());
+                    table.updateRow(row);
+                }
+            }
+        }
+    }
 }
