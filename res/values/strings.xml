@@ -12,4 +12,9 @@
 5.\n Dritter Buchstabe des Geburtsmonats</string>
     <string name="buttonstart">Bestätigen</string>
     <string name="startcodehint">code</string>
+    <string name="contact_question">Wie viele Kontakte hattste seit %d Uhr?</string>
+    <string name="time_question"> Und wie lang so?</string>
+    <string name="numberOfContacts"> Anzahl</string>
+    <string name="hours"> Stunden</string>
+    <string name="minutes"> Minuten</string>
 </resources>

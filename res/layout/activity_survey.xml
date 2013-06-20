@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100"
+    android:padding="11sp" >
+
+    <TextView
+        android:id="@+id/contactQuestionView"
+        android:layout_weight="40"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:background="@android:color/holo_green_light"
+        android:gravity="center"
+        android:layout_margin="20dip"
+        android:text="@string/contact_question"
+        />
+
+
+    <EditText
+        android:id="@+id/numberOfContacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+       	android:hint ="@string/numberOfContacts"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/timeQuestion"
+      	android:layout_weight="25"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:background="@android:color/holo_green_light"
+        android:gravity="center"
+        android:layout_margin="30dip"
+        android:text="@string/time_question" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100">
+
+        <EditText
+            android:id="@+id/hours"
+            android:layout_weight="50"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:gravity="center"
+            android:hint ="@string/hours" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/minutes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:ems="10"
+            android:inputType="number"
+            android:gravity="center"
+            android:hint ="@string/minutes"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dip"
+        android:gravity="center"
+        android:text="@string/buttonstart" />
+
+</LinearLayout>
