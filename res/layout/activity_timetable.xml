@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainbackground"
+    android:orientation="vertical"
+    android:weightSum="8" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textSize="22sp"
+            android:background="@android:color/white"
+            
+            
+            android:text="@string/banner" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/timeTableDescription"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="2.2"
+        android:gravity="center"
+        android:text="@string/timeTableDescription"
+        android:textSize="20sp" />
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="5"
+        
+        android:stretchColumns="1" >
+
+        <TableRow>
+
+            <!-- Column 1 -->
+
+            <Button
+                android:id="@+id/button_9am"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_9am"
+                android:textColor="@android:color/white" />
+
+            <!-- Column 2 -->
+
+            <Button
+                android:id="@+id/button_10am"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_10am"
+                android:textColor="@android:color/white" />
+
+            <!-- Column 3 -->
+
+            <Button
+                android:id="@+id/button_11am"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_11am"
+                android:textColor="@android:color/white" />
+
+            <!-- Column 4 -->
+
+            <Button
+                android:id="@+id/button_12pm"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_12pm"
+                android:textColor="@android:color/white" />
+        </TableRow>
+
+        <TableRow>
+
+            <!-- Column 1 -->
+
+            <Button
+                android:id="@+id/button_1pm"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_1pm"
+                android:textColor="@android:color/white" />
+
+            <!-- Column 2 -->
+
+            <Button
+                android:id="@+id/button_2pm"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_2pm"
+                android:textColor="@android:color/white" />
+
+            <!-- Column 3 -->
+
+            <Button
+                android:id="@+id/button_3pm"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_3pm"
+                android:textColor="@android:color/white" />
+
+            <!-- Column 4 -->
+
+            <Button
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:padding="10dip"
+                android:textColor="@android:color/transparent" />
+        </TableRow>
+
+        <TableRow>
+
+            <!-- Column 1 -->
+
+            <Button
+                android:id="@+id/button_4pm"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_4pm"
+                android:textColor="@android:color/white" />
+
+            <!-- Column 2 -->
+
+            <Button
+                android:id="@+id/button_5pm"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_5pm"
+                android:textColor="@android:color/white" />
+
+            <!-- Column 3 -->
+
+            <Button
+                android:id="@+id/button_6pm"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_6pm"
+                android:textColor="@android:color/white" />
+
+            <!-- Column 4 -->
+
+            <Button
+                android:id="@+id/button_7pm"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_7pm"
+                android:textColor="@android:color/white" />
+        </TableRow>
+
+        <TableRow>
+
+            <!-- Column 1 -->
+
+            <Button
+                android:id="@+id/button_8pm"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_8pm"
+                android:textColor="@android:color/white" />
+
+            <!-- Column 2 -->
+
+            <Button
+                android:id="@+id/button_9pm"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_9pm"
+                android:textColor="@android:color/white" />
+
+            <!-- Column 3 -->
+
+            <Button
+                android:id="@+id/button_10pm"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_10pm"
+                android:textColor="@android:color/white" />
+
+            <!-- Column 4 -->
+
+            <Button
+                android:id="@+id/button_11pm"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                android:background="@color/timebutton"
+                android:padding="10dip"
+                android:text="@string/button_11pm"
+                android:textColor="@android:color/white" />
+        </TableRow>
+    </TableLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Button" />
+    </RelativeLayout>
+
+</LinearLayout>
