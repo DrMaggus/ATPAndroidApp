@@ -28,7 +28,7 @@ public class StartActivity extends Activity {
                 EditText editText = (EditText) findViewById(R.id.editTextCode);
                 TextView textview = (TextView) findViewById(R.id.textView1);
                 String message = editText.getText().toString();
-                textview.setText(message);
+                textview.setText(message);   
             }
         });
     }
