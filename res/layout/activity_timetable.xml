@@ -49,54 +49,58 @@
 
             <!-- Column 1 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_9am"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_9am"
+                android:textOn="@string/button_9am"
+                android:textOff="@string/button_9am"
                 android:textColor="@android:color/white" />
 
             <!-- Column 2 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_10am"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_10am"
+                android:textOn="@string/button_10am"
+                android:textOff="@string/button_10am"
                 android:textColor="@android:color/white" />
 
             <!-- Column 3 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_11am"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_11am"
+                android:textOn="@string/button_11am"
+                android:textOff="@string/button_11am"
                 android:textColor="@android:color/white" />
 
             <!-- Column 4 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_12pm"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_12pm"
+                android:textOn="@string/button_12pm"
+                android:textOff="@string/button_12pm"
                 android:textColor="@android:color/white" />
         </TableRow>
 
@@ -104,41 +108,44 @@
 
             <!-- Column 1 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_1pm"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_1pm"
+                android:textOn="@string/button_1pm"
+                android:textOff="@string/button_1pm"
                 android:textColor="@android:color/white" />
 
             <!-- Column 2 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_2pm"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_2pm"
+                android:textOn="@string/button_2pm"
+                android:textOff="@string/button_2pm"
                 android:textColor="@android:color/white" />
 
             <!-- Column 3 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_3pm"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_3pm"
+                android:textOn="@string/button_3pm"
+                android:textOff="@string/button_3pm"
                 android:textColor="@android:color/white" />
 
             <!-- Column 4 -->
@@ -157,54 +164,58 @@
 
             <!-- Column 1 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_4pm"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_4pm"
+                android:textOn="@string/button_4pm"
+                android:textOff="@string/button_4pm"
                 android:textColor="@android:color/white" />
 
             <!-- Column 2 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_5pm"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_5pm"
+                android:textOn="@string/button_5pm"
+                android:textOff="@string/button_5pm"
                 android:textColor="@android:color/white" />
 
             <!-- Column 3 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_6pm"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_6pm"
+                android:textOn="@string/button_6pm"
+                android:textOff="@string/button_6pm"
                 android:textColor="@android:color/white" />
 
             <!-- Column 4 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_7pm"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_7pm"
+                android:textOn="@string/button_7pm"
+                android:textOff="@string/button_7pm"
                 android:textColor="@android:color/white" />
         </TableRow>
 
@@ -212,54 +223,58 @@
 
             <!-- Column 1 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_8pm"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_8pm"
+                android:textOn="@string/button_8pm"
+                android:textOff="@string/button_8pm"
                 android:textColor="@android:color/white" />
 
             <!-- Column 2 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_9pm"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_9pm"
+                android:textOn="@string/button_9pm"
+                android:textOff="@string/button_9pm"
                 android:textColor="@android:color/white" />
 
             <!-- Column 3 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_10pm"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_10pm"
+                android:textOn="@string/button_10pm"
+                android:textOff="@string/button_10pm"
                 android:textColor="@android:color/white" />
 
             <!-- Column 4 -->
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_11pm"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dip"
                 android:layout_weight="1"
-                android:background="@color/timebutton"
+                android:background="@drawable/togglebutton"
                 android:padding="10dip"
-                android:text="@string/button_11pm"
+                android:textOn="@string/button_11pm"
+                android:textOff="@string/button_11pm"
                 android:textColor="@android:color/white" />
         </TableRow>
     </TableLayout>
@@ -275,7 +290,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Button" />
+            android:text="@string/button_done" ></Button>
     </RelativeLayout>
 
 </LinearLayout>

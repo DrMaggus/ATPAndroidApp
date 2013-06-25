@@ -1,14 +1,14 @@
 package de.atp.requester;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-public class StartActivity extends Activity {
+public class StartActivity extends Activity implements OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,24 +20,19 @@ public class StartActivity extends Activity {
         if (editText.length() == 5)
             button.isClickable();
 
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                EditText editText = (EditText) findViewById(R.id.editTextCode);
-                TextView textview = (TextView) findViewById(R.id.textView1);
-                String message = editText.getText().toString();
-                textview.setText(message);
-            }
-        });
+        button.setOnClickListener((OnClickListener) this);
     }
+    
+    private boolean codeIsValid(String c) {
+        return c.matches(".*\\d.*") ? false : true;           
+    }
+    
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.start, menu);
-        return true;
+    public void onClick(View v) {
+        String code = ((EditText) findViewById(R.id.editTextCode)).getText().toString();
+        if (codeIsValid(code))
+            startActivity(new Intent(this, TimetableActivity.class));
+        //TODO: abspeichern
     }
 
 }
