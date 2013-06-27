@@ -18,6 +18,7 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 import android.annotation.SuppressLint;
+import de.atp.controller.DataController;
 import de.atp.data.Row;
 import de.atp.data.RowStatus;
 import de.atp.parser.InvalidFormatException;
@@ -42,7 +43,7 @@ public class CSVParser implements Parser, RowConverter {
     public CSVParser(String probandCode, String[] head) {
         this.head = head;
 
-        this.csvFile = new File(probandCode + ".csv");
+        this.csvFile = new File(DataController.getAppDir(), probandCode + ".csv");
         if (!csvFile.exists())
             create();
     }
