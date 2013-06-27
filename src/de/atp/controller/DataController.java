@@ -7,8 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import de.atp.data.DataTable;
 import de.atp.data.Row;
@@ -19,10 +17,50 @@ public class DataController {
     private final String probandCode;
     private final DataTable table;
 
+    private static DataController INSTANCE;
+
+    /**
+     * Search for a csv file and parse it
+     * 
+     * @return <code>Null</code> when there is no csv file, otherwise the unique
+     *         instance
+     */
+    public static final DataController instance() {
+        if (INSTANCE == null) {
+            try {
+                INSTANCE = new DataController();
+            } catch (Exception e) {
+                INSTANCE = null;
+            }
+        }
+        return INSTANCE;
+    }
+
+    /**
+     * Create a new datacontroller with fresh data for the proband code
+     * 
+     * @param code
+     *            The code. When null, {@link #instance()} is called, otherwise
+     *            it will create .csv file with the proband code
+     * @return The unique instance of the data controller
+     */
+    public static final DataController instance(String code) {
+        if (INSTANCE == null) {
+            if (code == null)
+                return instance();
+            else
+                INSTANCE = new DataController(code);
+        }
+        return INSTANCE;
+    }
+
     /**
      * Construct a data controlling and search for the proband code
+     * 
+     * @throws CSVNotFoundException
+     *             Throws if the controller does not find any csv file
      */
-    public DataController() {
+    private DataController() throws CSVNotFoundException {
         this.probandCode = searchProbandCode();
         this.table = new DataTable(probandCode);
     }
@@ -33,13 +71,12 @@ public class DataController {
      * @param probandCode
      *            The unique proband code
      */
-    public DataController(String probandCode) {
+    private DataController(String probandCode) {
         this.probandCode = probandCode;
         this.table = new DataTable(probandCode);
     }
 
-    @SuppressWarnings("deprecation")
-    private String searchProbandCode() {
+    private String searchProbandCode() throws CSVNotFoundException {
         File f = new File("").getParentFile();
         String[] fNames = f.list(new FilenameFilter() {
 
@@ -50,13 +87,11 @@ public class DataController {
         });
 
         if (fNames.length != 1) {
-            Logger.global.log(Level.SEVERE, "More than one .csv files in the system");
-            return null;
+            throw new CSVNotFoundException();
         }
         return fNames[0].substring(0, fNames[0].indexOf(".csv"));
 
     }
-
     /**
      * @return A list containing todays alarm times
      */
@@ -222,4 +257,25 @@ public class DataController {
             }
         }
     }
+
+    /**
+     * Search for the Date when the proband has successfully answered the last
+     * question
+     * 
+     * @return <code>Null</code> when the proband has never answered
+     *         successfully a question, otherwise the date
+     */
+    public Date getLastAnsweredDate() {
+
+        List<Row> rows = table.getRows();
+
+        for (int i = rows.size() - 1; i >= 0; --i) {
+            Row row = rows.get(i);
+            if (row.getStatus().equals(RowStatus.OK))
+                return row.getAnswerTime();
+        }
+
+        return null;
+    }
+
 }
