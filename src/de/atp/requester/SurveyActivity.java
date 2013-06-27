@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class SurveyActivity extends Activity {
 
     @Override
-    
+    // this is the worst function I've written in years...
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
@@ -50,12 +50,11 @@ public class SurveyActivity extends Activity {
                     meckerText = v.getResources().getString(R.string.invalidMinutes);
                 else if(minutes > maxMinutes)
                     meckerText = v.getResources().getString(R.string.tooMuchMinutes);
-                else if(!invalidInput){ meckerText = "juhu!";} //return; // TODO set values
-                
-                Context context = getApplicationContext();
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, meckerText, duration);
-                toast.show();
+                else if(!invalidInput) {
+                    saveValues();
+                    return;
+                }
+                toastText(meckerText);
             }
             
             private Integer getValue(int id) {
@@ -74,6 +73,20 @@ public class SurveyActivity extends Activity {
                 } catch(java.lang.NullPointerException e) {
                     return false;
                 }
+            }
+            
+            private void toastText(CharSequence text) {
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+            
+            private void saveValues() {
+                DataController.instance().completeQuestions(
+                        getValue(R.id.hours),
+                        getValue(R.id.minutes),
+                        getValue(R.id.numberOfContacts));
             }
         });
     }
