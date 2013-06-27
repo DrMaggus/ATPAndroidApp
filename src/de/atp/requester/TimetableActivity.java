@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class TimetableActivity extends Activity implements OnClickListener {
@@ -23,6 +25,7 @@ public class TimetableActivity extends Activity implements OnClickListener {
     ToggleButton button_9pm;
     ToggleButton button_10pm;
     ToggleButton button_11pm;
+    Button button_done;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class TimetableActivity extends Activity implements OnClickListener {
         button_9pm = (ToggleButton) findViewById(R.id.button_9pm);
         button_10pm = (ToggleButton) findViewById(R.id.button_10pm);
         button_11pm = (ToggleButton) findViewById(R.id.button_11pm);
+        button_done = (Button) findViewById(R.id.button_done);
         
         button_9am.setOnClickListener(this);
         button_10am.setOnClickListener(this);
@@ -60,6 +64,8 @@ public class TimetableActivity extends Activity implements OnClickListener {
         button_9pm.setOnClickListener(this);
         button_10pm.setOnClickListener(this);
         button_11pm.setOnClickListener(this);
+        
+        button_done.setOnClickListener(this);
         
     }
     
@@ -119,7 +125,46 @@ public class TimetableActivity extends Activity implements OnClickListener {
             case R.id.button_9pm: toggle(3,R.id.button_9pm); break;
             case R.id.button_10pm: toggle(3,R.id.button_10pm); break;
             case R.id.button_11pm: toggle(3,R.id.button_11pm); break;
+            
+            case R.id.button_done: 
+                if(!buttonCheck()){
+                    Toast.makeText(this, R.string.timetableToastMessage, Toast.LENGTH_SHORT).show();                    
+                } else {
+                    moveTaskToBack(true);
+                }
         }
     }
+    
+    private boolean buttonCheck(){
+        boolean row1;
+        boolean row2;
+        boolean row3;
+        boolean row4;
 
-}
+        row1=((ToggleButton)findViewById(R.id.button_9am)).isChecked()||
+                ((ToggleButton)findViewById(R.id.button_10am)).isChecked()||
+                ((ToggleButton)findViewById(R.id.button_11am)).isChecked()||
+                ((ToggleButton)findViewById(R.id.button_12pm)).isChecked();
+
+        row2=((ToggleButton)findViewById(R.id.button_1pm)).isChecked()||
+                ((ToggleButton)findViewById(R.id.button_2pm)).isChecked()||
+                ((ToggleButton)findViewById(R.id.button_3pm)).isChecked();
+
+
+        row3=((ToggleButton)findViewById(R.id.button_4pm)).isChecked()||
+                ((ToggleButton)findViewById(R.id.button_5pm)).isChecked()||
+                ((ToggleButton)findViewById(R.id.button_6pm)).isChecked()||
+                ((ToggleButton)findViewById(R.id.button_7pm)).isChecked();
+
+
+        row4=((ToggleButton)findViewById(R.id.button_8pm)).isChecked()||
+                ((ToggleButton)findViewById(R.id.button_9pm)).isChecked()||
+                ((ToggleButton)findViewById(R.id.button_10pm)).isChecked()||
+                ((ToggleButton)findViewById(R.id.button_11pm)).isChecked();
+
+        return row1&&row2&&row3&&row4;
+
+    }
+        
+    }
+
