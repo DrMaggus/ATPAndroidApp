@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import android.content.Context;
 import de.atp.data.DataTable;
 import de.atp.data.Row;
 import de.atp.data.RowStatus;
@@ -18,6 +19,8 @@ public class DataController {
     private final DataTable table;
 
     private static DataController INSTANCE;
+
+    private static File APP_DIR;
 
     /**
      * Search for a csv file and parse it
@@ -54,6 +57,15 @@ public class DataController {
         return INSTANCE;
     }
 
+    public static void setAppDir(Context con) {
+        if (APP_DIR == null)
+            APP_DIR = con.getFilesDir();
+    }
+
+    public static File getAppDir() {
+        return APP_DIR;
+    }
+
     /**
      * Construct a data controlling and search for the proband code
      * 
@@ -77,7 +89,8 @@ public class DataController {
     }
 
     private String searchProbandCode() throws CSVNotFoundException {
-        File f = new File("").getParentFile();
+        File f = DataController.getAppDir();
+//        File f = StartActivity.getContext().getFilesDir();
         String[] fNames = f.list(new FilenameFilter() {
 
             @Override

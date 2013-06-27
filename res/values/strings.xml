@@ -40,7 +40,7 @@
     <string name="timeTableDescription">Wählen Sie in jeder Zeile eine Alarmzeit aus</string>
 
     <string name="button_done">Fertig</string>
-
+	<string name="timetableToastMessage">Zeiten wurden nicht richtig ausgewählt</string>
     <string name="missingInput">Es sind nicht alle Felder ausgefüllt!</string>
     <string name="contactsMinutesMismatch">Die angegebene Zeit passt nicht zu der Anzahl der Kontakte!</string>
     <string name="invalidMinutes">Für die Minuten bitte eine Zahl zwischen 0 und 59 angeben.</string>
