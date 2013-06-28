@@ -106,7 +106,6 @@ public class CSVParser implements Parser, RowConverter {
             for (String header : head) {
                 bWriter.append(header);
                 bWriter.append(';');
-                bWriter.newLine();
             }
             for (Row row : table) {
                 bWriter.append(writeRow(row));
