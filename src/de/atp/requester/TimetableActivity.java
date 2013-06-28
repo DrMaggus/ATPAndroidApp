@@ -14,6 +14,12 @@ import de.atp.controller.DataController;
 
 public class TimetableActivity extends Activity implements OnClickListener {
 
+    // Row indicies
+    private static final int ROW_1 = 4;
+    private static final int ROW_2 = 7;
+    private static final int ROW_3 = 11;
+    private static final int ROW_4 = 15;
+
     private List<ToggleButton> timeButtons = new ArrayList<ToggleButton>();
 
     @Override
@@ -92,19 +98,19 @@ public class TimetableActivity extends Activity implements OnClickListener {
     private void setButtonRowToRed(int row) {
         switch (row) {
             case 0 :
-                for (int i = 0; i < 4; ++i)
+                for (int i = 0; i < ROW_1; ++i)
                     timeButtons.get(i).setChecked(false);
                 break;
             case 1 :
-                for (int i = 4; i < 7; ++i)
+                for (int i = ROW_1; i < ROW_2; ++i)
                     timeButtons.get(i).setChecked(false);
                 break;
             case 2 :
-                for (int i = 7; i < 11; ++i)
+                for (int i = ROW_2; i < ROW_3; ++i)
                     timeButtons.get(i).setChecked(false);
                 break;
             case 3 :
-                for (int i = 11; i < 15; ++i)
+                for (int i = ROW_3; i < ROW_4; ++i)
                     timeButtons.get(i).setChecked(false);
                 break;
         }
@@ -169,13 +175,13 @@ public class TimetableActivity extends Activity implements OnClickListener {
         boolean row4 = false;
 
         int i = 0;
-        for (; i < 4; ++i)
+        for (; i < ROW_1; ++i)
             row1 = row1 || timeButtons.get(i).isChecked();
-        for (; i < 7; ++i)
+        for (; i < ROW_2; ++i)
             row2 = row2 || timeButtons.get(i).isChecked();
-        for (; i < 11; ++i)
+        for (; i < ROW_3; ++i)
             row3 = row3 || timeButtons.get(i).isChecked();
-        for (; i < 15; ++i)
+        for (; i < ROW_4; ++i)
             row4 = row4 || timeButtons.get(i).isChecked();
 
         return row1 && row2 && row3 && row4;
