@@ -22,11 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
+        <activity
             android:name="de.atp.requester.TimetableActivity"
             android:label="@string/app_name" >
-            
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
         <service android:name="de.atp.controller.Alarm" />
     </application>
 
