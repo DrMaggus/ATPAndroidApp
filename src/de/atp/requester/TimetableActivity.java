@@ -14,7 +14,7 @@ import de.atp.controller.DataController;
 
 public class TimetableActivity extends Activity implements OnClickListener {
 
-    // Row indicies
+    // Row indices
     private static final int ROW_1 = 4;
     private static final int ROW_2 = 7;
     private static final int ROW_3 = 11;

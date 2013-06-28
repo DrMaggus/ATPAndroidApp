@@ -31,6 +31,7 @@ public class DataTable {
      *            The proband code
      */
     public DataTable(String probandCode) {
+        table = new ArrayList<Row>();
         parser = new CSVParser(probandCode, HEAD);
     }
 
