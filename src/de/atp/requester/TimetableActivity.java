@@ -1,6 +1,13 @@
 package de.atp.requester;
 
+import java.util.Calendar;
+
+import de.atp.controller.Alarm;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +33,9 @@ public class TimetableActivity extends Activity implements OnClickListener {
     ToggleButton button_10pm;
     ToggleButton button_11pm;
     Button button_done;
+    PendingIntent pi;
+    int[] hour = new int[4];
+    AlarmManager[] am = new AlarmManager[4];
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +77,8 @@ public class TimetableActivity extends Activity implements OnClickListener {
         
         button_done.setOnClickListener(this);
         
+        setup();
+        
     }
     
     
@@ -107,29 +119,91 @@ public class TimetableActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         switch(v.getId()) {
             //row 1
-            case R.id.button_9am: toggle(0,R.id.button_9am); break;
-            case R.id.button_10am: toggle(0,R.id.button_10am); break;
-            case R.id.button_11am: toggle(0,R.id.button_11am); break;
-            case R.id.button_12pm: toggle(0,R.id.button_12pm); break;
+            case R.id.button_9am: {
+                toggle(0,R.id.button_9am); 
+                hour[0]=9;
+                break;
+            }
+            case R.id.button_10am: {
+                toggle(0,R.id.button_10am); 
+                hour[0]=10;
+                break;
+            }
+            case R.id.button_11am: {
+                toggle(0,R.id.button_11am); 
+                hour[0]=11;
+                break;
+            }
+            case R.id.button_12pm: {
+                toggle(0,R.id.button_12pm); 
+                hour[0]=12;
+                break;
+            }
             //row 2
-            case R.id.button_1pm: toggle(1,R.id.button_1pm); break;
-            case R.id.button_2pm: toggle(1,R.id.button_2pm); break;
-            case R.id.button_3pm: toggle(1,R.id.button_3pm); break;
+            case R.id.button_1pm: {
+                toggle(1,R.id.button_1pm); 
+                hour[1]=13;
+                break;
+            }
+            case R.id.button_2pm: {
+                toggle(1,R.id.button_2pm); 
+                hour[1]=14;
+                break;
+            }
+            case R.id.button_3pm: {
+                toggle(1,R.id.button_3pm); 
+                hour[1]=15;
+                break;
+            }
             //row 3
-            case R.id.button_4pm: toggle(2,R.id.button_4pm); break;
-            case R.id.button_5pm: toggle(2,R.id.button_5pm); break;
-            case R.id.button_6pm: toggle(2,R.id.button_6pm); break;
-            case R.id.button_7pm: toggle(2,R.id.button_7pm); break;
+            case R.id.button_4pm: {
+                toggle(2,R.id.button_4pm); 
+                hour[2]=16;
+                break;
+            }
+            case R.id.button_5pm: {
+                toggle(2,R.id.button_5pm); 
+                hour[2]=17;
+                break;
+            }
+            case R.id.button_6pm: {
+                toggle(2,R.id.button_6pm); 
+                hour[2]=18;
+                break;
+            }
+            case R.id.button_7pm: {
+                toggle(2,R.id.button_7pm); 
+                hour[2]=19;
+                break;
+            }
             //row 4
-            case R.id.button_8pm: toggle(3,R.id.button_8pm); break;
-            case R.id.button_9pm: toggle(3,R.id.button_9pm); break;
-            case R.id.button_10pm: toggle(3,R.id.button_10pm); break;
-            case R.id.button_11pm: toggle(3,R.id.button_11pm); break;
+            case R.id.button_8pm: {
+                toggle(3,R.id.button_8pm); 
+                hour[3]=20;
+                break;
+            }
+            case R.id.button_9pm: {
+                toggle(3,R.id.button_9pm); 
+                hour[3]=21;
+                break;
+            }
+            case R.id.button_10pm: {
+                toggle(3,R.id.button_10pm); 
+                hour[3]=22;
+                break;
+            }
+            case R.id.button_11pm: {
+                toggle(3,R.id.button_11pm); 
+                hour[3]=23;
+                break;
+            }
             
             case R.id.button_done: 
                 if(!buttonCheck()){
                     Toast.makeText(this, R.string.timetableToastMessage, Toast.LENGTH_SHORT).show();                    
                 } else {
+                    for (int i=0; i<4; i++)
+                        setAlarmManager(hour[i], am[i]);
                     moveTaskToBack(true);
                 }
         }
@@ -165,6 +239,28 @@ public class TimetableActivity extends Activity implements OnClickListener {
         return row1&&row2&&row3&&row4;
 
     }
-        
+
+    /**
+     * sets up Intent and PendingIntent
+     */
+    private void setup() {
+        Intent myIntent = new Intent(this, Alarm.class);
+        pi = PendingIntent.getService(this, 0, myIntent, 0);
+        for(int i=0; i<4; i++)
+            am[i]=(AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
+    }
+
+    /**
+     * call this method if you want to create a new Alarm
+     * @param hour
+     * @param minute
+     * @param am
+     */
+    private void setAlarmManager(int hour, AlarmManager am)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR, hour);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pi );
+    }  
     }
 

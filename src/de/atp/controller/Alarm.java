@@ -1,17 +1,7 @@
 package de.atp.controller;
 
-import java.util.Calendar;
-
-import de.atp.requester.SurveyActivity;
-
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.Service;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.IBinder;
 import android.widget.Toast;
 
