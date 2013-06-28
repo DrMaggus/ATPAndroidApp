@@ -106,8 +106,8 @@ public class CSVParser implements Parser, RowConverter {
             for (String header : head) {
                 bWriter.append(header);
                 bWriter.append(';');
-                bWriter.newLine();
             }
+            bWriter.newLine();
             for (Row row : table) {
                 bWriter.append(writeRow(row));
                 bWriter.newLine();
@@ -129,15 +129,27 @@ public class CSVParser implements Parser, RowConverter {
      */
     public String writeRow(Row row) {
         StringBuilder sBuilder = new StringBuilder();
-        sBuilder.append(row.getCode());
-        sBuilder.append(DateFormat.getDateInstance().format(row.getDate()));
-        sBuilder.append(TIME_FORMAT.format(row.getAlarmTime()));
-        if (row.getStatus().equals(RowStatus.ABORTED))
-            sBuilder.append("-1");
-        else
-            sBuilder.append(TIME_FORMAT.format(row.getAnswerTime()));
-        sBuilder.append(row.getStatus().getStatus());
-        sBuilder.append(row.getContacts()).append(row.getHours()).append(row.getMinutes());
+        sBuilder.append(row.getCode()).append(';');
+        sBuilder.append(DateFormat.getDateInstance().format(row.getDate())).append(';');
+        sBuilder.append(TIME_FORMAT.format(row.getAlarmTime())).append(';');
+        switch (row.getStatus()) {
+            case ABORTED :
+                sBuilder.append("-1");
+                break;
+            case DIRTY :
+                sBuilder.append("00:00");
+                break;
+            case OK :
+                sBuilder.append(TIME_FORMAT.format(row.getAnswerTime()));
+                break;
+            default :
+                break;
+        }
+        sBuilder.append(';');
+        sBuilder.append(row.getStatus().getStatus()).append(';');
+        sBuilder.append(row.getContacts()).append(';');
+        sBuilder.append(row.getHours()).append(';');
+        sBuilder.append(row.getMinutes()).append(';');
 
         return sBuilder.toString();
     }

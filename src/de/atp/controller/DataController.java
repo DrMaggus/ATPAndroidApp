@@ -130,28 +130,6 @@ public class DataController {
     }
 
     /**
-     * Generate a new row using the information about the alarmtime from the
-     * copy
-     * 
-     * @param copy
-     *            Delivers information about the alarmtime and date
-     */
-    public void generateNewRow(Row copy) {
-        Calendar cal = GregorianCalendar.getInstance();
-        cal.setTime(copy.getDate());
-        cal.roll(Calendar.DAY_OF_MONTH, true);
-        Date date = cal.getTime();
-
-        cal.setTime(copy.getAlarmTime());
-        cal.roll(Calendar.DAY_OF_MONTH, true);
-        Date alarmTime = cal.getTime();
-
-        Row row = new Row(probandCode, date, alarmTime);
-
-        table.addRow(row);
-    }
-
-    /**
      * Create a new row using the alarm hour and alarm minute. Use this function
      * after first creation of alarms
      * 
@@ -206,7 +184,31 @@ public class DataController {
         row.setMinutes(minutes);
         row.setContacts(contacts);
 
+        this.generateNextAlarm(row);
+
         table.updateRow(row);
+    }
+
+    /**
+     * Generate a new row using the information about the alarmtime from the
+     * copy
+     * 
+     * @param cur
+     *            Delivers information about the alarmtime and date
+     */
+    private void generateNextAlarm(Row cur) {
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTime(cur.getDate());
+        cal.roll(Calendar.DAY_OF_MONTH, true);
+        Date date = cal.getTime();
+
+        cal.setTime(cur.getAlarmTime());
+        cal.roll(Calendar.DAY_OF_MONTH, true);
+        Date alarmTime = cal.getTime();
+
+        Row row = new Row(probandCode, date, alarmTime);
+
+        table.addRow(row);
     }
 
     /**
@@ -228,7 +230,9 @@ public class DataController {
         Date now = new Date();
         Row minimum = table.getRow(0);
         long min = Long.MAX_VALUE;
-        for (Row row : table.getRows()) {
+        List<Row> rows = table.getRows();
+        for (int i = rows.size() - 1; i >= 0; --i) {
+            Row row = rows.get(i);
             if (row.getAlarmTime().after(now)) {
                 long diff = now.getTime() - row.getAlarmTime().getTime();
                 if (diff <= min) {
