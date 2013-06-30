@@ -1,34 +1,26 @@
 package de.atp.requester;
 
 import android.app.Activity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import de.atp.controller.DataController;
 
 public class StartActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(DataController.instance()==null){
+        if (DataController.isProbandFileExisting()) {
             super.onCreate(savedInstanceState);
-            DataController.setAppDir(getApplicationContext());      
-
             setContentView(R.layout.activity_start);
             Button button = (Button) findViewById(R.id.button1);
-            Toast.makeText(this, DataController.getAppDir().getAbsolutePath(), Toast.LENGTH_LONG).show();
-            button.setOnClickListener((OnClickListener) this);   
+            button.setOnClickListener((OnClickListener) this);
         } else {
-            
             startActivity(new Intent(this, TimetableActivity.class));
-
         }
     }
-
 
     private boolean codeIsValid(String c) {
         if(!c.matches(".*\\d.*") && (c.matches(".....")))return true;
