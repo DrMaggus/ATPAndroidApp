@@ -4,6 +4,26 @@
 	android:layout_height="fill_parent"
 	android:background="@drawable/mainbackground"
 	android:padding="11sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="65dip"
+            android:layout_height="65dip"
+            android:src="@drawable/applogo"
+            android:layout_marginRight="5dip"
+             />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:src="@drawable/headerlogo" />
+
+    </LinearLayout>
 	
     <TextView
         android:layout_width="fill_parent"
@@ -16,7 +36,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:gravity="center"
+        android:gravity="left"
         android:text="@string/infotextstartrules" />
     
     <RelativeLayout
