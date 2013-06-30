@@ -5,15 +5,15 @@
     <string name="action_settings">Settings</string>
     <string name="infotextstart">Bitte geben sie unten nach den folgenden Regeln Ihren 5 stelligen Code ein!</string>
     <string name="infotextstartrules">
-1.\n Dritter Buchstabe des Vornamens der Mutter\n
-2.\n Dritter Buchstabe des Vornamens des Vaters\n
-3.\n Dritter Buchstabe des Geburtsortes\n
-4.\n Dritter Buchstabe der aktuellen Straße (Hauptwohnsitz)\n
-5.\n Dritter Buchstabe des Geburtsmonats</string>
+1. Dritter Buchstabe des Vornamens der Mutter\n
+2. Dritter Buchstabe des Vornamens des Vaters\n
+3. Dritter Buchstabe des Geburtsortes\n
+4. Dritter Buchstabe der aktuellen Straße (Hauptwohnsitz)\n
+5. Dritter Buchstabe des Geburtsmonats</string>
     <string name="buttonstart">Bestätigen</string>
     <string name="startcodehint">code</string>
-    <string name="contact_question">Wie viele Kontakte hattste seit %d Uhr?</string>
-    <string name="time_question"> Und wie lang so?</string>
+    <string name="contact_question">Wie viele soziale Kontakte hatten Sie seit dem letzten Alarm am %1$d %2$d um %3$d Uhr?</string>
+    <string name="time_question">Schätzen Sie bitte zusätzlich die Dauer der Kontakte ein.</string>
     <string name="numberOfContacts"> Anzahl</string>
     <string name="hours"> Stunden</string>
     <string name="minutes"> Minuten</string>
@@ -48,5 +48,6 @@
     <string name="contactsMinutesMismatch">Die angegebene Zeit passt nicht zu der Anzahl der Kontakte!</string>
     <string name="invalidMinutes">Für die Minuten bitte eine Zahl zwischen 0 und 59 angeben.</string>
     <string name="tooMuchMinutes">Soviel Zeit ist nicht seit dem letzten Termin vergangen.</string>
+    <string name="databaseError">Datenbank-Fehler. Bitte wenden Sie sich an den zuständigen Administrator!</string>
 
 </resources>
