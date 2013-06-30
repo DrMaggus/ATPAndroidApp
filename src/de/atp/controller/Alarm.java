@@ -37,30 +37,13 @@ public class Alarm extends Service {
         test.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(test);
         vibrator.vibrate(2000);
-       // Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Uri test1 = getAlarmUri();
-        Ringtone r = RingtoneManager.getRingtone(this, test1);
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone r = RingtoneManager.getRingtone(this, notification);
         r.play();
         Toast.makeText(this, "Bitte ausfüllen!", 3).show();
 //        this.stopSelf();
     }
     
-    /**
-     * @return the Uri of a ringtone
-     */
-    private Uri getAlarmUri() {
-        Uri alert = RingtoneManager
-                .getDefaultUri(RingtoneManager.TYPE_ALARM);
-        if (alert == null) {
-            alert = RingtoneManager
-                    .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            if (alert == null) {
-                alert = RingtoneManager
-                        .getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-            }
-        }
-        return alert;
-    }
     
     /**
      * has to be implemented. TODO: find out what this function is doing.
