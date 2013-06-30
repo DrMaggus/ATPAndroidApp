@@ -38,9 +38,9 @@ public class Alarm extends Service {
         startActivity(test);
         vibrator.vibrate(2000);
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+        Ringtone r = RingtoneManager.getRingtone(this, notification);
         r.play();
-        Toast.makeText(this, "Bitte ausfüllen!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Bitte ausfüllen!", 3).show();
 //        this.stopSelf();
     }
 

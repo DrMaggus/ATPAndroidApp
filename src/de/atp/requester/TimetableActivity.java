@@ -25,7 +25,7 @@ import de.atp.controller.DataController;
 public class TimetableActivity extends Activity implements OnClickListener {
 
     
-    PendingIntent pi;
+    ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
     AlarmManager[] am = new AlarmManager[4];
     
 
@@ -173,7 +173,6 @@ public class TimetableActivity extends Activity implements OnClickListener {
                 } else {
                     // Persist next alarm times
                     DataController controller = DataController.instance();
-//                    setAlarmManager(1, am[0]);
                     for (int i = 0, j = 0; i < timeButtons.size(); ++i) {
                         // Selected alarm time
                         if (timeButtons.get(i).isChecked()) {
@@ -181,7 +180,7 @@ public class TimetableActivity extends Activity implements OnClickListener {
                             // and max is 23 (24 = 0)
                             int hour = (i + 9) % 24;
                             // save alarm time
-                            setAlarmManager(hour, am[j]);
+                            setAlarmManager(hour, am[j], j);
                             // j counts the AlarmManager                            
                             j++;
                             controller.createDummyRow(hour, 0);
@@ -217,9 +216,10 @@ public class TimetableActivity extends Activity implements OnClickListener {
      */
     private void setup() {
         Intent myIntent = new Intent(this, Alarm.class);
-        pi = PendingIntent.getService(this, 0, myIntent, 0);
-        for(int i=0; i<4; i++)
+        for(int i=0; i<4; i++){
             am[i]=(AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
+            intentArray.add(PendingIntent.getService(this, i, myIntent, 0));
+        }
     }
 
     /**
@@ -228,14 +228,23 @@ public class TimetableActivity extends Activity implements OnClickListener {
      * @param minute
      * @param am
      */
-    private void setAlarmManager(int hour, AlarmManager am)
+    private void setAlarmManager(int hour, AlarmManager am, int intentCount)
     {
-        am.cancel(pi);
+        am.cancel(intentArray.get(intentCount));
         Calendar cal = Calendar.getInstance();
-
-        cal.add(Calendar.SECOND, 5);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pi );
-//        am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi ); 
+        /*int thisSecond = cal.get(Calendar.SECOND);
+        int thisMinute = cal.get(Calendar.MINUTE);
+        int thisHour = cal.get(Calendar.HOUR);        
+        thisHour -= hour;
+        if(thisHour <= 0) thisHour += 24;
+        thisMinute = -thisMinute + 60;
+        thisSecond = -thisSecond + 60;
+        cal.add(Calendar.SECOND, thisSecond);
+        cal.add(Calendar.MINUTE, thisMinute);
+        cal.add(Calendar.HOUR, thisHour);*/
+        cal.add(Calendar.SECOND, hour);
+        
+        am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, intentArray.get(intentCount));
     }
 
 }
