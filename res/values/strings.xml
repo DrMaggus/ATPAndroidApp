@@ -17,6 +17,9 @@
     <string name="numberOfContacts"> Anzahl</string>
     <string name="hours"> Stunden</string>
     <string name="minutes"> Minuten</string>
+    <string name="AlarmDialog">Bitte ausfüllen.</string>
+    <string name="button_now">Jetzt</string>
+    <string name="button_later">Später</string>
 
 
     <!-- American Clock  -->

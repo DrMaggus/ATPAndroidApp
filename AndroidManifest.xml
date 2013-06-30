@@ -7,6 +7,7 @@
     <uses-sdk
         android:minSdkVersion="7"
         android:targetSdkVersion="7" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -30,7 +31,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name="de.atp.requester.SurveyActivity"
+            android:label="@string/app_name" >
+        </activity>
         <service android:name="de.atp.controller.Alarm" />
     </application>
 

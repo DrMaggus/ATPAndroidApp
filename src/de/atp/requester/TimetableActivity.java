@@ -173,6 +173,7 @@ public class TimetableActivity extends Activity implements OnClickListener {
                 } else {
                     // Persist next alarm times
                     DataController controller = DataController.instance();
+//                    setAlarmManager(1, am[0]);
                     for (int i = 0, j = 0; i < timeButtons.size(); ++i) {
                         // Selected alarm time
                         if (timeButtons.get(i).isChecked()) {
@@ -231,8 +232,10 @@ public class TimetableActivity extends Activity implements OnClickListener {
     {
         am.cancel(pi);
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.HOUR, hour);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pi ); 
+
+        cal.add(Calendar.SECOND, 5);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pi );
+//        am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi ); 
     }
 
 }
