@@ -34,12 +34,12 @@ public class SurveyActivity extends Activity {
                 long minutes = 0, contacts = 0;
                 try {
                     maxMinutes = (new Date()).getTime() - DataController.instance().getLastAnsweredDate().getTime();
-                    maxMinutes = TimeUnit.MILLISECONDS.toMinutes(maxMinutes);
+                    maxMinutes /= 60000;
                 } catch (java.lang.NullPointerException e) {
                     maxMinutes = Integer.MAX_VALUE;
                 }
                 try {
-                    minutes = getValue(R.id.minutes) + TimeUnit.HOURS.toMinutes(getValue(R.id.hours));
+                    minutes = getValue(R.id.minutes) + 60*getValue(R.id.hours);
                     contacts = getValue(R.id.numberOfContacts);
                 } catch (java.lang.NullPointerException e) {
                     invalidInput = true;
@@ -107,7 +107,7 @@ public class SurveyActivity extends Activity {
     private void errorToast() {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, this.getResources().getString(R.id.databaseError), duration);
+        Toast toast = Toast.makeText(context, this.getResources().getString(R.string.databaseError), duration);
         toast.show();
     }
 
