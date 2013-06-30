@@ -110,7 +110,15 @@ public class DataController {
 
     private String searchProbandCode() throws CSVNotFoundException {
         File f = DataController.getAppDir();
+
+        if (!(f.isDirectory()))
+            f = f.getParentFile();
+
         String[] fNames = f.list();
+
+        if (fNames == null)
+            throw new CSVNotFoundException();
+
         for (String string : fNames) {
             if (string.length() == "XXXXX.csv".length() && string.endsWith(".csv"))
                 return string.substring(0, "XXXXX.csv".indexOf(".csv"));
