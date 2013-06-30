@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import de.atp.controller.DataController;
 
 public class StartActivity extends Activity implements OnClickListener {
@@ -19,9 +20,10 @@ public class StartActivity extends Activity implements OnClickListener {
 
             setContentView(R.layout.activity_start);
             Button button = (Button) findViewById(R.id.button1);
-
+            Toast.makeText(this, DataController.getAppDir().getAbsolutePath(), Toast.LENGTH_LONG).show();
             button.setOnClickListener((OnClickListener) this);   
         } else {
+            
             startActivity(new Intent(this, TimetableActivity.class));
 
         }

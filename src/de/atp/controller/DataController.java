@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import android.content.Context;
+import android.os.Environment;
 import de.atp.data.DataTable;
 import de.atp.data.Row;
 import de.atp.data.RowStatus;
@@ -59,7 +60,7 @@ public class DataController {
 
     public static void setAppDir(Context con) {
         if (APP_DIR == null)
-            APP_DIR = con.getFilesDir();
+            APP_DIR = Environment.getExternalStorageDirectory();
     }
 
     public static File getAppDir() {
