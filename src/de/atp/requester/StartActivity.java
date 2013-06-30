@@ -13,13 +13,18 @@ import de.atp.controller.DataController;
 public class StartActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        DataController.setAppDir(getApplicationContext());      
+        if(DataController.instance()==null){
+            super.onCreate(savedInstanceState);
+            DataController.setAppDir(getApplicationContext());      
 
-        setContentView(R.layout.activity_start);
-        Button button = (Button) findViewById(R.id.button1);
+            setContentView(R.layout.activity_start);
+            Button button = (Button) findViewById(R.id.button1);
 
-        button.setOnClickListener((OnClickListener) this);
+            button.setOnClickListener((OnClickListener) this);   
+        } else {
+            startActivity(new Intent(this, TimetableActivity.class));
+
+        }
     }
 
 
