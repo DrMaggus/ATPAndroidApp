@@ -107,7 +107,7 @@ public class SurveyActivity extends Activity {
     private void errorToast() {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, this.getResources().getString(R.id.databaseError), duration);
+        Toast toast = Toast.makeText(context, this.getResources().getString(R.string.databaseError), duration);
         toast.show();
     }
 
