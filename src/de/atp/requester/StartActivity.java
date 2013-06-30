@@ -10,10 +10,11 @@ import android.widget.EditText;
 import de.atp.controller.DataController;
 
 public class StartActivity extends Activity implements OnClickListener {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (DataController.isProbandFileExisting()) {
-            super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
+        if (!DataController.isProbandFileExisting()) {
             setContentView(R.layout.activity_start);
             Button button = (Button) findViewById(R.id.button1);
             button.setOnClickListener((OnClickListener) this);
@@ -23,7 +24,8 @@ public class StartActivity extends Activity implements OnClickListener {
     }
 
     private boolean codeIsValid(String c) {
-        if(!c.matches(".*\\d.*") && (c.matches(".....")))return true;
+        if (!c.matches(".*\\d.*") && (c.matches(".....")))
+            return true;
         return false;
     }
 

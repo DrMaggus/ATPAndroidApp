@@ -3,7 +3,6 @@ package de.atp.requester;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.content.Context;
@@ -34,12 +33,12 @@ public class SurveyActivity extends Activity {
                 long minutes = 0, contacts = 0;
                 try {
                     maxMinutes = (new Date()).getTime() - DataController.instance().getLastAnsweredDate().getTime();
-                    maxMinutes = TimeUnit.MILLISECONDS.toMinutes(maxMinutes);
+                    maxMinutes /= 60000;
                 } catch (java.lang.NullPointerException e) {
                     maxMinutes = Integer.MAX_VALUE;
                 }
                 try {
-                    minutes = getValue(R.id.minutes) + TimeUnit.HOURS.toMinutes(getValue(R.id.hours));
+                    minutes = getValue(R.id.minutes) + 60*getValue(R.id.hours);
                     contacts = getValue(R.id.numberOfContacts);
                 } catch (java.lang.NullPointerException e) {
                     invalidInput = true;
