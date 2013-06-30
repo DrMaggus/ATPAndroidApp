@@ -14,21 +14,16 @@ import de.atp.controller.DataController;
 public class StartActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(DataController.instance()==null){
+        if (DataController.isProbandFileExisting()) {
             super.onCreate(savedInstanceState);
-            DataController.setAppDir(getApplicationContext());      
-
             setContentView(R.layout.activity_start);
             Button button = (Button) findViewById(R.id.button1);
             Toast.makeText(this, DataController.getAppDir().getAbsolutePath(), Toast.LENGTH_LONG).show();
-            button.setOnClickListener((OnClickListener) this);   
+            button.setOnClickListener((OnClickListener) this);
         } else {
-            
             startActivity(new Intent(this, TimetableActivity.class));
-
         }
     }
-
 
     private boolean codeIsValid(String c) {
         return c.matches(".*\\d.*") ? false : true;
