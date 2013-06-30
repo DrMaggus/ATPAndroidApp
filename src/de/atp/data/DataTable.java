@@ -3,25 +3,12 @@ package de.atp.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.atp.parser.Parser;
-import de.atp.parser.csv.CSVParser;
-
 public class DataTable {
-
-    /**
-     * Head of the table
-     */
-    private final static String[] HEAD = {"Code", "Datum", "Alarmzeit", "Antwortzeit", "Abbruch", "Kontakte", "Stunden", "Minuten"};
 
     /**
      * The table containing all rows
      */
     private List<Row> table;
-
-    /**
-     * The parser parsing the table to csv and read from it
-     */
-    private Parser parser;
 
     /**
      * Create a new object to manage the rows and synchronize the data with the
@@ -32,15 +19,6 @@ public class DataTable {
      */
     public DataTable(String probandCode) {
         table = new ArrayList<Row>();
-        parser = new CSVParser(probandCode, HEAD);
-    }
-
-    /**
-     * Called when the table change to write the content of the table to the
-     * file
-     */
-    private void onUpdate() {
-        parser.write(table);
     }
 
     /**
@@ -78,7 +56,6 @@ public class DataTable {
      */
     public void updateRow(Row row) {
         table.set(row.index, row);
-        onUpdate();
     }
 
     /**
@@ -92,7 +69,6 @@ public class DataTable {
 
         row.index = table.size();
         table.add(row);
-        onUpdate();
     }
 
     /**

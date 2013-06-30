@@ -1,7 +1,6 @@
 package de.atp.controller;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,11 +11,15 @@ import android.os.Environment;
 import de.atp.data.DataTable;
 import de.atp.data.Row;
 import de.atp.data.RowStatus;
+import de.atp.parser.Parser;
+import de.atp.parser.csv.CSVParser;
 
 public class DataController {
 
     private final String probandCode;
+
     private final DataTable table;
+    private final Parser parser;
 
     private static DataController INSTANCE;
 
@@ -77,6 +80,11 @@ public class DataController {
     }
 
     /**
+     * Head of the table
+     */
+    private final static String[] HEAD = {"Code", "Datum", "Alarmzeit", "Antwortzeit", "Abbruch", "Kontakte", "Stunden", "Minuten"};
+
+    /**
      * Construct a data controlling and search for the proband code
      * 
      * @throws CSVNotFoundException
@@ -85,6 +93,7 @@ public class DataController {
     private DataController() throws CSVNotFoundException {
         this.probandCode = searchProbandCode();
         this.table = new DataTable(probandCode);
+        this.parser = new CSVParser(probandCode, HEAD);
     }
 
     /**
@@ -96,23 +105,21 @@ public class DataController {
     private DataController(String probandCode) {
         this.probandCode = probandCode;
         this.table = new DataTable(probandCode);
+        this.parser = new CSVParser(probandCode, HEAD);
     }
 
     private String searchProbandCode() throws CSVNotFoundException {
         File f = DataController.getAppDir();
-        String[] fNames = f.list(new FilenameFilter() {
+        if (!f.isDirectory())
+            f = f.getParentFile();
 
-            @Override
-            public boolean accept(File dir, String filename) {
-                return filename.endsWith(".csv");
-            }
-        });
-
-        if (fNames.length != 1) {
-            throw new CSVNotFoundException();
+        String[] fNames = f.list();
+        for (String string : fNames) {
+            if (string.length() == "XXXXX.csv".length() && string.endsWith(".csv"))
+                return string.substring(0, "XXXXX.csv".indexOf(".csv"));
         }
-        return fNames[0].substring(0, fNames[0].indexOf(".csv"));
 
+        throw new CSVNotFoundException();
     }
     /**
      * @return A list containing todays alarm times
@@ -159,6 +166,7 @@ public class DataController {
         Row row = new Row(probandCode, date, alarmTime);
 
         table.addRow(row);
+        parser.write(table.getRows());
     }
 
     /**
@@ -196,6 +204,7 @@ public class DataController {
         this.generateNextAlarm(row);
 
         table.updateRow(row);
+        parser.write(table.getRows());
     }
 
     /**
@@ -218,6 +227,7 @@ public class DataController {
         Row row = new Row(probandCode, date, alarmTime);
 
         table.addRow(row);
+        parser.write(table.getRows());
     }
 
     /**
@@ -227,6 +237,7 @@ public class DataController {
         Row row = getCurrentRow();
         row.setStatus(RowStatus.ABORTED);
         table.updateRow(row);
+        parser.write(table.getRows());
     }
 
     /**
@@ -279,6 +290,7 @@ public class DataController {
                     cal.set(Calendar.MINUTE, newMinute);
                     row.setAlarmTime(cal.getTime());
                     table.updateRow(row);
+                    parser.write(table.getRows());
                 }
             }
         }
