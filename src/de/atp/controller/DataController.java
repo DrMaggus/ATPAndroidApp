@@ -301,7 +301,10 @@ public class DataController {
                 return row.getAnswerTime();
         }
 
-        return null;
+        if (rows.isEmpty())
+            return null;
+        else
+            return rows.get(0).getDate();
     }
 
 }
