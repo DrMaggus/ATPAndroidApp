@@ -29,7 +29,8 @@ public class StartActivity extends Activity implements OnClickListener {
 
 
     private boolean codeIsValid(String c) {
-        return c.matches(".*\\d.*") ? false : true;
+        if(!c.matches(".*\\d.*") && (c.matches(".....")))return true;
+        return false;
     }
 
     public void onClick(View v) {

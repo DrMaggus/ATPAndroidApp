@@ -229,6 +229,7 @@ public class TimetableActivity extends Activity implements OnClickListener {
      */
     private void setAlarmManager(int hour, AlarmManager am)
     {
+        am.cancel(pi);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.HOUR, hour);
         am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pi ); 

@@ -29,9 +29,10 @@ public class Alarm extends Service {
     public void onStart(Intent intent, int startId) {
 
         Intent test = new Intent("android.intent.category.LAUNCHER");
-        test.setClassName("de.atp.requester", "de.atp.requester.StartActivity");
+        test.setClassName("de.atp.requester", "de.atp.requester.SurveyActivity");
         test.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(test);
+        
         Toast.makeText(this, "MyAlarmService.onStart()", Toast.LENGTH_LONG).show();
         this.stopSelf();
     }
