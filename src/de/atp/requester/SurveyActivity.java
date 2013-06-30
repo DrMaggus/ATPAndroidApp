@@ -3,7 +3,6 @@ package de.atp.requester;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.content.Context;
