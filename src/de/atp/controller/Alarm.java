@@ -19,16 +19,13 @@ public class Alarm extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-//        Toast.makeText(this, "MyAlarmService.onDestroy()", Toast.LENGTH_LONG).show();
-
     }
 
     /**
-     * let the App appear on alarm.
+     * Let the SurveyActivity appear on alarm.
      * 
-     * @param: intent is the intent, which calls the method;
-     * @param startId;
+     * @param: intent , which calls the launcher-method;
+     * @param: startId;
      */
     @Override
     public void onStart(Intent intent, int startId) {
@@ -40,14 +37,14 @@ public class Alarm extends Service {
         startActivity(test);
         vibrator.vibrate(2000);
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Ringtone r = RingtoneManager.getRingtone(this, notification);
-        r.play();
+        Ringtone ringtone = RingtoneManager.getRingtone(this, notification);
+        ringtone.play();
         Toast.makeText(this, "Bitte Werte eintragen!", 3).show();
     }
     
     
     /**
-     * has to be implemented. TODO: find out what this function is doing.
+     * has to be implemented.
      */
     @Override
     public IBinder onBind(Intent intent) {
