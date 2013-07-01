@@ -12,7 +12,7 @@
 5. Dritter Buchstabe des Geburtsmonats</string>
     <string name="buttonstart">Bestätigen</string>
     <string name="startcodehint">code</string>
-    <string name="contact_question">Wie viele soziale Kontakte hatten Sie seit dem letzten Alarm am %1$d %2$d um %3$d Uhr?</string>
+    <string name="contact_question">Wie viele soziale Kontakte hatten Sie seit dem letzten Alarm am %1$d. %2$d. um %3$d Uhr?</string>
     <string name="time_question">Schätzen Sie bitte zusätzlich die Dauer der Kontakte ein.</string>
     <string name="numberOfContacts"> Anzahl</string>
     <string name="hours"> Stunden</string>

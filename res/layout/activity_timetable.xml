@@ -32,6 +32,7 @@
         android:layout_height="0dip"
         android:layout_weight="2.2"
         android:gravity="center"
+        android:textColor="@color/lettering"
         android:text="@string/timeTableDescription"
         android:textSize="17sp" />
 
