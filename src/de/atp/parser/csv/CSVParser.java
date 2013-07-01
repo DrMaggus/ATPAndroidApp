@@ -209,4 +209,7 @@ public class CSVParser implements Parser, RowConverter {
         return res.getTime();
     }
 
+    public File getFile() {
+        return csvFile;
+    }
 }

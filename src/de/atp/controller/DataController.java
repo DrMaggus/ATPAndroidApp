@@ -331,8 +331,11 @@ public class DataController {
 
         if (rows.isEmpty())
             return null;
-        else
-            return rows.get(0).getDate();
+        else {
+            // return file creation date
+            File f = ((CSVParser) parser).getFile();
+            return new Date(f.lastModified());
+        }
     }
 
 }
