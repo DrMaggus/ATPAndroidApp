@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ATPTime implements ATPTimestampable<ATPTime>, Comparable<ATPTime> {
+public class ATPTime implements ATPTimestamp<ATPTime>, Comparable<ATPTime> {
 
     public static final int FIELD_HOUR = Calendar.HOUR_OF_DAY;
     public static final int FIELD_MINUTE = Calendar.MINUTE;

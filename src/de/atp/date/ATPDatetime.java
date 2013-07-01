@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class ATPDatetime implements ATPTimestampable<ATPDatetime>, Comparable<ATPDatetime> {
+public class ATPDatetime implements ATPTimestamp<ATPDatetime>, Comparable<ATPDatetime> {
 
     public static final int FIELD_HOUR = Calendar.HOUR_OF_DAY;
     public static final int FIELD_MINUTE = Calendar.MINUTE;

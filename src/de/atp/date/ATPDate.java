@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class ATPDate implements ATPTimestampable<ATPDate>, Comparable<ATPDate> {
+public class ATPDate implements ATPTimestamp<ATPDate>, Comparable<ATPDate> {
 
     public static final int FIELD_DAY = Calendar.DAY_OF_MONTH;
     public static final int FIELD_MONTH = Calendar.MONTH;
