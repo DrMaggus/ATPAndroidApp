@@ -232,16 +232,22 @@ public class TimetableActivity extends Activity implements OnClickListener {
     {
         am.cancel(intentArray.get(intentCount));
         Calendar cal = Calendar.getInstance();
-        int thisSecond = cal.get(Calendar.SECOND);
         int thisMinute = cal.get(Calendar.MINUTE);
-        int thisHour = cal.get(Calendar.HOUR);        
-        thisHour -= hour;
-        if(thisHour <= 0) thisHour += 24;
-        thisMinute = -thisMinute + 60;
-        thisSecond = -thisSecond + 60;
-        cal.add(Calendar.SECOND, thisSecond);
-        cal.add(Calendar.MINUTE, thisMinute);
-        cal.add(Calendar.HOUR, thisHour);
+        int thisHour = cal.get(Calendar.HOUR_OF_DAY);        
+        int newMinute;
+        int newHour;
+        newHour = hour - thisHour;
+        if((thisMinute!=0 )){
+            newMinute = -thisMinute + 60;
+            newHour--;
+            if(newHour < 0) newHour += 24;
+        }
+        else{
+            newMinute = 0;            
+            if(newHour < 0) newHour += 24;
+        }
+        cal.add(Calendar.MINUTE, newMinute);
+        cal.add(Calendar.HOUR_OF_DAY, newHour);
         //cal.add(Calendar.SECOND, hour);
         
         am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, intentArray.get(intentCount));
