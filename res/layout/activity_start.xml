@@ -29,14 +29,16 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="20dip"
         android:text="@string/infotextstart"
-        android:textSize="21sp" />
+        android:textSize="17sp" />
     
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
         android:gravity="left"
+        android:layout_marginTop="20dip"
         android:text="@string/infotextstartrules" />
     
     <RelativeLayout
