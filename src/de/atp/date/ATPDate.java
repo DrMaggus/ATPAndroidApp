@@ -5,32 +5,70 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * Wrapper for the calendar class containing only year, month and day of an date
+ */
 public class ATPDate implements ATPTimestamp<ATPDate>, Comparable<ATPDate> {
 
+    /** The day of the month. First day is 1 */
     public static final int FIELD_DAY = Calendar.DAY_OF_MONTH;
+    /** The month of the year. First month is 0 */
     public static final int FIELD_MONTH = Calendar.MONTH;
+    /** The Year */
     public static final int FIELD_YEAR = Calendar.YEAR;
 
     private Calendar cal;
 
+    /**
+     * The current day
+     */
     public ATPDate() {
         this(Calendar.getInstance());
     }
 
+    /**
+     * Wraps the date
+     * 
+     * @param date
+     *            The date to wrap
+     */
     public ATPDate(Date date) {
         this();
         cal.setTime(date);
     }
 
+    /**
+     * Wraps the calendar
+     * 
+     * @param cal
+     *            The calendar to wrap
+     */
     public ATPDate(Calendar cal) {
         this.cal = cal;
     }
 
+    /**
+     * Create an date on this timestamp. The timestamp must be in UNIX format
+     * (milliseconds since 1st of January 1970)
+     * 
+     * @param timestamp
+     *            milliseconds since 1st of January 1970
+     */
     public ATPDate(long timestamp) {
         this();
         cal.setTimeInMillis(timestamp);
     }
 
+    /**
+     * Date on this values
+     * 
+     * @param day
+     *            The day
+     * @param month
+     *            The month
+     * @param year
+     *            The year
+     */
     public ATPDate(int day, int month, int year) {
         this();
         setDay(day);
@@ -63,26 +101,53 @@ public class ATPDate implements ATPTimestamp<ATPDate>, Comparable<ATPDate> {
         cal.add(field, diff);
     }
 
+    /**
+     * @return The day of this date
+     */
     public int getDay() {
         return cal.get(FIELD_DAY);
     }
 
+    /**
+     * Set the day of this date.
+     * 
+     * @param day
+     *            The day
+     */
     public void setDay(int day) {
         cal.set(FIELD_DAY, day);
     }
 
+    /**
+     * @return The month of this date
+     */
     public int getMonth() {
         return cal.get(FIELD_MONTH);
     }
 
+    /**
+     * Set the month of this date.
+     * 
+     * @param day
+     *            The month
+     */
     public void setMonth(int month) {
         cal.set(FIELD_MONTH, month);
     }
 
+    /**
+     * @return The year of this date
+     */
     public int getYear() {
         return cal.get(FIELD_YEAR);
     }
 
+    /**
+     * Set the year of this date.
+     * 
+     * @param day
+     *            The year
+     */
     public void setYear(int year) {
         cal.set(FIELD_YEAR, year);
     }
@@ -102,6 +167,12 @@ public class ATPDate implements ATPTimestamp<ATPDate>, Comparable<ATPDate> {
         return cal.getTime();
     }
 
+    /**
+     * @param o
+     *            Must be an instance of {@link ATPDate}
+     * @return <code>True</code> and only true, when both objects have the same
+     *         day, same month and same year
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null)

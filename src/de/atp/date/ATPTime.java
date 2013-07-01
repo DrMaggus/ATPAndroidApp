@@ -4,37 +4,76 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Wrapper for the calendar class containing only hour, minute and second of an
+ * date
+ */
 public class ATPTime implements ATPTimestamp<ATPTime>, Comparable<ATPTime> {
 
+    /** The hour of the day. First hour is 0 */
     public static final int FIELD_HOUR = Calendar.HOUR_OF_DAY;
+    /** The minute on an hour. First minute is 0 */
     public static final int FIELD_MINUTE = Calendar.MINUTE;
+    /** The second of a minute. First second is 0 */
     public static final int FIELD_SECOND = Calendar.SECOND;
 
     private Calendar cal;
 
+    /**
+     * The current time
+     */
     public ATPTime() {
         this(Calendar.getInstance());
     }
 
+    /**
+     * Wraps the date
+     * 
+     * @param date
+     *            The date to wrap
+     */
     public ATPTime(Date date) {
         this();
         cal.setTime(date);
     }
 
+    /**
+     * Wraps the calendar
+     * 
+     * @param cal
+     *            The calendar to wrap
+     */
     public ATPTime(Calendar cal) {
         this.cal = cal;
     }
 
+    /**
+     * Create a time on this timestamp. The timestamp must be in UNIX format
+     * (milliseconds since 1st of January 1970)
+     * 
+     * @param timestamp
+     *            milliseconds since 1st of January 1970
+     */
     public ATPTime(long timestamp) {
         this();
         this.cal.setTimeInMillis(timestamp);
     }
 
+    /**
+     * Time on this values
+     * 
+     * @param hour
+     *            The hour
+     * @param minute
+     *            The minute
+     * @param second
+     *            The second
+     */
     public ATPTime(int hour, int minute, int second) {
         this();
-        setHours(hour);
-        setMinutes(minute);
-        setSeconds(second);
+        setHour(hour);
+        setMinute(minute);
+        setSecond(second);
     }
 
     @Override
@@ -62,28 +101,55 @@ public class ATPTime implements ATPTimestamp<ATPTime>, Comparable<ATPTime> {
         cal.add(field, diff);
     }
 
-    public int getHours() {
+    /**
+     * @return The hour of this day. Range is from 0-23
+     */
+    public int getHour() {
         return cal.get(FIELD_HOUR);
     }
 
-    public void setHours(int hours) {
-        cal.set(FIELD_HOUR, hours);
+    /**
+     * Set the hour of this day
+     * 
+     * @param hour
+     *            The hour
+     */
+    public void setHour(int hour) {
+        cal.set(FIELD_HOUR, hour);
     }
 
-    public int getMinutes() {
+    /**
+     * @return The minute of the hour. Range is from 0-59
+     */
+    public int getMinute() {
         return cal.get(FIELD_MINUTE);
     }
 
-    public void setMinutes(int minutes) {
-        cal.set(FIELD_MINUTE, minutes);
+    /**
+     * Set the minute of the hour
+     * 
+     * @param minute
+     *            The minute
+     */
+    public void setMinute(int minute) {
+        cal.set(FIELD_MINUTE, minute);
     }
 
-    public int getSeconds() {
+    /**
+     * @return The second of the minute. Range is from 0-59
+     */
+    public int getSecond() {
         return cal.get(FIELD_SECOND);
     }
 
-    public void setSeconds(int seconds) {
-        cal.set(FIELD_SECOND, seconds);
+    /**
+     * Set the second of the minute
+     * 
+     * @param second
+     *            The second
+     */
+    public void setSecond(int second) {
+        cal.set(FIELD_SECOND, second);
     }
 
     @Override
@@ -101,6 +167,12 @@ public class ATPTime implements ATPTimestamp<ATPTime>, Comparable<ATPTime> {
         return this.cal.getTime();
     }
 
+    /**
+     * @param o
+     *            Must be an instance of {@link ATPTime}
+     * @return <code>True</code> and only true, when both objects have the same
+     *         hour, same minute and same second
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null)
@@ -112,16 +184,16 @@ public class ATPTime implements ATPTimestamp<ATPTime>, Comparable<ATPTime> {
 
         ATPTime other = (ATPTime) o;
 
-        return this.getHours() == other.getHours() && this.getMinutes() == other.getMinutes() && this.getSeconds() == other.getSeconds();
+        return this.getHour() == other.getHour() && this.getMinute() == other.getMinute() && this.getSecond() == other.getSecond();
     }
 
     @Override
     public int compareTo(ATPTime another) {
-        int otherTime = another.getHours() * 60 * 60 + another.getMinutes() * 60 + another.getSeconds();
-        int thisTime = this.getHours() * 60 * 60 + this.getMinutes() * 60 + this.getSeconds();
+        int otherTime = another.getHour() * 60 * 60 + another.getMinute() * 60 + another.getSecond();
+        int thisTime = this.getHour() * 60 * 60 + this.getMinute() * 60 + this.getSecond();
         return thisTime - otherTime;
     }
-    
+
     @Override
     public String format(DateFormat formatter) {
         return format(formatter);
