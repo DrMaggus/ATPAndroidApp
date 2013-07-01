@@ -281,6 +281,14 @@ public class ATPDatetime implements ATPTimestamp<ATPDatetime>, Comparable<ATPDat
     }
 
     @Override
+    public ATPDatetime copy() {
+        ATPDatetime tmp = new ATPDatetime();
+        tmp.date = new ATPDate(date.asDate());
+        tmp.time = new ATPTime(time.asDate());
+        return tmp;
+    }
+
+    @Override
     public String format(DateFormat formatter) {
         return formatter.format(asDate());
     }

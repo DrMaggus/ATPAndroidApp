@@ -20,29 +20,29 @@ import android.widget.Toast;
 import de.atp.controller.DataController;
 
 public class SurveyActivity extends Activity {
-  
-    
+
     @Override
     // this is the worst function I've written in years...
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
-        registerReceiver(FinishHim, new IntentFilter("finishActivity"));  
+        registerReceiver(FinishHim, new IntentFilter("finishActivity"));
         contactQuestion();
         Button sendButton = (Button) findViewById(R.id.sendButton);
-        sendButton.setOnClickListener(new OnClickListener() {      
+        sendButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 boolean invalidInput = false;
                 long maxMinutes;
                 long minutes = 0, contacts = 0;
                 try {
-                    maxMinutes = (new Date()).getTime() - DataController.instance().getLastAnsweredDate().getTime();
+                    // TODO: Use completly new interface
+                    maxMinutes = (new Date()).getTime() - DataController.instance().getLastAnsweredDate().asDate().getTime();
                     maxMinutes /= 60000;
                 } catch (java.lang.NullPointerException e) {
                     maxMinutes = Integer.MAX_VALUE;
                 }
                 try {
-                    minutes = getValue(R.id.minutes) + 60*getValue(R.id.hours);
+                    minutes = getValue(R.id.minutes) + 60 * getValue(R.id.hours);
                     contacts = getValue(R.id.numberOfContacts);
                 } catch (java.lang.NullPointerException e) {
                     invalidInput = true;
@@ -94,8 +94,9 @@ public class SurveyActivity extends Activity {
     private void contactQuestion() {
         Calendar cal = GregorianCalendar.getInstance();
         Date date;
-        date = DataController.instance().getLastAnsweredDate();
-        if(date == null) {
+        // TODO: Use completly new interface
+        date = DataController.instance().getLastAnsweredDate().asDate();
+        if (date == null) {
             errorToast();
         }
         cal.setTime(date);
@@ -106,7 +107,7 @@ public class SurveyActivity extends Activity {
         TextView question = (TextView) findViewById(R.id.contactQuestionView);
         question.setText(contactQuestion);
     }
-    
+
     private void errorToast() {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
@@ -120,9 +121,10 @@ public class SurveyActivity extends Activity {
         getMenuInflater().inflate(R.menu.start, menu);
         return true;
     }
-    
+
     /**
-     * BroadcastReceiver to finish the old SurveyActivities, if already a new one starts
+     * BroadcastReceiver to finish the old SurveyActivities, if already a new
+     * one starts
      */
     private final BroadcastReceiver FinishHim = new BroadcastReceiver() {
         @Override

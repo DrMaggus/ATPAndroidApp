@@ -9,10 +9,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -21,6 +18,8 @@ import android.annotation.SuppressLint;
 import de.atp.controller.DataController;
 import de.atp.data.Row;
 import de.atp.data.RowStatus;
+import de.atp.date.ATPDate;
+import de.atp.date.ATPTime;
 import de.atp.parser.InvalidFormatException;
 import de.atp.parser.Parser;
 import de.atp.parser.RowConverter;
@@ -130,8 +129,8 @@ public class CSVParser implements Parser, RowConverter {
     public String writeRow(Row row) {
         StringBuilder sBuilder = new StringBuilder();
         sBuilder.append(row.getCode()).append(';');
-        sBuilder.append(DateFormat.getDateInstance().format(row.getDate())).append(';');
-        sBuilder.append(TIME_FORMAT.format(row.getAlarmTime())).append(';');
+        sBuilder.append(row.getDate().format(DateFormat.getDateInstance())).append(';');
+        sBuilder.append(row.getAlarmTime().format(TIME_FORMAT)).append(';');
         switch (row.getStatus()) {
             case ABORTED :
                 sBuilder.append("-1");
@@ -140,7 +139,7 @@ public class CSVParser implements Parser, RowConverter {
                 sBuilder.append("00:00");
                 break;
             case OK :
-                sBuilder.append(TIME_FORMAT.format(row.getAnswerTime()));
+                sBuilder.append(row.getAnswerTime().format(TIME_FORMAT)).append(';');
                 break;
             default :
                 break;
@@ -178,9 +177,9 @@ public class CSVParser implements Parser, RowConverter {
 
             int p = 0;
             String probandCode = split[p++];
-            Date day = DateFormat.getDateInstance().parse(split[p++]);
-            Date alarmTime = getTimeForToday(TIME_FORMAT.parse(split[p++]));
-            Date answerTime = getTimeForToday(TIME_FORMAT.parse(split[p++]));
+            ATPDate day = new ATPDate(DateFormat.getDateInstance().parse(split[p++]));
+            ATPTime alarmTime = new ATPTime(TIME_FORMAT.parse(split[p++]));
+            ATPTime answerTime = new ATPTime(TIME_FORMAT.parse(split[p++]));
             RowStatus status = RowStatus.getStatus(Integer.parseInt(split[p++]));
             int contacts = Integer.parseInt(split[p++]);
             int hours = Integer.parseInt(split[p++]);
@@ -190,23 +189,6 @@ public class CSVParser implements Parser, RowConverter {
         } catch (Exception e) {
             return null;
         }
-    }
-
-    /**
-     * Set the year, month and date for a timestamp for today
-     * 
-     * @param time
-     *            Date object containing values for hours, minutes and seconds
-     * @return Date object with the current date
-     */
-    private Date getTimeForToday(Date time) {
-        Calendar cal = GregorianCalendar.getInstance();
-        Calendar res = GregorianCalendar.getInstance();
-
-        res.setTime(time);
-        res.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-
-        return res.getTime();
     }
 
     public File getFile() {

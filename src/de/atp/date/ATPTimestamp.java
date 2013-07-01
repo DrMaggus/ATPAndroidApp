@@ -73,6 +73,8 @@ public interface ATPTimestamp<T extends ATPTimestamp<T>> {
      */
     public Date asDate();
 
+    public T copy();
+
     /**
      * @param formatter
      *            The formatter specified for this type

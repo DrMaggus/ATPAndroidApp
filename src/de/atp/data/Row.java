@@ -1,8 +1,8 @@
 package de.atp.data;
 
-import java.util.Date;
-
 import android.annotation.SuppressLint;
+import de.atp.date.ATPDate;
+import de.atp.date.ATPTime;
 
 @SuppressLint("DefaultLocale")
 public class Row {
@@ -12,19 +12,19 @@ public class Row {
     protected int index;
 
     private String code;
-    private Date date;
-    private Date alarmTime;
-    private Date answerTime;
+    private ATPDate date;
+    private ATPTime alarmTime;
+    private ATPTime answerTime;
     private RowStatus status;
     private int contacts;
     private int hours;
     private int minutes;
 
-    public Row(String code, Date date, Date alarmTime) {
+    public Row(String code, ATPDate date, ATPTime alarmTime) {
         this(code, date, alarmTime, null, RowStatus.DIRTY, -1, -1, -1);
     }
 
-    public Row(String code, Date date, Date alarmTime, Date answerTime, RowStatus status, int contacts, int hours, int minutes) {
+    public Row(String code, ATPDate date, ATPTime alarmTime, ATPTime answerTime, RowStatus status, int contacts, int hours, int minutes) {
         this.code = code;
         this.date = date;
         this.alarmTime = alarmTime;
@@ -53,7 +53,7 @@ public class Row {
     /**
      * @return Creation date of the row
      */
-    public Date getDate() {
+    public ATPDate getDate() {
         return date;
     }
 
@@ -61,14 +61,14 @@ public class Row {
      * @param date
      *            Creation date of the row
      */
-    public void setDate(Date date) {
+    public void setDate(ATPDate date) {
         this.date = date;
     }
 
     /**
      * @return The desired to ring the alarm
      */
-    public Date getAlarmTime() {
+    public ATPTime getAlarmTime() {
         return alarmTime;
     }
 
@@ -76,14 +76,14 @@ public class Row {
      * @param alarmTime
      *            The desired to ring the alarm
      */
-    public void setAlarmTime(Date alarmTime) {
+    public void setAlarmTime(ATPTime alarmTime) {
         this.alarmTime = alarmTime;
     }
 
     /**
      * @return Time where the user answered the request
      */
-    public Date getAnswerTime() {
+    public ATPTime getAnswerTime() {
         return answerTime;
     }
 
@@ -91,7 +91,7 @@ public class Row {
      * @param answerTime
      *            Time where the user answered the request
      */
-    public void setAnswerTime(Date answerTime) {
+    public void setAnswerTime(ATPTime answerTime) {
         this.answerTime = answerTime;
     }
 

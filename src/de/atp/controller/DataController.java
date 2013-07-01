@@ -2,15 +2,14 @@ package de.atp.controller;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import android.os.Environment;
 import de.atp.data.DataTable;
 import de.atp.data.Row;
 import de.atp.data.RowStatus;
+import de.atp.date.ATPDate;
+import de.atp.date.ATPTime;
 import de.atp.parser.Parser;
 import de.atp.parser.csv.CSVParser;
 
@@ -140,20 +139,14 @@ public class DataController {
     /**
      * @return A list containing todays alarm times
      */
-    public List<Date> getTodaysAlarms() {
-        List<Date> res = new ArrayList<Date>();
+    public List<ATPTime> getTodaysAlarms() {
+        List<ATPTime> res = new ArrayList<ATPTime>();
 
-        // Todays calendar
-        Calendar today = GregorianCalendar.getInstance();
-        // Calendar for values from the table
-        Calendar date = GregorianCalendar.getInstance();
+        ATPDate today = new ATPDate();
 
         // Search for the alarm times
         for (Row row : table.getRows()) {
-            date.setTime(row.getDate());
-
-            // Entry in table has the same date as today
-            if (sameDay(today, date)) {
+            if (row.getDate().equals(today)) {
                 res.add(row.getAlarmTime());
             }
         }
@@ -171,31 +164,16 @@ public class DataController {
      *            Time from 1-59
      */
     public void createDummyRow(int alarmHour, int alarmMinute) {
-        Calendar cal = GregorianCalendar.getInstance();
-        cal.roll(Calendar.DAY_OF_MONTH, true);
-        Date date = cal.getTime();
 
-        cal.set(Calendar.HOUR_OF_DAY, alarmHour);
-        cal.set(Calendar.MINUTE, alarmMinute);
+        ATPDate date = new ATPDate();
+        date.up(ATPDate.FIELD_DAY);
 
-        Date alarmTime = cal.getTime();
+        ATPTime alarmTime = new ATPTime(alarmHour, alarmMinute, 0);
+
         Row row = new Row(probandCode, date, alarmTime);
 
         table.addRow(row);
         parser.write(table.getRows());
-    }
-
-    /**
-     * Checks if both dates are on the same day
-     * 
-     * @param c1
-     *            Date one
-     * @param c2
-     *            Date two
-     * @return True, when both cal have the same day
-     */
-    private boolean sameDay(Calendar c1, Calendar c2) {
-        return c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH) && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) && c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
     }
 
     /**
@@ -211,7 +189,7 @@ public class DataController {
     public void completeQuestions(int hour, int minutes, int contacts) {
 
         Row row = getCurrentRow();
-        row.setAnswerTime(new Date());
+        row.setAnswerTime(new ATPTime());
         row.setStatus(RowStatus.OK);
         row.setHours(hour);
         row.setMinutes(minutes);
@@ -231,14 +209,10 @@ public class DataController {
      *            Delivers information about the alarmtime and date
      */
     private void generateNextAlarm(Row cur) {
-        Calendar cal = GregorianCalendar.getInstance();
-        cal.setTime(cur.getDate());
-        cal.roll(Calendar.DAY_OF_MONTH, true);
-        Date date = cal.getTime();
+        ATPDate date = cur.getDate().copy();
+        date.up(ATPDate.FIELD_DAY);
 
-        cal.setTime(cur.getAlarmTime());
-        cal.roll(Calendar.DAY_OF_MONTH, true);
-        Date alarmTime = cal.getTime();
+        ATPTime alarmTime = cur.getAlarmTime().copy();
 
         Row row = new Row(probandCode, date, alarmTime);
 
@@ -263,14 +237,14 @@ public class DataController {
      * @return
      */
     private Row getCurrentRow() {
-        Date now = new Date();
+        ATPTime now = new ATPTime();
         Row minimum = table.getRow(0);
         long min = Long.MAX_VALUE;
         List<Row> rows = table.getRows();
         for (int i = rows.size() - 1; i >= 0; --i) {
             Row row = rows.get(i);
             if (row.getAlarmTime().after(now)) {
-                long diff = now.getTime() - row.getAlarmTime().getTime();
+                long diff = now.compareTo(row.getAlarmTime());
                 if (diff <= min) {
                     min = diff;
                     minimum = row;
@@ -293,18 +267,17 @@ public class DataController {
      *            The new time in minutes (from 0-59)
      */
     public void changeAlarmTime(int oldHour, int oldMinute, int newHour, int newMinute) {
-        Calendar cal = GregorianCalendar.getInstance();
+        ATPTime oldTime = new ATPTime(oldHour, oldMinute, 0);
         // Search for the old alarm time
         for (Row row : table.getRows()) {
             // Change only times for unused rows
             if (row.getStatus().equals(RowStatus.DIRTY)) {
-                cal.setTime(row.getAlarmTime());
-                // Old time matches the row
-                if (cal.get(Calendar.HOUR_OF_DAY) == oldHour && cal.get(Calendar.MINUTE) == oldMinute) {
-                    // Update the row
-                    cal.set(Calendar.HOUR_OF_DAY, newHour);
-                    cal.set(Calendar.MINUTE, newMinute);
-                    row.setAlarmTime(cal.getTime());
+                ATPTime alarmTime = row.getAlarmTime().copy();
+                alarmTime.setSecond(0);
+                if (alarmTime.equals(oldTime)) {
+                    alarmTime.setHour(newHour);
+                    alarmTime.setMinute(newMinute);
+                    row.setAlarmTime(alarmTime);
                     table.updateRow(row);
                     parser.write(table.getRows());
                 }
@@ -319,7 +292,7 @@ public class DataController {
      * @return <code>Null</code> when the proband has never answered
      *         successfully a question, otherwise the date
      */
-    public Date getLastAnsweredDate() {
+    public ATPTime getLastAnsweredDate() {
 
         List<Row> rows = table.getRows();
 
@@ -334,7 +307,7 @@ public class DataController {
         else {
             // return file creation date
             File f = ((CSVParser) parser).getFile();
-            return new Date(f.lastModified());
+            return new ATPTime(f.lastModified());
         }
     }
 

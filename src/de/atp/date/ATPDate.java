@@ -198,6 +198,11 @@ public class ATPDate implements ATPTimestamp<ATPDate>, Comparable<ATPDate> {
     }
 
     @Override
+    public ATPDate copy() {
+        return new ATPDate(cal.getTimeInMillis());
+    }
+
+    @Override
     public String format(DateFormat formatter) {
         return formatter.format(asDate());
     }

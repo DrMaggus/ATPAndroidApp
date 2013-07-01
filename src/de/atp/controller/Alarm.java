@@ -1,6 +1,5 @@
 package de.atp.controller;
 
-import de.atp.requester.SurveyActivity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -41,8 +40,7 @@ public class Alarm extends Service {
         ringtone.play();
         Toast.makeText(this, "Bitte Werte eintragen!", 3).show();
     }
-    
-    
+
     /**
      * has to be implemented.
      */
