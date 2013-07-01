@@ -232,7 +232,7 @@ public class TimetableActivity extends Activity implements OnClickListener {
     {
         am.cancel(intentArray.get(intentCount));
         Calendar cal = Calendar.getInstance();
-        /*int thisSecond = cal.get(Calendar.SECOND);
+        int thisSecond = cal.get(Calendar.SECOND);
         int thisMinute = cal.get(Calendar.MINUTE);
         int thisHour = cal.get(Calendar.HOUR);        
         thisHour -= hour;
@@ -241,8 +241,8 @@ public class TimetableActivity extends Activity implements OnClickListener {
         thisSecond = -thisSecond + 60;
         cal.add(Calendar.SECOND, thisSecond);
         cal.add(Calendar.MINUTE, thisMinute);
-        cal.add(Calendar.HOUR, thisHour);*/
-        cal.add(Calendar.SECOND, hour);
+        cal.add(Calendar.HOUR, thisHour);
+        //cal.add(Calendar.SECOND, hour);
         
         am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, intentArray.get(intentCount));
     }

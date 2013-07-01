@@ -1,5 +1,6 @@
 package de.atp.controller;
 
+import de.atp.requester.SurveyActivity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +33,7 @@ public class Alarm extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        sendBroadcast(new Intent("finishActivity"));
         Intent test = new Intent("android.intent.category.LAUNCHER");
         test.setClassName("de.atp.requester", "de.atp.requester.SurveyActivity");
         test.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -41,9 +43,9 @@ public class Alarm extends Service {
         Ringtone r = RingtoneManager.getRingtone(this, notification);
         r.play();
         Toast.makeText(this, "Bitte ausfüllen!", 3).show();
-//        this.stopSelf();
     }
-
+    
+    
     /**
      * has to be implemented. TODO: find out what this function is doing.
      */

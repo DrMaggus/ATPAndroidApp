@@ -5,7 +5,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -17,16 +20,17 @@ import android.widget.Toast;
 import de.atp.controller.DataController;
 
 public class SurveyActivity extends Activity {
-
+  
+    
     @Override
     // this is the worst function I've written in years...
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
-
+        registerReceiver(FinishHim, new IntentFilter("finishActivity"));  
         contactQuestion();
         Button sendButton = (Button) findViewById(R.id.sendButton);
-        sendButton.setOnClickListener(new OnClickListener() {
+        sendButton.setOnClickListener(new OnClickListener() {      
             public void onClick(View v) {
                 boolean invalidInput = false;
                 long maxMinutes;
@@ -116,4 +120,11 @@ public class SurveyActivity extends Activity {
         getMenuInflater().inflate(R.menu.start, menu);
         return true;
     }
+    
+    private final BroadcastReceiver FinishHim = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
 }

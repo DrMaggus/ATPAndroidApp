@@ -2,5 +2,6 @@
 <resources>
     <color name="timebutton">#fb0915</color>
     <color name="timebuttonpressed">#369d2b</color>
+    <color name="lettering">#000000</color>
     
 </resources>
