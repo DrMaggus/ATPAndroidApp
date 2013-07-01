@@ -121,6 +121,9 @@ public class SurveyActivity extends Activity {
         return true;
     }
     
+    /**
+     * BroadcastReceiver to finish the old SurveyActivities, if already a new one starts
+     */
     private final BroadcastReceiver FinishHim = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
