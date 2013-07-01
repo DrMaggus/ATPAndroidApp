@@ -92,8 +92,18 @@ public class DataController {
      */
     private DataController() throws CSVNotFoundException {
         this.probandCode = searchProbandCode();
-        this.table = new DataTable(probandCode);
+
         this.parser = new CSVParser(probandCode, HEAD);
+        List<Row> rows = null;
+        try {
+            rows = parser.parse();
+        } catch (Exception e) {
+            rows = null;
+        }
+        if (rows == null)
+            this.table = new DataTable();
+        else
+            this.table = new DataTable(rows);
     }
 
     /**
@@ -104,7 +114,7 @@ public class DataController {
      */
     private DataController(String probandCode) {
         this.probandCode = probandCode;
-        this.table = new DataTable(probandCode);
+        this.table = new DataTable();
         this.parser = new CSVParser(probandCode, HEAD);
     }
 

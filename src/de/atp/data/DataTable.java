@@ -17,10 +17,14 @@ public class DataTable {
      * @param probandCode
      *            The proband code
      */
-    public DataTable(String probandCode) {
-        table = new ArrayList<Row>();
+    public DataTable() {
+        this(new ArrayList<Row>());
     }
-
+    
+    public DataTable(List<Row> rows) {
+        this.table = rows;
+    }
+ 
     /**
      * @return Get a copy of the table
      */
