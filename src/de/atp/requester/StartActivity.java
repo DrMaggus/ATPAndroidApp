@@ -20,6 +20,7 @@ public class StartActivity extends Activity implements OnClickListener {
             button.setOnClickListener((OnClickListener) this);
         } else {
             startActivity(new Intent(this, TimetableActivity.class));
+            finish();
         }
     }
 
