@@ -2,7 +2,8 @@ package de.atp.requester;
 
 
 import java.util.Calendar;
-import java.util.Date;
+import java.util.TimeZone;
+
 import de.atp.controller.Alarm;
 
 import java.util.ArrayList;
@@ -231,7 +232,7 @@ public class TimetableActivity extends Activity implements OnClickListener {
     private void setAlarmManager(int hour, AlarmManager am, int intentCount)
     {
         am.cancel(intentArray.get(intentCount));
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
         int thisMinute = cal.get(Calendar.MINUTE);
         int thisHour = cal.get(Calendar.HOUR_OF_DAY);        
         int newMinute;
