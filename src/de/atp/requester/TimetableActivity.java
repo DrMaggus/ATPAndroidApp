@@ -2,7 +2,7 @@ package de.atp.requester;
 
 
 import java.util.Calendar;
-
+import java.util.Date;
 import de.atp.controller.Alarm;
 
 import java.util.ArrayList;
@@ -135,7 +135,7 @@ public class TimetableActivity extends Activity implements OnClickListener {
         }
     }
 
-    private void toggle(int row, int id) {
+    private void toggle(int row, int id, int hour) {
         setButtonRowToRed(row);
         ((ToggleButton) findViewById(id)).setChecked(true);
     }
@@ -147,24 +147,24 @@ public class TimetableActivity extends Activity implements OnClickListener {
 
         //@formatter:off
             //row 1
-            case R.id.button_9am:   toggle(0,R.id.button_9am);  break;
-            case R.id.button_10am:  toggle(0,R.id.button_10am); break;
-            case R.id.button_11am:  toggle(0,R.id.button_11am); break;
-            case R.id.button_12pm:  toggle(0,R.id.button_12pm); break;
+            case R.id.button_9am:   toggle(0,R.id.button_9am, 9);  break;
+            case R.id.button_10am:  toggle(0,R.id.button_10am, 10); break;
+            case R.id.button_11am:  toggle(0,R.id.button_11am, 11); break;
+            case R.id.button_12pm:  toggle(0,R.id.button_12pm, 12); break;
             //row 2
-            case R.id.button_1pm:   toggle(1,R.id.button_1pm);  break;
-            case R.id.button_2pm:   toggle(1,R.id.button_2pm);  break;
-            case R.id.button_3pm:   toggle(1,R.id.button_3pm);  break;
+            case R.id.button_1pm:   toggle(1,R.id.button_1pm, 13);  break;
+            case R.id.button_2pm:   toggle(1,R.id.button_2pm, 14);  break;
+            case R.id.button_3pm:   toggle(1,R.id.button_3pm, 15);  break;
             //row 3
-            case R.id.button_4pm:   toggle(2,R.id.button_4pm);  break;
-            case R.id.button_5pm:   toggle(2,R.id.button_5pm);  break;
-            case R.id.button_6pm:   toggle(2,R.id.button_6pm);  break;
-            case R.id.button_7pm:   toggle(2,R.id.button_7pm);  break;
+            case R.id.button_4pm:   toggle(2,R.id.button_4pm, 16);  break;
+            case R.id.button_5pm:   toggle(2,R.id.button_5pm, 17);  break;
+            case R.id.button_6pm:   toggle(2,R.id.button_6pm, 18);  break;
+            case R.id.button_7pm:   toggle(2,R.id.button_7pm, 19);  break;
             //row 4
-            case R.id.button_8pm:   toggle(3,R.id.button_8pm);  break;
-            case R.id.button_9pm:   toggle(3,R.id.button_9pm);  break;
-            case R.id.button_10pm:  toggle(3,R.id.button_10pm); break;
-            case R.id.button_11pm:  toggle(3,R.id.button_11pm); break;         
+            case R.id.button_8pm:   toggle(3,R.id.button_8pm, 20);  break;
+            case R.id.button_9pm:   toggle(3,R.id.button_9pm, 21);  break;
+            case R.id.button_10pm:  toggle(3,R.id.button_10pm, 22); break;
+            case R.id.button_11pm:  toggle(3,R.id.button_11pm, 23); break;         
 
             //@formatter:on
             case R.id.button_done :
