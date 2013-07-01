@@ -1,5 +1,6 @@
 package de.atp.date;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -22,6 +23,11 @@ public class ATPTime implements ATPTimestampable<ATPTime>, Comparable<ATPTime> {
 
     public ATPTime(Calendar cal) {
         this.cal = cal;
+    }
+
+    public ATPTime(long timestamp) {
+        this();
+        this.cal.setTimeInMillis(timestamp);
     }
 
     public ATPTime(int hour, int minute, int second) {
@@ -81,6 +87,21 @@ public class ATPTime implements ATPTimestampable<ATPTime>, Comparable<ATPTime> {
     }
 
     @Override
+    public void setTime(Date date) {
+        this.cal.setTime(date);
+    }
+
+    @Override
+    public void setTimestamp(long time) {
+        this.setTimestamp(time);
+    }
+
+    @Override
+    public Date asDate() {
+        return this.cal.getTime();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == null)
             return false;
@@ -99,5 +120,10 @@ public class ATPTime implements ATPTimestampable<ATPTime>, Comparable<ATPTime> {
         int otherTime = another.getHours() * 60 * 60 + another.getMinutes() * 60 + another.getSeconds();
         int thisTime = this.getHours() * 60 * 60 + this.getMinutes() * 60 + this.getSeconds();
         return thisTime - otherTime;
+    }
+    
+    @Override
+    public String format(DateFormat formatter) {
+        return format(formatter);
     }
 }

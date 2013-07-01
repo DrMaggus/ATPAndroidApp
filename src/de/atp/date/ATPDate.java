@@ -1,5 +1,6 @@
 package de.atp.date;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -23,6 +24,11 @@ public class ATPDate implements ATPTimestampable<ATPDate>, Comparable<ATPDate> {
 
     public ATPDate(Calendar cal) {
         this.cal = cal;
+    }
+
+    public ATPDate(long timestamp) {
+        this();
+        cal.setTimeInMillis(timestamp);
     }
 
     public ATPDate(int day, int month, int year) {
@@ -82,6 +88,21 @@ public class ATPDate implements ATPTimestampable<ATPDate>, Comparable<ATPDate> {
     }
 
     @Override
+    public void setTime(Date date) {
+        this.cal.setTime(date);
+    }
+
+    @Override
+    public void setTimestamp(long time) {
+        this.cal.setTimeInMillis(time);
+    }
+
+    @Override
+    public Date asDate() {
+        return cal.getTime();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == null)
             return false;
@@ -103,5 +124,10 @@ public class ATPDate implements ATPTimestampable<ATPDate>, Comparable<ATPDate> {
         c2.set(another.getYear(), another.getMonth(), another.getDay());
 
         return c1.compareTo(c2);
+    }
+
+    @Override
+    public String format(DateFormat formatter) {
+        return formatter.format(asDate());
     }
 }

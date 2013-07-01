@@ -1,7 +1,9 @@
 package de.atp.date;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class ATPDatetime implements ATPTimestampable<ATPDatetime>, Comparable<ATPDatetime> {
 
@@ -29,6 +31,16 @@ public class ATPDatetime implements ATPTimestampable<ATPDatetime>, Comparable<AT
     public ATPDatetime(Calendar cal) {
         this.date = new ATPDate(cal);
         this.time = new ATPTime(cal);
+    }
+
+    public ATPDatetime(long timestamp) {
+        this.date = new ATPDate(timestamp);
+        this.time = new ATPTime(timestamp);
+    }
+
+    public ATPDatetime(int day, int month, int year, int hour, int minute, int second) {
+        this.date = new ATPDate(day, month, year);
+        this.time = new ATPTime(hour, minute, second);
     }
 
     @Override
@@ -69,6 +81,30 @@ public class ATPDatetime implements ATPTimestampable<ATPDatetime>, Comparable<AT
         }
     }
 
+    public int getHours() {
+        return time.getHours();
+    }
+
+    public void setHours(int hours) {
+        time.setHours(hours);
+    }
+
+    public int getMinutes() {
+        return time.getMinutes();
+    }
+
+    public void setMinutes(int minutes) {
+        time.setMinutes(minutes);
+    }
+
+    public int getSeconds() {
+        return time.getSeconds();
+    }
+
+    public void setSeconds(int seconds) {
+        time.setSeconds(seconds);
+    }
+
     public int getDay() {
         return date.getDay();
     }
@@ -94,6 +130,25 @@ public class ATPDatetime implements ATPTimestampable<ATPDatetime>, Comparable<AT
     }
 
     @Override
+    public void setTime(Date date) {
+        this.date.setTime(date);
+        this.time.setTime(date);
+    }
+
+    @Override
+    public void setTimestamp(long time) {
+        this.date.setTimestamp(time);
+        this.time.setTimestamp(time);
+    }
+
+    @Override
+    public Date asDate() {
+        Calendar tmp = GregorianCalendar.getInstance();
+        tmp.set(date.getYear(), date.getMonth(), date.getDay(), time.getHours(), time.getMinutes(), time.getSeconds());
+        return tmp.getTime();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == null)
             return false;
@@ -114,5 +169,10 @@ public class ATPDatetime implements ATPTimestampable<ATPDatetime>, Comparable<AT
             return this.time.compareTo(another.time);
         else
             return cmpr;
+    }
+
+    @Override
+    public String format(DateFormat formatter) {
+        return formatter.format(asDate());
     }
 }
