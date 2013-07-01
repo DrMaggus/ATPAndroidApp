@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import de.atp.controller.DataController;
 
 public class StartActivity extends Activity implements OnClickListener {
@@ -25,9 +26,13 @@ public class StartActivity extends Activity implements OnClickListener {
     }
 
     private boolean codeIsValid(String c) {
-        if (!c.matches(".*\\d.*") && (c.matches(".....")))
+        if (!c.matches(".*\\d.*") && (c.matches("....."))){
             return true;
-        return false;
+        }
+        else{
+            Toast.makeText(this, "Falsche Eingabe!", Toast.LENGTH_SHORT).show();        
+            return false;
+        }
     }
 
     public void onClick(View v) {

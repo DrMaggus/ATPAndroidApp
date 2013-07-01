@@ -42,7 +42,7 @@ public class Alarm extends Service {
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone r = RingtoneManager.getRingtone(this, notification);
         r.play();
-        Toast.makeText(this, "Bitte ausfüllen!", 3).show();
+        Toast.makeText(this, "Bitte Werte eintragen!", 3).show();
     }
     
     
