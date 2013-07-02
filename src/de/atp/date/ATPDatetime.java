@@ -3,6 +3,7 @@ package de.atp.date;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Wrapper for the calendar class containing the year, the month, the day and
@@ -131,7 +132,7 @@ public class ATPDatetime implements ATPTimestamp<ATPDatetime>, Comparable<ATPDat
     /**
      * @return The hour of this day. Range is from 0-23
      */
-    public int getHours() {
+    public int getHour() {
         return time.getHour();
     }
 
@@ -141,14 +142,14 @@ public class ATPDatetime implements ATPTimestamp<ATPDatetime>, Comparable<ATPDat
      * @param hour
      *            The hour
      */
-    public void setHours(int hours) {
-        time.setHour(hours);
+    public void setHour(int hour) {
+        time.setHour(hour);
     }
 
     /**
      * @return The minute of the hour. Range is from 0-59
      */
-    public int getMinutes() {
+    public int getMinute() {
         return time.getMinute();
     }
 
@@ -158,14 +159,14 @@ public class ATPDatetime implements ATPTimestamp<ATPDatetime>, Comparable<ATPDat
      * @param minute
      *            The minute
      */
-    public void setMinutes(int minutes) {
-        time.setMinute(minutes);
+    public void setMinute(int minute) {
+        time.setMinute(minute);
     }
 
     /**
      * @return The second of the minute. Range is from 0-59
      */
-    public int getSeconds() {
+    public int getSecond() {
         return time.getSecond();
     }
 
@@ -285,6 +286,11 @@ public class ATPDatetime implements ATPTimestamp<ATPDatetime>, Comparable<ATPDat
         tmp.date = new ATPDate(date.asDate());
         tmp.time = new ATPTime(time.asDate());
         return tmp;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(Locale.getDefault(), "ATPDatetime{Day=%d;Month=%d;Year=%d;Hour=%d;Minute=%d;Second=%d}", getDay(), getMonth(), getYear(), getHour(), getMinute(), getSecond());
     }
 
     @Override

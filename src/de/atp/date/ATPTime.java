@@ -2,6 +2,7 @@ package de.atp.date;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Wrapper for the calendar class containing only hour, minute and second of an
@@ -43,7 +44,7 @@ public class ATPTime implements ATPTimestamp<ATPTime>, Comparable<ATPTime> {
      *            The calendar to wrap
      */
     public ATPTime(Calendar cal) {
-        this.cal = cal;
+        this.cal = (Calendar) cal.clone();
     }
 
     /**
@@ -196,6 +197,11 @@ public class ATPTime implements ATPTimestamp<ATPTime>, Comparable<ATPTime> {
     @Override
     public ATPTime copy() {
         return new ATPTime(cal.getTimeInMillis());
+    }
+
+    @Override
+    public String toString() {
+        return String.format(Locale.getDefault(), "ATPTime{Hour=%d;Minute=%d;Second=%d}", getHour(), getMinute(), getSecond());
     }
 
     @Override

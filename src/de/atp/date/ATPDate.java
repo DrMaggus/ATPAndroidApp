@@ -3,6 +3,7 @@ package de.atp.date;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Wrapper for the calendar class containing only year, month and day of an date
@@ -43,7 +44,7 @@ public class ATPDate implements ATPTimestamp<ATPDate>, Comparable<ATPDate> {
      *            The calendar to wrap
      */
     public ATPDate(Calendar cal) {
-        this.cal = cal;
+        this.cal = (Calendar) cal.clone();
     }
 
     /**
@@ -199,6 +200,11 @@ public class ATPDate implements ATPTimestamp<ATPDate>, Comparable<ATPDate> {
     @Override
     public ATPDate copy() {
         return new ATPDate(cal.getTimeInMillis());
+    }
+
+    @Override
+    public String toString() {
+        return String.format(Locale.getDefault(), "ATPDate{Day=%d;Month=%d;Year=%d}", getDay(), getMonth(), getYear());
     }
 
     @Override
