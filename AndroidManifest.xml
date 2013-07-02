@@ -39,6 +39,11 @@
         </activity>
 
         <service android:name="de.atp.controller.Alarm" />
+
+        <activity
+            android:name="de.atp.requester.InfoActivity"
+            android:label="@string/title_activity_info" >
+        </activity>
     </application>
 
 </manifest>

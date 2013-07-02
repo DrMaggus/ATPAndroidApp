@@ -26,11 +26,10 @@ public class StartActivity extends Activity implements OnClickListener {
     }
 
     private boolean codeIsValid(String c) {
-        if (!c.matches(".*\\d.*") && (c.matches("....."))){
+        if (!c.matches(".*\\d.*") && (c.matches("....."))) {
             return true;
-        }
-        else{
-            Toast.makeText(this, "Falsche Eingabe!", Toast.LENGTH_SHORT).show();        
+        } else {
+            Toast.makeText(this, "Falsche Eingabe!", Toast.LENGTH_SHORT).show();
             return false;
         }
     }

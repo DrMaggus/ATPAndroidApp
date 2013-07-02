@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/mainbackground"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="11sp"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".InfoActivity" >
+
+    <TextView
+        android:id="@+id/infoActivity_nextAlarmLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/infoActivity_AlarmLabel"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/lettering" />
+
+    <TextView
+        android:id="@+id/infoActivity_alarmTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="@string/infoActivity_AlarmPlaceholder"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/lettering"
+        android:textSize="35sp" />
+
+    <TextView
+        android:id="@+id/infoActivity_timeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/infoActivity_TimeDiffLabel"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/lettering" />
+
+    <TextView
+        android:id="@+id/infoActivity_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:text="@string/infoActivity_AlarmPlaceholder"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/lettering"
+        android:textSize="35sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/infoActivity_timetableButton"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:text="@string/infoActivity_ChangeAlarm" />
+
+        <Button
+            android:id="@+id/infoActivity_quitButton"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="@string/infoActivity_Close" />
+
+    </LinearLayout>
+
+</LinearLayout>

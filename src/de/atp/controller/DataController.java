@@ -154,6 +154,20 @@ public class DataController {
         return res;
     }
 
+    // TODO: Fix me
+    public ATPTime getNextAlarm() {
+        List<ATPTime> alarms = getTodaysAlarms();
+        ATPTime now = new ATPTime();
+        for (ATPTime atpTime : alarms) {
+            if (now.after(atpTime) || now.equals(atpTime))
+                return atpTime;
+        }
+        if (alarms.isEmpty())
+            return new ATPTime();
+        // Alarm not today
+        return alarms.get(0);
+    }
+
     /**
      * Create a new row using the alarm hour and alarm minute. Use this function
      * after first creation of alarms

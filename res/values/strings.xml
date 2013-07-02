@@ -4,8 +4,7 @@
     <string name="app_name">Requester</string>
     <string name="action_settings">Settings</string>
     <string name="infotextstart">Bitte geben sie unten nach den folgenden Regeln Ihren 5 stelligen Code ein!</string>
-    <string name="infotextstartrules">
-1. Dritter Buchstabe des Vornamens der Mutter\n
+    <string name="infotextstartrules">1. Dritter Buchstabe des Vornamens der Mutter\n
 2. Dritter Buchstabe des Vornamens des Vaters\n
 3. Dritter Buchstabe des Geburtsortes\n
 4. Dritter Buchstabe der aktuellen Straße (Hauptwohnsitz)\n
@@ -21,8 +20,7 @@
     <string name="button_now">Jetzt</string>
     <string name="button_later">Später</string>
 
-
-    <!-- American Clock  -->
+    <!-- American Clock -->
     <string name="button_9am">09:00</string>
     <string name="button_10am">10:00</string>
     <string name="button_11am">11:00</string>
@@ -38,16 +36,21 @@
     <string name="button_9pm">21:00</string>
     <string name="button_10pm">22:00</string>
     <string name="button_11pm">23:00</string>
-
-    <string name="banner">Fakultät für Naturwissenschaften</string>
     <string name="timeTableDescription">Wählen Sie in jeder Zeile eine Alarmzeit aus</string>
-
     <string name="button_done">Fertig</string>
-	<string name="timetableToastMessage">Zeiten wurden nicht richtig ausgewählt</string>
+    <string name="timetableToastMessage">Zeiten wurden nicht richtig ausgewählt</string>
     <string name="missingInput">Es sind nicht alle Felder ausgefüllt!</string>
     <string name="contactsMinutesMismatch">Die angegebene Zeit passt nicht zu der Anzahl der Kontakte!</string>
     <string name="invalidMinutes">Für die Minuten bitte eine Zahl zwischen 0 und 59 angeben.</string>
     <string name="tooMuchMinutes">Soviel Zeit ist nicht seit dem letzten Termin vergangen.</string>
     <string name="databaseError">Datenbank-Fehler. Bitte wenden Sie sich an den zuständigen Administrator!</string>
+    <string name="title_activity_info">InfoActivity</string>
+
+    <!-- InfoActivity -->
+    <string name="infoActivity_AlarmLabel">Nächster Alarm</string>
+    <string name="infoActivity_AlarmPlaceholder">Placeholder</string>
+    <string name="infoActivity_TimeDiffLabel">Noch Zeit</string>
+    <string name="infoActivity_ChangeAlarm">Alarmzeiten</string>
+    <string name="infoActivity_Close">Beenden</string>
 
 </resources>
