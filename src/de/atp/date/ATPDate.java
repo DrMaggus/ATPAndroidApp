@@ -190,9 +190,14 @@ public class ATPDate implements ATPTimestamp<ATPDate>, Comparable<ATPDate> {
     @Override
     public int compareTo(ATPDate another) {
         Calendar c1 = GregorianCalendar.getInstance();
-        c1.set(getYear(), getMonth(), getDay());
+        // Only compare the year, month and day - normalize the other values
+        c1.set(getYear(), getMonth(), getDay(), 0, 0, 0);
+        c1.set(Calendar.MILLISECOND, 0);
+
         Calendar c2 = GregorianCalendar.getInstance();
-        c2.set(another.getYear(), another.getMonth(), another.getDay());
+        // Only compare the year, month and day - normalize the other values
+        c2.set(another.getYear(), another.getMonth(), another.getDay(), 0, 0, 0);
+        c2.set(Calendar.MILLISECOND, 0);
 
         return c1.compareTo(c2);
     }
