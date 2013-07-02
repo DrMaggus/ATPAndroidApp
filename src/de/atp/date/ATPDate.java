@@ -1,6 +1,5 @@
 package de.atp.date;
 
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -203,7 +202,11 @@ public class ATPDate implements ATPTimestamp<ATPDate>, Comparable<ATPDate> {
     }
 
     @Override
-    public String format(DateFormat formatter) {
-        return formatter.format(asDate());
+    public ATPDate diff(ATPDate other) {
+        int dayDiff = Math.abs(this.getDay() - other.getDay());
+        int monthDiff = Math.abs(this.getMonth() - other.getMonth());
+        int yearDiff = Math.abs(this.getYear() - other.getYear());
+
+        return new ATPDate(dayDiff, monthDiff, yearDiff);
     }
 }

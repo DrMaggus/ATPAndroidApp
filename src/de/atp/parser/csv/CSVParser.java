@@ -129,8 +129,8 @@ public class CSVParser implements Parser, RowConverter {
     public String writeRow(Row row) {
         StringBuilder sBuilder = new StringBuilder();
         sBuilder.append(row.getCode()).append(';');
-        sBuilder.append(row.getDate().format(DateFormat.getDateInstance())).append(';');
-        sBuilder.append(row.getAlarmTime().format(TIME_FORMAT)).append(';');
+        sBuilder.append(DateFormat.getDateInstance().format(row.getDate().asDate())).append(';');
+        sBuilder.append(TIME_FORMAT.format(row.getAlarmTime().asDate())).append(';');
         switch (row.getStatus()) {
             case ABORTED :
                 sBuilder.append("-1");
@@ -139,7 +139,7 @@ public class CSVParser implements Parser, RowConverter {
                 sBuilder.append("00:00");
                 break;
             case OK :
-                sBuilder.append(row.getAnswerTime().format(TIME_FORMAT)).append(';');
+                sBuilder.append(TIME_FORMAT.format(row.getAnswerTime().asDate())).append(';');
                 break;
             default :
                 break;

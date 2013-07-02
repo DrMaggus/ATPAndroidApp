@@ -1,6 +1,5 @@
 package de.atp.date;
 
-import java.text.DateFormat;
 import java.util.Date;
 
 public interface ATPTimestamp<T extends ATPTimestamp<T>> {
@@ -73,12 +72,19 @@ public interface ATPTimestamp<T extends ATPTimestamp<T>> {
      */
     public Date asDate();
 
+    /**
+     * @return A copy of this time
+     */
     public T copy();
 
     /**
-     * @param formatter
-     *            The formatter specified for this type
-     * @return A formatted string of this time
+     * Create a time difference between this time and other time. The time
+     * difference will always positive! To check, whether this is before other,
+     * use {@link #before(T)}
+     * 
+     * @param other
+     *            Time to diff
+     * @return A new instance containing the difference
      */
-    public String format(DateFormat formatter);
+    public T diff(T other);
 }

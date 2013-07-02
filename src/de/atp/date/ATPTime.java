@@ -1,6 +1,5 @@
 package de.atp.date;
 
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -200,7 +199,11 @@ public class ATPTime implements ATPTimestamp<ATPTime>, Comparable<ATPTime> {
     }
 
     @Override
-    public String format(DateFormat formatter) {
-        return formatter.format(asDate());
+    public ATPTime diff(ATPTime other) {
+        int hourDiff = Math.abs(this.getHour() - other.getHour());
+        int minuteDiff = Math.abs(this.getMinute() - other.getMinute());
+        int secondsDiff = Math.abs(this.getSecond() - other.getSecond());
+
+        return new ATPTime(hourDiff, minuteDiff, secondsDiff);
     }
 }
