@@ -1,8 +1,9 @@
 package de.atp.requester;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import org.joda.time.LocalTime;
+import org.joda.time.Period;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,11 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.atp.controller.DataController;
-import de.atp.date.ATPTime;
 
 public class InfoActivity extends Activity {
 
-    private final static DateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    private final static DateTimeFormatter TIME_FORMAT = DateTimeFormat.forPattern("HH:mm");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,18 +29,20 @@ public class InfoActivity extends Activity {
             return;
         }
         TextView view = (TextView) findViewById(R.id.infoActivity_alarmTime);
-        ATPTime alarmTime = controller.getNextAlarm();
-        ATPTime now = new ATPTime();
+        LocalTime alarmTime = controller.getNextAlarm();
+        LocalTime now = new LocalTime();
         String text = "";
-        if (alarmTime.before(now)) {
+        if (alarmTime.isBefore(now)) {
             text = "Morgen um ";
         }
-        text += TIME_FORMAT.format(alarmTime.asDate());
+        text += TIME_FORMAT.print(alarmTime);
 
         view.setText(text);
 
         view = (TextView) findViewById(R.id.infoActivity_time);
-        view.setText(TIME_FORMAT.format(alarmTime.diff(now).asDate()));
+        Period period = new Period(alarmTime, now);
+        LocalTime diff = new LocalTime(period.getHours(), period.getMinutes());
+        view.setText(TIME_FORMAT.print(diff));
 
         Button button = (Button) findViewById(R.id.infoActivity_timetableButton);
         button.setOnClickListener(new OnClickListener() {

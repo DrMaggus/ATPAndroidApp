@@ -1,8 +1,9 @@
 package de.atp.data;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
+
 import android.annotation.SuppressLint;
-import de.atp.date.ATPDate;
-import de.atp.date.ATPTime;
 
 @SuppressLint("DefaultLocale")
 public class Row {
@@ -12,19 +13,19 @@ public class Row {
     protected int index;
 
     private String code;
-    private ATPDate date;
-    private ATPTime alarmTime;
-    private ATPTime answerTime;
+    private DateTime date;
+    private LocalTime alarmTime;
+    private LocalTime answerTime;
     private RowStatus status;
     private int contacts;
     private int hours;
     private int minutes;
 
-    public Row(String code, ATPDate date, ATPTime alarmTime) {
+    public Row(String code, DateTime date, LocalTime alarmTime) {
         this(code, date, alarmTime, null, RowStatus.DIRTY, -1, -1, -1);
     }
 
-    public Row(String code, ATPDate date, ATPTime alarmTime, ATPTime answerTime, RowStatus status, int contacts, int hours, int minutes) {
+    public Row(String code, DateTime date, LocalTime alarmTime, LocalTime answerTime, RowStatus status, int contacts, int hours, int minutes) {
         this.code = code;
         this.date = date;
         this.alarmTime = alarmTime;
@@ -53,7 +54,7 @@ public class Row {
     /**
      * @return Creation date of the row
      */
-    public ATPDate getDate() {
+    public DateTime getDate() {
         return date;
     }
 
@@ -61,14 +62,14 @@ public class Row {
      * @param date
      *            Creation date of the row
      */
-    public void setDate(ATPDate date) {
+    public void setDate(DateTime date) {
         this.date = date;
     }
 
     /**
      * @return The desired to ring the alarm
      */
-    public ATPTime getAlarmTime() {
+    public LocalTime getAlarmTime() {
         return alarmTime;
     }
 
@@ -76,14 +77,14 @@ public class Row {
      * @param alarmTime
      *            The desired to ring the alarm
      */
-    public void setAlarmTime(ATPTime alarmTime) {
+    public void setAlarmTime(LocalTime alarmTime) {
         this.alarmTime = alarmTime;
     }
 
     /**
      * @return Time where the user answered the request
      */
-    public ATPTime getAnswerTime() {
+    public LocalTime getAnswerTime() {
         return answerTime;
     }
 
@@ -91,7 +92,7 @@ public class Row {
      * @param answerTime
      *            Time where the user answered the request
      */
-    public void setAnswerTime(ATPTime answerTime) {
+    public void setAnswerTime(LocalTime answerTime) {
         this.answerTime = answerTime;
     }
 

@@ -36,7 +36,7 @@ public class SurveyActivity extends Activity {
                 long minutes = 0, contacts = 0;
                 try {
                     // TODO: Use completly new interface
-                    maxMinutes = (new Date()).getTime() - DataController.instance().getLastAnsweredDate().asDate().getTime();
+                    maxMinutes = (new Date()).getTime() - DataController.instance().getLastAnsweredDate().toDate().getTime();
                     maxMinutes /= 60000;
                 } catch (java.lang.NullPointerException e) {
                     maxMinutes = Integer.MAX_VALUE;
@@ -95,7 +95,8 @@ public class SurveyActivity extends Activity {
         Calendar cal = GregorianCalendar.getInstance();
         Date date;
         // TODO: Use completly new interface
-        date = DataController.instance().getLastAnsweredDate().asDate();
+        date = DataController.instance().getLastAnsweredDate().toDate();
+//        date = DataController.instance().getLastAnsweredDate().;
         if (date == null) {
             errorToast();
         }
@@ -107,7 +108,6 @@ public class SurveyActivity extends Activity {
         TextView question = (TextView) findViewById(R.id.contactQuestionView);
         question.setText(contactQuestion);
     }
-
     private void errorToast() {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;

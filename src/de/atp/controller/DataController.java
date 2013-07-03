@@ -4,12 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
+
 import android.os.Environment;
 import de.atp.data.DataTable;
 import de.atp.data.Row;
 import de.atp.data.RowStatus;
-import de.atp.date.ATPDate;
-import de.atp.date.ATPTime;
 import de.atp.parser.Parser;
 import de.atp.parser.csv.CSVParser;
 
@@ -139,10 +140,10 @@ public class DataController {
     /**
      * @return A list containing todays alarm times
      */
-    public List<ATPTime> getTodaysAlarms() {
-        List<ATPTime> res = new ArrayList<ATPTime>();
+    public List<LocalTime> getTodaysAlarms() {
+        List<LocalTime> res = new ArrayList<LocalTime>();
 
-        ATPDate today = new ATPDate();
+        DateTime today = new DateTime();
 
         // Search for the alarm times
         for (Row row : table.getRows()) {
@@ -155,15 +156,15 @@ public class DataController {
     }
 
     // TODO: Fix me
-    public ATPTime getNextAlarm() {
-        List<ATPTime> alarms = getTodaysAlarms();
-        ATPTime now = new ATPTime();
-        for (ATPTime atpTime : alarms) {
-            if (now.after(atpTime) || now.equals(atpTime))
+    public LocalTime getNextAlarm() {
+        List<LocalTime> alarms = getTodaysAlarms();
+        LocalTime now = new LocalTime();
+        for (LocalTime atpTime : alarms) {
+            if (now.isAfter(atpTime) || now.equals(atpTime))
                 return atpTime;
         }
         if (alarms.isEmpty())
-            return new ATPTime();
+            return new LocalTime();
         // Alarm not today
         return alarms.get(0);
     }
@@ -179,10 +180,10 @@ public class DataController {
      */
     public void createDummyRow(int alarmHour, int alarmMinute) {
 
-        ATPDate date = new ATPDate();
-        date.up(ATPDate.FIELD_DAY);
+        DateTime date = new DateTime();
+        date = date.plusDays(1);
 
-        ATPTime alarmTime = new ATPTime(alarmHour, alarmMinute, 0);
+        LocalTime alarmTime = new LocalTime(alarmHour, alarmMinute);
 
         Row row = new Row(probandCode, date, alarmTime);
 
@@ -203,7 +204,7 @@ public class DataController {
     public void completeQuestions(int hour, int minutes, int contacts) {
 
         Row row = getCurrentRow();
-        row.setAnswerTime(new ATPTime());
+        row.setAnswerTime(new LocalTime());
         row.setStatus(RowStatus.OK);
         row.setHours(hour);
         row.setMinutes(minutes);
@@ -223,10 +224,10 @@ public class DataController {
      *            Delivers information about the alarmtime and date
      */
     private void generateNextAlarm(Row cur) {
-        ATPDate date = cur.getDate().copy();
-        date.up(ATPDate.FIELD_DAY);
+        DateTime date = cur.getDate();
+        date = date.plusDays(1);
 
-        ATPTime alarmTime = cur.getAlarmTime().copy();
+        LocalTime alarmTime = new LocalTime(cur.getAlarmTime());
 
         Row row = new Row(probandCode, date, alarmTime);
 
@@ -251,13 +252,13 @@ public class DataController {
      * @return
      */
     private Row getCurrentRow() {
-        ATPTime now = new ATPTime();
+        LocalTime now = new LocalTime();
         Row minimum = table.getRow(0);
         long min = Long.MAX_VALUE;
         List<Row> rows = table.getRows();
         for (int i = rows.size() - 1; i >= 0; --i) {
             Row row = rows.get(i);
-            if (row.getAlarmTime().after(now)) {
+            if (row.getAlarmTime().isAfter(now)) {
                 long diff = now.compareTo(row.getAlarmTime());
                 if (diff <= min) {
                     min = diff;
@@ -281,17 +282,15 @@ public class DataController {
      *            The new time in minutes (from 0-59)
      */
     public void changeAlarmTime(int oldHour, int oldMinute, int newHour, int newMinute) {
-        ATPTime oldTime = new ATPTime(oldHour, oldMinute, 0);
+
+        LocalTime oldTime = new LocalTime(oldHour, oldMinute);
         // Search for the old alarm time
         for (Row row : table.getRows()) {
             // Change only times for unused rows
             if (row.getStatus().equals(RowStatus.DIRTY)) {
-                ATPTime alarmTime = row.getAlarmTime().copy();
-                alarmTime.setSecond(0);
+                LocalTime alarmTime = new LocalTime(row.getAlarmTime());
                 if (alarmTime.equals(oldTime)) {
-                    alarmTime.setHour(newHour);
-                    alarmTime.setMinute(newMinute);
-                    row.setAlarmTime(alarmTime);
+                    row.setAlarmTime(new LocalTime(newHour, newMinute));
                     table.updateRow(row);
                     parser.write(table.getRows());
                 }
@@ -306,14 +305,15 @@ public class DataController {
      * @return <code>Null</code> when the proband has never answered
      *         successfully a question, otherwise the date
      */
-    public ATPTime getLastAnsweredDate() {
+    public DateTime getLastAnsweredDate() {
 
         List<Row> rows = table.getRows();
 
         for (int i = rows.size() - 1; i >= 0; --i) {
             Row row = rows.get(i);
-            if (row.getStatus().equals(RowStatus.OK))
-                return row.getAnswerTime();
+            if (row.getStatus().equals(RowStatus.OK)) {
+                return new DateTime(row.getDate().getYear(), row.getDate().getMonthOfYear(), row.getDate().getDayOfMonth(), row.getAnswerTime().getHourOfDay(), row.getAnswerTime().getMinuteOfHour(), row.getAnswerTime().getSecondOfMinute());
+            }
         }
 
         if (rows.isEmpty())
@@ -321,7 +321,7 @@ public class DataController {
         else {
             // return file creation date
             File f = ((CSVParser) parser).getFile();
-            return new ATPTime(f.lastModified());
+            return new DateTime(f.lastModified());
         }
     }
 

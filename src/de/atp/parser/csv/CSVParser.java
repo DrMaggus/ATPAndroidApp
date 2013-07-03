@@ -7,19 +7,20 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Pattern;
+
+import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import android.annotation.SuppressLint;
 import de.atp.controller.DataController;
 import de.atp.data.Row;
 import de.atp.data.RowStatus;
-import de.atp.date.ATPDate;
-import de.atp.date.ATPTime;
 import de.atp.parser.InvalidFormatException;
 import de.atp.parser.Parser;
 import de.atp.parser.RowConverter;
@@ -129,8 +130,9 @@ public class CSVParser implements Parser, RowConverter {
     public String writeRow(Row row) {
         StringBuilder sBuilder = new StringBuilder();
         sBuilder.append(row.getCode()).append(';');
-        sBuilder.append(DateFormat.getDateInstance().format(row.getDate().asDate())).append(';');
-        sBuilder.append(TIME_FORMAT.format(row.getAlarmTime().asDate())).append(';');
+        sBuilder.append(DateFormat.getDateInstance().format(row.getDate().toDate())).append(';');
+
+        sBuilder.append(TIME_FORMAT.print(row.getAlarmTime())).append(';');
         switch (row.getStatus()) {
             case ABORTED :
                 sBuilder.append("-1");
@@ -139,7 +141,7 @@ public class CSVParser implements Parser, RowConverter {
                 sBuilder.append("00:00");
                 break;
             case OK :
-                sBuilder.append(TIME_FORMAT.format(row.getAnswerTime().asDate())).append(';');
+                sBuilder.append(TIME_FORMAT.print(row.getAnswerTime())).append(';');
                 break;
             default :
                 break;
@@ -152,13 +154,12 @@ public class CSVParser implements Parser, RowConverter {
 
         return sBuilder.toString();
     }
-
     /**
      * Pattern to split a single string - compile once to save performance
      */
     private final static Pattern SPLIT_PATTERN = Pattern.compile(";");
 
-    private final static DateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    private final static DateTimeFormatter TIME_FORMAT = DateTimeFormat.forPattern("HH:mm");
 
     /**
      * Parse a Row from a single line
@@ -177,9 +178,9 @@ public class CSVParser implements Parser, RowConverter {
 
             int p = 0;
             String probandCode = split[p++];
-            ATPDate day = new ATPDate(DateFormat.getDateInstance().parse(split[p++]));
-            ATPTime alarmTime = new ATPTime(TIME_FORMAT.parse(split[p++]));
-            ATPTime answerTime = new ATPTime(TIME_FORMAT.parse(split[p++]));
+            DateTime day = new DateTime(DateFormat.getDateInstance().parse(split[p++]));
+            LocalTime alarmTime = new LocalTime(TIME_FORMAT.parseLocalTime(split[p++]));
+            LocalTime answerTime = new LocalTime(TIME_FORMAT.parseLocalTime(split[p++]));
             RowStatus status = RowStatus.getStatus(Integer.parseInt(split[p++]));
             int contacts = Integer.parseInt(split[p++]);
             int hours = Integer.parseInt(split[p++]);
