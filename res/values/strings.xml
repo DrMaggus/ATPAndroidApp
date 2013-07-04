@@ -45,8 +45,8 @@
     
     
     <!-- surveyActivity -->
-    <string name="surveyActivity_contact_question">Wie viele soziale Kontakte hatten Sie seit dem letzten Alarm am %1$d. %2$d. um %3$d Uhr?</string>
-    <string name="surveyActivity_minutes"> Minuten</string>
+    <string name="surveyActivity_contactQuestion">Wie viele soziale Kontakte hatten Sie seit dem letzten Alarm am %1$s um %2$s Uhr?</string>
+    <string name="surveyActivity_lastAnsweredDate">dd.MM.</string><string name="surveyActivity_lastAnsweredTime">HH</string><string name="surveyActivity_minutes"> Minuten</string>
     <string name="surveyActivity_hours"> Stunden</string>
     <string name="surveyActivity_missingInput">Es sind nicht alle Felder ausgefüllt!</string>
     <string name="surveyActivity_numberOfContacts"> Anzahl</string>
@@ -63,5 +63,7 @@
     <string name="infoActivity_TimeDiffLabel">Noch Zeit</string>
     <string name="infoActivity_ChangeAlarm">Alarmzeiten</string>
     <string name="infoActivity_Close">Beenden</string>
+    
+    
 
 </resources>
