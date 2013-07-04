@@ -24,6 +24,8 @@ import de.atp.controller.DataController;
 public class TimetableActivity extends Activity implements OnClickListener {
 
     private List<RowButton> timeButtons = new ArrayList<RowButton>();
+    private Button button_done;
+    private Button button_cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +55,11 @@ public class TimetableActivity extends Activity implements OnClickListener {
             timeButtons.get(i).getTogglebutton().setOnClickListener(this);
 
         // Create done button
-        Button button_done = (Button) findViewById(R.id.button_done);
+        button_done = (Button) findViewById(R.id.button_done);
         button_done.setOnClickListener(this);
+        //Create Cancel button
+        button_cancel = (Button) findViewById(R.id.timetable_cancel);
+        button_cancel.setOnClickListener(this);
     }
     
     @Override
@@ -92,7 +97,8 @@ public class TimetableActivity extends Activity implements OnClickListener {
             case R.id.button_10pm:  toggle(3, 22); break;
             case R.id.button_11pm:  toggle(3, 23); break;         
 
-            //@formatter:on
+            case R.id.timetable_cancel: finish(); break;
+
             case R.id.button_done :
                 if (!buttonCheck()) {
                     Toast.makeText(this, R.string.timetableToastMessage, Toast.LENGTH_SHORT).show();
