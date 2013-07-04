@@ -4,6 +4,7 @@
     android:layout_height="fill_parent"
     android:background="@drawable/mainbackground"
     android:orientation="vertical"
+    android:padding="11sp"
     android:weightSum="8" >
 
     <LinearLayout
@@ -34,7 +35,7 @@
         android:gravity="center"
         android:textColor="@color/lettering"
         android:text="@string/timeTableDescription"
-        android:textSize="17sp" />
+        android:textSize="15sp" />
 
     <TableLayout
         android:layout_width="fill_parent"
@@ -277,18 +278,25 @@
         </TableRow>
     </TableLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5" >
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="100dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dip"
+            android:text="@string/timetableActivity_buttonCancel" />
 
         <Button
             android:id="@+id/button_done"
-            android:layout_width="wrap_content"
+            android:layout_width="100dip"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/button_done" ></Button>
-    </RelativeLayout>
+            android:layout_marginLeft="50dip"
+            android:text="@string/button_done"
+             />
+
+    </LinearLayout>
 
 </LinearLayout>
