@@ -28,17 +28,39 @@ public class Alarm extends Service {
      */
     @Override
     public void onStart(Intent intent, int startId) {
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        // finish open Activities
         sendBroadcast(new Intent("finishActivity"));
-        Intent test = new Intent("android.intent.category.LAUNCHER");
-        test.setClassName("de.atp.requester", "de.atp.requester.SurveyActivity");
-        test.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(test);
+        startSurvey();
+        vibration();
+        playRingtone();
+        Toast.makeText(this, "Bitte Werte eintragen!", Toast.LENGTH_LONG).show();
+    }
+    
+    /**
+     * let the smartphone vibrate
+     */
+    private void vibration(){
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);        
         vibrator.vibrate(2000);
+    }
+    
+    /**
+     * play some Sounds
+     */
+    private void playRingtone(){
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone ringtone = RingtoneManager.getRingtone(this, notification);
-        ringtone.play();
-        Toast.makeText(this, "Bitte Werte eintragen!", 3).show();
+        ringtone.play();        
+    }
+    
+    /**
+     * starts the SurveyActivity
+     */
+    private void startSurvey(){
+        Intent intent = new Intent("android.intent.category.LAUNCHER");
+        intent.setClassName("de.atp.requester", "de.atp.requester.SurveyActivity");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);        
     }
 
     /**

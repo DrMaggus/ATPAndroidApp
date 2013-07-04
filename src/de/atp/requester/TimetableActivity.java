@@ -1,13 +1,13 @@
 package de.atp.requester;
 
 
-import java.util.Calendar;
-import java.util.TimeZone;
 
 import de.atp.controller.Alarm;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 
 import android.app.Activity;
@@ -26,8 +26,6 @@ import de.atp.controller.DataController;
 public class TimetableActivity extends Activity implements OnClickListener {
 
     
-    ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
-    AlarmManager[] am = new AlarmManager[4];
     
 
     // Row indices
@@ -111,7 +109,6 @@ public class TimetableActivity extends Activity implements OnClickListener {
         Button button_done = (Button) findViewById(R.id.button_done);
         button_done.setOnClickListener(this);
         
-        setup();
 
     }
 
@@ -174,17 +171,14 @@ public class TimetableActivity extends Activity implements OnClickListener {
                 } else {
                     // Persist next alarm times
                     DataController controller = DataController.instance();
-                    for (int i = 0, j = 0; i < timeButtons.size(); ++i) {
+                    for (int i = 0; i < timeButtons.size(); ++i) {
                         // Selected alarm time
                         if (timeButtons.get(i).isChecked()) {
                             // First possible time begins at 9 o'clock
                             // and max is 23 (24 = 0)
                             int hour = (i + 9) % 24;
-                            // save alarm time
-                            setAlarmManager(hour, am[j], j);
-                            // j counts the AlarmManager                            
-                            j++;
                             controller.createDummyRow(hour, 0);
+                            setFirstAlarm();
                         }
                     }
                     moveTaskToBack(true);
@@ -212,46 +206,32 @@ public class TimetableActivity extends Activity implements OnClickListener {
 
     }
 
-    /**
-     * sets up Intent, PendingIntent and the four AlarmManager
-     */
-    private void setup() {
-        Intent myIntent = new Intent(this, Alarm.class);
-        for(int i=0; i<4; i++){
-            am[i]=(AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
-            intentArray.add(PendingIntent.getService(this, i, myIntent, 0));
-        }
-    }
+
 
     /**
-     * call this method if you want to create a new Alarm
-     * @param hour
-     * @param minute
-     * @param am
+     * call this method to set first Alarm
      */
-    private void setAlarmManager(int hour, AlarmManager am, int intentCount)
+    private void setFirstAlarm()
     {
-        am.cancel(intentArray.get(intentCount));
-        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-        int thisMinute = cal.get(Calendar.MINUTE);
-        int thisHour = cal.get(Calendar.HOUR_OF_DAY);        
-        int newMinute;
-        int newHour;
-        newHour = hour - thisHour;
-        if((thisMinute!=0 )){
-            newMinute = -thisMinute + 60;
-            newHour--;
-            if(newHour < 0) newHour += 24;
-        }
-        else{
-            newMinute = 0;            
-            if(newHour < 0) newHour += 24;
-        }
-        cal.add(Calendar.MINUTE, newMinute);
-        cal.add(Calendar.HOUR_OF_DAY, newHour);
-        //cal.add(Calendar.SECOND, hour);
+        Intent myIntent = new Intent(this, Alarm.class);
+        AlarmManager alarmManager=(AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
+        PendingIntent pendingIntent = PendingIntent.getService(this, 0, myIntent, 0);
+        DataController controller = DataController.instance();
         
-        am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, intentArray.get(intentCount));
+        if (controller == null) {
+            Toast.makeText(getBaseContext(), "Can't load controller!", Toast.LENGTH_LONG).show();
+            return;
+        }
+       
+        DateTime alarmTime = controller.getNextAlarm();
+
+        // Error while founding the alarm time
+        if (alarmTime == null) {
+            Toast.makeText(getBaseContext(), "No alarm found!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        
+        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime.getMillis(), pendingIntent);
     }
 
 }
