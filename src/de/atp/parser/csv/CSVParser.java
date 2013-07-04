@@ -141,7 +141,7 @@ public class CSVParser implements Parser, RowConverter {
                 sBuilder.append("00:00");
                 break;
             case OK :
-                sBuilder.append(TIME_FORMAT.print(row.getAnswerTime())).append(';');
+                sBuilder.append(TIME_FORMAT.print(row.getAnswerTime()));
                 break;
             default :
                 break;
@@ -150,7 +150,7 @@ public class CSVParser implements Parser, RowConverter {
         sBuilder.append(row.getStatus().getStatus()).append(';');
         sBuilder.append(row.getContacts()).append(';');
         sBuilder.append(row.getHours()).append(';');
-        sBuilder.append(row.getMinutes()).append(';');
+        sBuilder.append(row.getMinutes());
 
         return sBuilder.toString();
     }
