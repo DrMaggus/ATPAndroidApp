@@ -4,11 +4,13 @@
     <string name="app_name">Requester</string>
     <string name="action_settings">Settings</string>
     <string name="infotextstart">Bitte geben sie unten nach den folgenden Regeln Ihren 5 stelligen Code ein!</string>
-    <string name="infotextstartrules">1. Dritter Buchstabe des Vornamens der Mutter\n
-2. Dritter Buchstabe des Vornamens des Vaters\n
-3. Dritter Buchstabe des Geburtsortes\n
-4. Dritter Buchstabe der aktuellen Straße (Hauptwohnsitz)\n
-5. Dritter Buchstabe des Geburtsmonats</string><string name="general_databaseError">Datenbank-Fehler. Bitte wenden Sie sich an den zuständigen Administrator!</string>
+    <string name="startActivity_rule1">1. Dritter Buchstabe des Vornamens der Mutter </string>
+    <string name="startActivity_rule2">2. Dritter Buchstabe des Vornamens des Vaters </string>   
+	<string name="startActivity_rule3">3. Dritter Buchstabe des Geburtsortes</string>
+	<string name="startActivity_rule4">4. Dritter Buchstabe der aktuellen Straße</string>
+	<string name="startActivity_rule5">5. Dritter Buchstabe des Geburtsmonats</string>
+
+	<string name="general_databaseError">Datenbank-Fehler. Bitte wenden Sie sich an den zuständigen Administrator!</string>
     <string name="buttonstart">Bestätigen</string>
     <string name="startcodehint">code</string>
     

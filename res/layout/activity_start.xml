@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:background="@drawable/mainbackground"
-	android:padding="11sp">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/mainbackground"
+    android:orientation="vertical"
+    android:padding="11sp" >
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -13,57 +13,97 @@
             android:id="@+id/imageView1"
             android:layout_width="65dip"
             android:layout_height="65dip"
-            android:src="@drawable/applogo"
             android:layout_marginRight="5dip"
-             />
+            android:src="@drawable/applogo" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@drawable/headerlogo" />
-
     </LinearLayout>
-	
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="20dip"
-        android:textColor="@color/lettering"
+        android:gravity="center"
         android:text="@string/infotextstart"
-        android:textSize="17sp" />
-    
+        android:textColor="@color/lettering"
+        android:textSize="15sp" />
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dip"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:gravity="left"
         android:layout_marginTop="20dip"
-        android:textColor="@color/lettering"
-        android:text="@string/infotextstartrules" />
-    
-    <RelativeLayout
+        android:text="@string/startActivity_rule1"
+        android:textColor="@color/lettering" />
+
+    <TextView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dip"
+        android:layout_weight="0.5"
+        android:gravity="left"
+        android:text="@string/startActivity_rule2"
+        android:textColor="@color/lettering" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.5"
+        android:gravity="left"
+        android:text="@string/startActivity_rule3"
+        android:textColor="@color/lettering" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.5"
+        android:gravity="left"
+        android:text="@string/startActivity_rule4"
+        android:textColor="@color/lettering" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.5"
+        android:gravity="left"
+        android:text="@string/startActivity_rule5"
+        android:textColor="@color/lettering" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
 
         <EditText
             android:id="@+id/editTextCode"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:ems="3"
             android:hint="@string/startcodehint"
-            android:maxLength="5" />
-        
+            android:maxLength="5" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_gravity="right">
+
         <Button
             android:id="@+id/button1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/editTextCode"
-            android:text="@string/buttonstart" 
-            android:clickable="false"/>
-        <!--  android:enabled="false"       -->
-    </RelativeLayout>
+            android:layout_weight="1"
+            android:clickable="false"
+            android:text="@string/buttonstart" />
+
+    </LinearLayout>
 
 </LinearLayout>
