@@ -1,6 +1,7 @@
 package de.atp.requester;
 
-import java.util.Date;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 
 import android.content.Context;
 import android.view.View;
@@ -21,9 +22,8 @@ public class SurveyOnClickListener implements OnClickListener {
         long maxMinutes;
         long minutes = 0, contacts = 0;
         try {
-            // TODO: Use completly new interface
-            maxMinutes = (new Date()).getTime() - DataController.instance().getLastAnsweredDate().toDate().getTime();
-            maxMinutes /= 60000;
+            Duration duration = new Duration(DateTime.now(), DataController.instance().getLastAnsweredDate());
+            maxMinutes = duration.getStandardMinutes();
         } catch (java.lang.NullPointerException e) {
             maxMinutes = Integer.MAX_VALUE;
         }
