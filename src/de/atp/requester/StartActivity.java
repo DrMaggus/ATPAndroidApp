@@ -1,5 +1,7 @@
 package de.atp.requester;
 
+import java.util.regex.Pattern;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,13 +27,10 @@ public class StartActivity extends Activity implements OnClickListener {
         }
     }
 
+    private static final Pattern p = Pattern.compile("\\p{Alpha}{5}");
+
     private boolean codeIsValid(String c) {
-        if (!c.matches(".*\\d.*") && (c.matches("....."))) {
-            return true;
-        } else {
-            Toast.makeText(this, "Falsche Eingabe!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        return p.matcher(c).matches();
     }
 
     public void onClick(View v) {

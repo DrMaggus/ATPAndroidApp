@@ -16,10 +16,11 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name">
+        android:label="@string/ATP" >
         <activity
             android:name="de.atp.requester.StartActivity"
-            android:label="@string/app_name" >
+            android:label="@string/ATP"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,21 +29,24 @@
         </activity>
         <activity
             android:name="de.atp.requester.TimetableActivity"
-            android:label="@string/app_name" >
+            android:label=""
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="de.atp.requester.SurveyActivity"
-            android:label="@string/app_name" >
+            android:label=""
+            android:screenOrientation="portrait" >
         </activity>
 
         <service android:name="de.atp.controller.Alarm" />
 
         <activity
             android:name="de.atp.requester.InfoActivity"
-            android:label="@string/title_activity_info" >
+            android:label=""
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

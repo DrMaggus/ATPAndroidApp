@@ -1,9 +1,5 @@
 package de.atp.requester;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -39,6 +35,11 @@ public class SurveyActivity extends Activity {
     }
 
     private void contactQuestion() {
+        DataController dataController = DataController.instance();
+        if(dataController==null) {
+            errorToast();
+            return;
+        }
         DateTime date = DataController.instance().getLastAnsweredDate();
         if(date==null) {
             errorToast();

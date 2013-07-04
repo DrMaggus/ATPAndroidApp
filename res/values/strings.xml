@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <string name="app_name">Requester</string>
+    <string name="ATP">ATP</string>
+    
+    <!-- startActivity -->
     <string name="action_settings">Settings</string>
     <string name="infotextstart">Bitte geben sie unten nach den folgenden Regeln Ihren 5 stelligen Code ein!</string>
     <string name="startActivity_rule1">1. Dritter Buchstabe des Vornamens der Mutter </string>
-    <string name="startActivity_rule2">2. Dritter Buchstabe des Vornamens des Vaters </string>   
-	<string name="startActivity_rule3">3. Dritter Buchstabe des Geburtsortes</string>
-	<string name="startActivity_rule4">4. Dritter Buchstabe der aktuellen Straße</string>
-	<string name="startActivity_rule5">5. Dritter Buchstabe des Geburtsmonats</string>
-
-	<string name="general_databaseError">Datenbank-Fehler. Bitte wenden Sie sich an den zuständigen Administrator!</string>
+    <string name="startActivity_rule2">2. Dritter Buchstabe des Vornamens des Vaters </string>
+    <string name="startActivity_rule3">3. Dritter Buchstabe des Geburtsortes</string>
+    <string name="startActivity_rule4">4. Dritter Buchstabe der aktuellen Straße</string>
+    <string name="startActivity_rule5">5. Dritter Buchstabe des Geburtsmonats</string>
+    <string name="general_databaseError">Datenbank-Fehler. Bitte wenden Sie sich an den zuständigen Administrator!</string>
     <string name="buttonstart">Bestätigen</string>
     <string name="startcodehint">code</string>
-    
-    
-    
-    
-    
     <string name="AlarmDialog">Bitte ausfüllen.</string>
     <string name="button_now">Jetzt</string>
     <string name="button_later">Später</string>
 
-    <!-- American Clock -->
+    <!-- timetableActivity -->
     <string name="button_9am">09:00</string>
     <string name="button_10am">10:00</string>
     <string name="button_11am">11:00</string>
@@ -42,11 +38,12 @@
     <string name="button_done">Fertig</string>
     <string name="timetableToastMessage">Zeiten wurden nicht richtig ausgewählt</string>
     <string name="timetableActivity_buttonCancel">Abbruch</string>
-    
-    
+
     <!-- surveyActivity -->
     <string name="surveyActivity_contactQuestion">Wie viele soziale Kontakte hatten Sie seit dem letzten Alarm am %1$s um %2$s Uhr?</string>
-    <string name="surveyActivity_lastAnsweredDate">dd.MM.</string><string name="surveyActivity_lastAnsweredTime">HH</string><string name="surveyActivity_minutes"> Minuten</string>
+    <string name="surveyActivity_lastAnsweredDate">dd.MM.</string>
+    <string name="surveyActivity_lastAnsweredTime">HH</string>
+    <string name="surveyActivity_minutes"> Minuten</string>
     <string name="surveyActivity_hours"> Stunden</string>
     <string name="surveyActivity_missingInput">Es sind nicht alle Felder ausgefüllt!</string>
     <string name="surveyActivity_numberOfContacts"> Anzahl</string>
@@ -54,16 +51,13 @@
     <string name="surveyActivity_time_question">Schätzen Sie bitte zusätzlich die Dauer der Kontakte ein.</string>
     <string name="surveyActivity_invalidMinutes">Für die Minuten bitte eine Zahl zwischen 0 und 59 angeben.</string>
     <string name="surveyActivity_contactsMinutesMismatch">Die angegebene Zeit passt nicht zu der Anzahl der Kontakte!</string>
-   
-    <string name="title_activity_info">InfoActivity</string>
 
     <!-- InfoActivity -->
+    <string name="title_activity_info">InfoActivity</string>
     <string name="infoActivity_AlarmLabel">Nächster Alarm</string>
     <string name="infoActivity_AlarmPlaceholder">Placeholder</string>
     <string name="infoActivity_TimeDiffLabel">Noch Zeit</string>
     <string name="infoActivity_ChangeAlarm">Alarmzeiten</string>
     <string name="infoActivity_Close">Beenden</string>
-    
-    
 
 </resources>

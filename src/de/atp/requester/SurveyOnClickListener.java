@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -22,7 +23,7 @@ public class SurveyOnClickListener implements OnClickListener {
         long maxMinutes;
         long minutes = 0, contacts = 0;
         try {
-            Duration duration = new Duration(DateTime.now(), DataController.instance().getLastAnsweredDate());
+            Duration duration = new Duration(DataController.instance().getLastAnsweredDate(), DateTime.now());
             maxMinutes = duration.getStandardMinutes();
         } catch (java.lang.NullPointerException e) {
             maxMinutes = Integer.MAX_VALUE;
@@ -42,6 +43,8 @@ public class SurveyOnClickListener implements OnClickListener {
             toastText(v.getResources().getString(R.string.surveyActivity_tooMuchMinutes));
         else if (!invalidInput) {
             saveValues();
+            activity.startActivity(new Intent(activity, InfoActivity.class));
+            activity.finish();
             return;
         }
     }
