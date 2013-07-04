@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -37,19 +39,14 @@ public class SurveyActivity extends Activity {
     }
 
     private void contactQuestion() {
-        Calendar cal = GregorianCalendar.getInstance();
-        Date date;
-        // TODO: Use completly new interface
-        date = DataController.instance().getLastAnsweredDate().toDate();
-//        date = DataController.instance().getLastAnsweredDate().;
-        if (date == null) {
+        DateTime date = DataController.instance().getLastAnsweredDate();
+        if(date==null) {
             errorToast();
+            return;
         }
-        cal.setTime(date);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        int month = cal.get(Calendar.MONTH);
-        int hour = cal.get(Calendar.HOUR_OF_DAY);
-        String contactQuestion = this.getResources().getString(R.string.surveyActivity_contact_question, day, month, hour);
+        DateTimeFormatter dateFormat = DateTimeFormat.forPattern(this.getResources().getString(R.string.surveyActivity_lastAnsweredDate));
+        DateTimeFormatter hourFormat = DateTimeFormat.forPattern(this.getResources().getString(R.string.surveyActivity_lastAnsweredTime));
+        String contactQuestion = this.getResources().getString(R.string.surveyActivity_contactQuestion, dateFormat.print(date), hourFormat.print(date));
         TextView question = (TextView) findViewById(R.id.contactQuestionView);
         question.setText(contactQuestion);
     }

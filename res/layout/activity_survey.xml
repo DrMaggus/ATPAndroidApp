@@ -35,7 +35,7 @@
         android:textColor="@color/lettering"
         android:gravity="center"
         android:layout_margin="20dip"
-        android:text="@string/surveyActivity_contact_question"
+        android:text="@string/surveyActivity_contactQuestion"
         android:textSize="15sp" 
         />
 

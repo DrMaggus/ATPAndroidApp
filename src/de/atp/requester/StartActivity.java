@@ -39,6 +39,7 @@ public class StartActivity extends Activity implements OnClickListener {
         if (codeIsValid(code)) {
             DataController.instance(code);
             startActivity(new Intent(this, TimetableActivity.class));
+            finish();
         }
     }
 
