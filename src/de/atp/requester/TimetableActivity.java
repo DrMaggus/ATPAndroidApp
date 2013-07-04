@@ -1,14 +1,12 @@
 package de.atp.requester;
 
-
-
 import de.atp.controller.Alarm;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
-
+import org.joda.time.LocalTime;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -25,9 +23,6 @@ import de.atp.controller.DataController;
 
 public class TimetableActivity extends Activity implements OnClickListener {
 
-    
-    
-
     // Row indices
     private static final int ROW_1 = 4;
     private static final int ROW_2 = 7;
@@ -35,7 +30,6 @@ public class TimetableActivity extends Activity implements OnClickListener {
     private static final int ROW_4 = 15;
 
     private List<ToggleButton> timeButtons = new ArrayList<ToggleButton>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +102,10 @@ public class TimetableActivity extends Activity implements OnClickListener {
         // Create done button
         Button button_done = (Button) findViewById(R.id.button_done);
         button_done.setOnClickListener(this);
-        
+    }
 
+    private ToggleButton getButtonFromTime(int time) {
+        return timeButtons.get(time - 9);
     }
 
     private void setButtonRowToRed(int row) {
@@ -132,10 +128,32 @@ public class TimetableActivity extends Activity implements OnClickListener {
                 break;
         }
     }
+    
+    private boolean allowToggle(int row, int hour) {
+        DataController dc = DataController.instance();
+        if (!dc.getTodaysAlarms().isEmpty()) 
+            if (dc.getTodaysAlarms().get(row).isAfter(LocalTime.now()) && 
+                    new LocalTime(hour, 0, 0).isBefore(LocalTime.now())) {
+                Toast.makeText(this, "So nicht,  Freundchen!", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        return true;
+    }
 
-    private void toggle(int row, int id, int hour) {
+    private void toggle(int row, int hour) {
         setButtonRowToRed(row);
-        ((ToggleButton) findViewById(id)).setChecked(true);
+        getButtonFromTime(hour).toggle();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DataController dc = DataController.instance();
+        List<LocalTime> alarms = dc.getTodaysAlarms();
+        for (int i = 0; i < alarms.size(); i++) {
+            setButtonRowToRed(i);
+            getButtonFromTime(alarms.get(i).getHourOfDay()).setChecked(true);
+        }
     }
 
     @Override
@@ -145,24 +163,24 @@ public class TimetableActivity extends Activity implements OnClickListener {
 
         //@formatter:off
             //row 1
-            case R.id.button_9am:   toggle(0,R.id.button_9am, 9);  break;
-            case R.id.button_10am:  toggle(0,R.id.button_10am, 10); break;
-            case R.id.button_11am:  toggle(0,R.id.button_11am, 11); break;
-            case R.id.button_12pm:  toggle(0,R.id.button_12pm, 12); break;
+            case R.id.button_9am:   if(allowToggle(0, 9)) toggle(0, 9);  break;
+            case R.id.button_10am:  if(allowToggle(0, 10)) toggle(0, 10); break;
+            case R.id.button_11am:  if(allowToggle(0, 11)) toggle(0, 11); break;
+            case R.id.button_12pm:  if(allowToggle(0, 12)) toggle(0, 12); break;
             //row 2
-            case R.id.button_1pm:   toggle(1,R.id.button_1pm, 13);  break;
-            case R.id.button_2pm:   toggle(1,R.id.button_2pm, 14);  break;
-            case R.id.button_3pm:   toggle(1,R.id.button_3pm, 15);  break;
+            case R.id.button_1pm:   if(allowToggle(1, 13)) toggle(1, 13);  break;
+            case R.id.button_2pm:   if(allowToggle(1, 14)) toggle(1, 14);  break;
+            case R.id.button_3pm:   if(allowToggle(1, 15)) toggle(1, 15);  break;
             //row 3
-            case R.id.button_4pm:   toggle(2,R.id.button_4pm, 16);  break;
-            case R.id.button_5pm:   toggle(2,R.id.button_5pm, 17);  break;
-            case R.id.button_6pm:   toggle(2,R.id.button_6pm, 18);  break;
-            case R.id.button_7pm:   toggle(2,R.id.button_7pm, 19);  break;
+            case R.id.button_4pm:   if(allowToggle(2, 16)) toggle(2, 16);  break;
+            case R.id.button_5pm:   if(allowToggle(2, 17)) toggle(2, 17);  break;
+            case R.id.button_6pm:   if(allowToggle(2, 18)) toggle(2, 18);  break;
+            case R.id.button_7pm:   if(allowToggle(2, 19)) toggle(2, 19);  break;
             //row 4
-            case R.id.button_8pm:   toggle(3,R.id.button_8pm, 20);  break;
-            case R.id.button_9pm:   toggle(3,R.id.button_9pm, 21);  break;
-            case R.id.button_10pm:  toggle(3,R.id.button_10pm, 22); break;
-            case R.id.button_11pm:  toggle(3,R.id.button_11pm, 23); break;         
+            case R.id.button_8pm:   if(allowToggle(3, 20)) toggle(3, 20);  break;
+            case R.id.button_9pm:   if(allowToggle(3, 21)) toggle(3, 21);  break;
+            case R.id.button_10pm:  if(allowToggle(3, 22)) toggle(3, 22); break;
+            case R.id.button_11pm:  if(allowToggle(3, 23)) toggle(3, 23); break;         
 
             //@formatter:on
             case R.id.button_done :
@@ -171,18 +189,24 @@ public class TimetableActivity extends Activity implements OnClickListener {
                 } else {
                     // Persist next alarm times
                     DataController controller = DataController.instance();
+                    List<LocalTime> oldAlarms = controller.getTodaysAlarms();
+                    int numEntries = 0;
                     for (int i = 0; i < timeButtons.size(); ++i) {
                         // Selected alarm time
                         if (timeButtons.get(i).isChecked()) {
                             // First possible time begins at 9 o'clock
                             // and max is 23 (24 = 0)
                             int hour = (i + 9) % 24;
-                            controller.createDummyRow(hour, 0);
+                            if (oldAlarms.isEmpty())
+                                controller.createDummyRow(hour, 0);
+                            else
+                                controller.changeAlarmTime(oldAlarms.get(numEntries).getHourOfDay(), 0, hour, 0);
+                            numEntries++;
                             setFirstAlarm();
                         }
                     }
-                    finish();
                     startActivity(new Intent(this, InfoActivity.class));
+                    finish();
                 }
         }
     }
@@ -207,23 +231,20 @@ public class TimetableActivity extends Activity implements OnClickListener {
 
     }
 
-
-
     /**
      * call this method to set first Alarm
      */
-    private void setFirstAlarm()
-    {
+    private void setFirstAlarm() {
         Intent myIntent = new Intent(this, Alarm.class);
-        AlarmManager alarmManager=(AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
+        AlarmManager alarmManager = (AlarmManager) (this.getSystemService(Context.ALARM_SERVICE));
         PendingIntent pendingIntent = PendingIntent.getService(this, 0, myIntent, 0);
         DataController controller = DataController.instance();
-        
+
         if (controller == null) {
             Toast.makeText(getBaseContext(), "Can't load controller!", Toast.LENGTH_LONG).show();
             return;
         }
-       
+
         DateTime alarmTime = controller.getNextAlarm();
 
         // Error while founding the alarm time
@@ -231,7 +252,7 @@ public class TimetableActivity extends Activity implements OnClickListener {
             Toast.makeText(getBaseContext(), "No alarm found!", Toast.LENGTH_LONG).show();
             return;
         }
-        
+
         alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime.getMillis(), pendingIntent);
     }
 
