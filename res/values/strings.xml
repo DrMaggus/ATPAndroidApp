@@ -8,14 +8,14 @@
 2. Dritter Buchstabe des Vornamens des Vaters\n
 3. Dritter Buchstabe des Geburtsortes\n
 4. Dritter Buchstabe der aktuellen Straße (Hauptwohnsitz)\n
-5. Dritter Buchstabe des Geburtsmonats</string>
+5. Dritter Buchstabe des Geburtsmonats</string><string name="general_databaseError">Datenbank-Fehler. Bitte wenden Sie sich an den zuständigen Administrator!</string>
     <string name="buttonstart">Bestätigen</string>
     <string name="startcodehint">code</string>
-    <string name="contact_question">Wie viele soziale Kontakte hatten Sie seit dem letzten Alarm am %1$d. %2$d. um %3$d Uhr?</string>
-    <string name="time_question">Schätzen Sie bitte zusätzlich die Dauer der Kontakte ein.</string>
-    <string name="numberOfContacts"> Anzahl</string>
-    <string name="hours"> Stunden</string>
-    <string name="minutes"> Minuten</string>
+    
+    
+    
+    
+    
     <string name="AlarmDialog">Bitte ausfüllen.</string>
     <string name="button_now">Jetzt</string>
     <string name="button_later">Später</string>
@@ -39,11 +39,11 @@
     <string name="timeTableDescription">Wählen Sie in jeder Zeile eine Alarmzeit aus</string>
     <string name="button_done">Fertig</string>
     <string name="timetableToastMessage">Zeiten wurden nicht richtig ausgewählt</string>
-    <string name="missingInput">Es sind nicht alle Felder ausgefüllt!</string>
-    <string name="contactsMinutesMismatch">Die angegebene Zeit passt nicht zu der Anzahl der Kontakte!</string>
-    <string name="invalidMinutes">Für die Minuten bitte eine Zahl zwischen 0 und 59 angeben.</string>
-    <string name="tooMuchMinutes">Soviel Zeit ist nicht seit dem letzten Termin vergangen.</string>
-    <string name="databaseError">Datenbank-Fehler. Bitte wenden Sie sich an den zuständigen Administrator!</string>
+    
+    
+    
+    
+    <string name="surveyActivity_contact_question">Wie viele soziale Kontakte hatten Sie seit dem letzten Alarm am %1$d. %2$d. um %3$d Uhr?</string><string name="surveyActivity_minutes"> Minuten</string><string name="surveyActivity_hours"> Stunden</string><string name="surveyActivity_missingInput">Es sind nicht alle Felder ausgefüllt!</string><string name="surveyActivity_numberOfContacts"> Anzahl</string><string name="surveyActivity_tooMuchMinutes">Soviel Zeit ist nicht seit dem letzten Termin vergangen.</string><string name="surveyActivity_time_question">Schätzen Sie bitte zusätzlich die Dauer der Kontakte ein.</string><string name="surveyActivity_invalidMinutes">Für die Minuten bitte eine Zahl zwischen 0 und 59 angeben.</string><string name="surveyActivity_contactsMinutesMismatch">Die angegebene Zeit passt nicht zu der Anzahl der Kontakte!</string>
     <string name="title_activity_info">InfoActivity</string>
 
     <!-- InfoActivity -->

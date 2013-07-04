@@ -49,14 +49,14 @@ public class SurveyActivity extends Activity {
         int day = cal.get(Calendar.DAY_OF_MONTH);
         int month = cal.get(Calendar.MONTH);
         int hour = cal.get(Calendar.HOUR_OF_DAY);
-        String contactQuestion = this.getResources().getString(R.string.contact_question, day, month, hour);
+        String contactQuestion = this.getResources().getString(R.string.surveyActivity_contact_question, day, month, hour);
         TextView question = (TextView) findViewById(R.id.contactQuestionView);
         question.setText(contactQuestion);
     }
     private void errorToast() {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, this.getResources().getString(R.string.databaseError), duration);
+        Toast toast = Toast.makeText(context, this.getResources().getString(R.string.general_databaseError), duration);
         toast.show();
     }
 

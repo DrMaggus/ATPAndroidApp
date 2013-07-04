@@ -35,7 +35,7 @@
         android:textColor="@color/lettering"
         android:gravity="center"
         android:layout_margin="20dip"
-        android:text="@string/contact_question"
+        android:text="@string/surveyActivity_contact_question"
         />
 
 
@@ -46,7 +46,7 @@
         android:ems="10"
         android:maxLength="8"
         android:gravity="center"
-       	android:hint ="@string/numberOfContacts"
+       	android:hint ="@string/surveyActivity_numberOfContacts"
         android:inputType="number" />
 
     <TextView
@@ -58,7 +58,7 @@
         android:textColor="@color/lettering"
         android:gravity="center"
         android:layout_margin="30dip"
-        android:text="@string/time_question" />
+        android:text="@string/surveyActivity_time_question" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -74,7 +74,7 @@
             android:maxLength="8"
             android:inputType="number"
             android:gravity="center"
-            android:hint ="@string/hours" >
+            android:hint ="@string/surveyActivity_hours" >
 
             <requestFocus />
         </EditText>
@@ -88,7 +88,7 @@
             android:maxLength="2"
             android:inputType="number"
             android:gravity="center"
-            android:hint ="@string/minutes"/>
+            android:hint ="@string/surveyActivity_minutes"/>
 
     </LinearLayout>
 

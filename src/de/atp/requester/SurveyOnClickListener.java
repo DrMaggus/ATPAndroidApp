@@ -32,14 +32,14 @@ public class SurveyOnClickListener implements OnClickListener {
             contacts = getValue(R.id.numberOfContacts);
         } catch (java.lang.NullPointerException e) {
             invalidInput = true;
-            toastText(v.getResources().getString(R.string.missingInput));
+            toastText(v.getResources().getString(R.string.surveyActivity_missingInput));
         }
         if (contacts == 0 ^ minutes == 0)
-            toastText(v.getResources().getString(R.string.contactsMinutesMismatch));
+            toastText(v.getResources().getString(R.string.surveyActivity_contactsMinutesMismatch));
         else if (!invalidInput && !checkValue(R.id.minutes, 59))
-            toastText(v.getResources().getString(R.string.invalidMinutes));
+            toastText(v.getResources().getString(R.string.surveyActivity_invalidMinutes));
         else if (minutes > maxMinutes)
-            toastText(v.getResources().getString(R.string.tooMuchMinutes));
+            toastText(v.getResources().getString(R.string.surveyActivity_tooMuchMinutes));
         else if (!invalidInput) {
             saveValues();
             return;
