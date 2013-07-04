@@ -20,7 +20,7 @@ public class StartActivity extends Activity implements OnClickListener {
             Button button = (Button) findViewById(R.id.button1);
             button.setOnClickListener((OnClickListener) this);
         } else {
-            startActivity(new Intent(this, SurveyActivity.class));
+            startActivity(new Intent(this, InfoActivity.class));
             finish();
         }
     }
