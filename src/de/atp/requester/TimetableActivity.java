@@ -181,7 +181,8 @@ public class TimetableActivity extends Activity implements OnClickListener {
                             setFirstAlarm();
                         }
                     }
-                    moveTaskToBack(true);
+                    finish();
+                    startActivity(new Intent(this, InfoActivity.class));
                 }
         }
     }
