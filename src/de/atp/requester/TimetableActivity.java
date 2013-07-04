@@ -128,17 +128,6 @@ public class TimetableActivity extends Activity implements OnClickListener {
                 break;
         }
     }
-    
-    private boolean allowToggle(int row, int hour) {
-        DataController dc = DataController.instance();
-        if (!dc.getTodaysAlarms().isEmpty()) 
-            if (dc.getTodaysAlarms().get(row).isAfter(LocalTime.now()) && 
-                    new LocalTime(hour, 0, 0).isBefore(LocalTime.now())) {
-                Toast.makeText(this, "So nicht,  Freundchen!", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        return true;
-    }
 
     private void toggle(int row, int hour) {
         setButtonRowToRed(row);
@@ -163,24 +152,24 @@ public class TimetableActivity extends Activity implements OnClickListener {
 
         //@formatter:off
             //row 1
-            case R.id.button_9am:   if(allowToggle(0, 9)) toggle(0, 9);  break;
-            case R.id.button_10am:  if(allowToggle(0, 10)) toggle(0, 10); break;
-            case R.id.button_11am:  if(allowToggle(0, 11)) toggle(0, 11); break;
-            case R.id.button_12pm:  if(allowToggle(0, 12)) toggle(0, 12); break;
+            case R.id.button_9am:   toggle(0, 9);  break;
+            case R.id.button_10am:  toggle(0, 10); break;
+            case R.id.button_11am:  toggle(0, 11); break;
+            case R.id.button_12pm:  toggle(0, 12); break;
             //row 2
-            case R.id.button_1pm:   if(allowToggle(1, 13)) toggle(1, 13);  break;
-            case R.id.button_2pm:   if(allowToggle(1, 14)) toggle(1, 14);  break;
-            case R.id.button_3pm:   if(allowToggle(1, 15)) toggle(1, 15);  break;
+            case R.id.button_1pm:   toggle(1, 13);  break;
+            case R.id.button_2pm:   toggle(1, 14);  break;
+            case R.id.button_3pm:   toggle(1, 15);  break;
             //row 3
-            case R.id.button_4pm:   if(allowToggle(2, 16)) toggle(2, 16);  break;
-            case R.id.button_5pm:   if(allowToggle(2, 17)) toggle(2, 17);  break;
-            case R.id.button_6pm:   if(allowToggle(2, 18)) toggle(2, 18);  break;
-            case R.id.button_7pm:   if(allowToggle(2, 19)) toggle(2, 19);  break;
+            case R.id.button_4pm:   toggle(2, 16);  break;
+            case R.id.button_5pm:   toggle(2, 17);  break;
+            case R.id.button_6pm:   toggle(2, 18);  break;
+            case R.id.button_7pm:   toggle(2, 19);  break;
             //row 4
-            case R.id.button_8pm:   if(allowToggle(3, 20)) toggle(3, 20);  break;
-            case R.id.button_9pm:   if(allowToggle(3, 21)) toggle(3, 21);  break;
-            case R.id.button_10pm:  if(allowToggle(3, 22)) toggle(3, 22); break;
-            case R.id.button_11pm:  if(allowToggle(3, 23)) toggle(3, 23); break;         
+            case R.id.button_8pm:   toggle(3, 20);  break;
+            case R.id.button_9pm:   toggle(3, 21);  break;
+            case R.id.button_10pm:  toggle(3, 22); break;
+            case R.id.button_11pm:  toggle(3, 23); break;         
 
             //@formatter:on
             case R.id.button_done :
