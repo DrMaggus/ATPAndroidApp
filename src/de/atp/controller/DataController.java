@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
 import android.os.Environment;
@@ -143,12 +144,12 @@ public class DataController {
     public List<LocalTime> getTodaysAlarms() {
         List<LocalTime> res = new ArrayList<LocalTime>();
 
-        DateTime today = new DateTime();
+        LocalDate today = new LocalDate();
 
         // Search for the alarm times
         for (Row row : table.getRows()) {
             if (row.getDate().equals(today)) {
-                res.add(row.getAlarmTime());
+//                res.add(row.getAlarmTime());
             }
         }
 
@@ -180,7 +181,7 @@ public class DataController {
      */
     public void createDummyRow(int alarmHour, int alarmMinute) {
 
-        DateTime date = new DateTime();
+        LocalDate date = new LocalDate();
         date = date.plusDays(1);
 
         LocalTime alarmTime = new LocalTime(alarmHour, alarmMinute);
@@ -224,7 +225,7 @@ public class DataController {
      *            Delivers information about the alarmtime and date
      */
     private void generateNextAlarm(Row cur) {
-        DateTime date = cur.getDate();
+        LocalDate date = cur.getDate();
         date = date.plusDays(1);
 
         LocalTime alarmTime = new LocalTime(cur.getAlarmTime());
@@ -258,13 +259,13 @@ public class DataController {
         List<Row> rows = table.getRows();
         for (int i = rows.size() - 1; i >= 0; --i) {
             Row row = rows.get(i);
-            if (row.getAlarmTime().isAfter(now)) {
-                long diff = now.compareTo(row.getAlarmTime());
-                if (diff <= min) {
-                    min = diff;
-                    minimum = row;
-                }
-            }
+//            if (row.getAlarmTime().isAfter(now)) {
+////                long diff = now.compareTo(row.getAlarmTime());
+////                if (diff <= min) {
+////                    min = diff;
+////                    minimum = row;
+////                }
+//            }
         }
         return minimum;
     }

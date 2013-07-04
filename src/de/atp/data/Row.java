@@ -1,6 +1,7 @@
 package de.atp.data;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
 import android.annotation.SuppressLint;
@@ -13,7 +14,7 @@ public class Row {
     protected int index;
 
     private String code;
-    private DateTime date;
+    private LocalDate date;
     private LocalTime alarmTime;
     private LocalTime answerTime;
     private RowStatus status;
@@ -21,11 +22,11 @@ public class Row {
     private int hours;
     private int minutes;
 
-    public Row(String code, DateTime date, LocalTime alarmTime) {
+    public Row(String code, LocalDate date, LocalTime alarmTime) {
         this(code, date, alarmTime, null, RowStatus.DIRTY, -1, -1, -1);
     }
 
-    public Row(String code, DateTime date, LocalTime alarmTime, LocalTime answerTime, RowStatus status, int contacts, int hours, int minutes) {
+    public Row(String code, LocalDate date, LocalTime alarmTime, LocalTime answerTime, RowStatus status, int contacts, int hours, int minutes) {
         this.code = code;
         this.date = date;
         this.alarmTime = alarmTime;
@@ -54,7 +55,7 @@ public class Row {
     /**
      * @return Creation date of the row
      */
-    public DateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -62,15 +63,15 @@ public class Row {
      * @param date
      *            Creation date of the row
      */
-    public void setDate(DateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
     /**
      * @return The desired to ring the alarm
      */
-    public LocalTime getAlarmTime() {
-        return alarmTime;
+    public DateTime getAlarmTime() {
+        return null;
     }
 
     /**
@@ -84,8 +85,8 @@ public class Row {
     /**
      * @return Time where the user answered the request
      */
-    public LocalTime getAnswerTime() {
-        return answerTime;
+    public DateTime getAnswerTime() {
+        return null;
     }
 
     /**

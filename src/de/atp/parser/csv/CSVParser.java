@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -178,7 +178,7 @@ public class CSVParser implements Parser, RowConverter {
 
             int p = 0;
             String probandCode = split[p++];
-            DateTime day = new DateTime(DateFormat.getDateInstance().parse(split[p++]));
+            LocalDate day = new LocalDate(DateFormat.getDateInstance().parse(split[p++]));
             LocalTime alarmTime = new LocalTime(TIME_FORMAT.parseLocalTime(split[p++]));
             LocalTime answerTime = new LocalTime(TIME_FORMAT.parseLocalTime(split[p++]));
             RowStatus status = RowStatus.getStatus(Integer.parseInt(split[p++]));
