@@ -149,25 +149,32 @@ public class DataController {
         // Search for the alarm times
         for (Row row : table.getRows()) {
             if (row.getDate().equals(today)) {
-//                res.add(row.getAlarmTime());
+                res.add(new LocalTime(row.getAlarmTime()));
             }
         }
 
         return res;
     }
 
-    // TODO: Fix me
-    public LocalTime getNextAlarm() {
+    public DateTime getNextAlarm() {
         List<LocalTime> alarms = getTodaysAlarms();
-        LocalTime now = new LocalTime();
-        for (LocalTime atpTime : alarms) {
-            if (now.isAfter(atpTime) || now.equals(atpTime))
-                return atpTime;
+        LocalTime now = LocalTime.now();
+
+        // Search for the next alarm today
+        for (LocalTime alarm : alarms) {
+            if (alarm.isAfter(now) || alarm.isEqual(now))
+                return LocalDate.now().toDateTime(alarm);
         }
-        if (alarms.isEmpty())
-            return new LocalTime();
-        // Alarm not today
-        return alarms.get(0);
+        // No alarm found for today - search for the one the next day
+        List<Row> rows = table.getRows();
+        LocalDate tommorow = LocalDate.now().plusDays(1);
+        for (Row row : rows) {
+            if (row.getDate().equals(tommorow)) {
+                return row.getAlarmTime();
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -182,7 +189,6 @@ public class DataController {
     public void createDummyRow(int alarmHour, int alarmMinute) {
 
         LocalDate date = new LocalDate();
-        date = date.plusDays(1);
 
         LocalTime alarmTime = new LocalTime(alarmHour, alarmMinute);
 
@@ -253,19 +259,19 @@ public class DataController {
      * @return
      */
     private Row getCurrentRow() {
-        LocalTime now = new LocalTime();
+        DateTime now = DateTime.now();
         Row minimum = table.getRow(0);
         long min = Long.MAX_VALUE;
         List<Row> rows = table.getRows();
         for (int i = rows.size() - 1; i >= 0; --i) {
             Row row = rows.get(i);
-//            if (row.getAlarmTime().isAfter(now)) {
-////                long diff = now.compareTo(row.getAlarmTime());
-////                if (diff <= min) {
-////                    min = diff;
-////                    minimum = row;
-////                }
-//            }
+            if (row.getAlarmTime().isAfter(now)) {
+                long diff = now.compareTo(row.getAlarmTime());
+                if (diff <= min) {
+                    min = diff;
+                    minimum = row;
+                }
+            }
         }
         return minimum;
     }

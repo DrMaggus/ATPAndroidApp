@@ -71,7 +71,7 @@ public class Row {
      * @return The desired to ring the alarm
      */
     public DateTime getAlarmTime() {
-        return null;
+        return date.toDateTime(alarmTime);
     }
 
     /**
@@ -86,7 +86,7 @@ public class Row {
      * @return Time where the user answered the request
      */
     public DateTime getAnswerTime() {
-        return null;
+        return date.toDateTime(answerTime);
     }
 
     /**

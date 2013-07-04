@@ -1,5 +1,7 @@
 package de.atp.requester;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormat;
@@ -18,6 +20,9 @@ import de.atp.controller.DataController;
 public class InfoActivity extends Activity {
 
     private final static DateTimeFormatter TIME_FORMAT = DateTimeFormat.forPattern("HH:mm");
+
+    private TextView alarmTimeView;
+    private TextView timeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,9 @@ public class InfoActivity extends Activity {
                 closeApp();
             }
         });
+
+        alarmTimeView = (TextView) findViewById(R.id.infoActivity_alarmTime);
+        timeView = (TextView) findViewById(R.id.infoActivity_time);
     }
 
     @Override
@@ -51,21 +59,28 @@ public class InfoActivity extends Activity {
             Toast.makeText(getBaseContext(), "Can't load controller!", Toast.LENGTH_LONG).show();
             return;
         }
-        TextView view = (TextView) findViewById(R.id.infoActivity_alarmTime);
-        LocalTime alarmTime = controller.getNextAlarm();
-        LocalTime now = new LocalTime();
+        DateTime alarmTime = controller.getNextAlarm();
+
+        // Error while founding the alarm time
+        if (alarmTime == null) {
+            Toast.makeText(getBaseContext(), "No alarm found!", Toast.LENGTH_LONG).show();
+            timeView.setText("");
+            alarmTimeView.setText("");
+            return;
+        }
+
         String text = "";
-        if (alarmTime.isBefore(now)) {
+        // Check if the next alarm is tomorrow
+        if (alarmTime.getDayOfMonth() != LocalDate.now().getDayOfMonth()) {
             text = "Morgen um ";
         }
-        text += TIME_FORMAT.print(alarmTime);
+        text += TIME_FORMAT.print(new LocalTime(alarmTime));
 
-        view.setText(text);
+        alarmTimeView.setText(text);
 
-        view = (TextView) findViewById(R.id.infoActivity_time);
-        Period period = new Period(alarmTime, now);
+        Period period = new Period(DateTime.now(), alarmTime);
         LocalTime diff = new LocalTime(period.getHours(), period.getMinutes());
-        view.setText(TIME_FORMAT.print(diff));
+        timeView.setText(TIME_FORMAT.print(diff));
     }
 
     private void openTimetable() {
