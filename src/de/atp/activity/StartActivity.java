@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import de.atp.controller.DataController;
-import de.atp.requester.R;
+import de.atp.activity.R;
 
 public class StartActivity extends Activity {
 

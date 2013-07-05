@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import de.atp.controller.Alarm;
 import de.atp.controller.DataController;
-import de.atp.requester.R;
+import de.atp.activity.R;
 
 public class SurveyActivity extends Activity {
 

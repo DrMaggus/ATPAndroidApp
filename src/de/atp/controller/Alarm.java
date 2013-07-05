@@ -1,5 +1,6 @@
 package de.atp.controller;
 
+import de.atp.activity.SurveyActivity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +29,7 @@ public class Alarm extends Service {
      */
     @Override
     public void onStart(Intent intent, int startId) {
-        // finish open Activities
+        // close open Activities
         sendBroadcast(new Intent("finishActivity"));
         startSurvey();
         vibration();
@@ -58,13 +59,13 @@ public class Alarm extends Service {
      */
     private void startSurvey(){
         Intent intent = new Intent("android.intent.category.LAUNCHER");
-        intent.setClassName("de.atp.requester", "de.atp.requester.SurveyActivity");
+        intent.setClassName(SurveyActivity.class.getPackage().getName(), SurveyActivity.class.getName());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);        
     }
 
     /**
-     * has to be implemented.
+     * has to be implemented in services
      */
     @Override
     public IBinder onBind(Intent intent) {

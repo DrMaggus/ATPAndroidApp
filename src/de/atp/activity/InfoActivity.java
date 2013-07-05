@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.atp.controller.DataController;
-import de.atp.requester.R;
+import de.atp.activity.R;
 
 public class InfoActivity extends Activity {
 

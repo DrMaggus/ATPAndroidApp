@@ -22,7 +22,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import de.atp.controller.Alarm;
 import de.atp.controller.DataController;
-import de.atp.requester.R;
+import de.atp.activity.R;
 
 public class TimetableActivity extends Activity {
 
