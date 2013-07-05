@@ -22,23 +22,23 @@ public class StartActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.button = (Button) findViewById(R.id.button1);
-        this.button.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                handleCodeInput();
-
-            }
-        });
-
-        codeField = (EditText) findViewById(R.id.editTextCode);
-
         if (DataController.isProbandFileExisting()) {
             startActivity(new Intent(this, InfoActivity.class));
             finish();
         } else {
             setContentView(R.layout.activity_start);
+
+            this.button = (Button) findViewById(R.id.button1);
+            this.button.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    handleCodeInput();
+
+                }
+            });
+
+            codeField = (EditText) findViewById(R.id.editTextCode);
         }
     }
 
