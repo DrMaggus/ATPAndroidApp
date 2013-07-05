@@ -1,9 +1,9 @@
 package de.atp.activity;
 
-import de.atp.controller.Alarm;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
@@ -14,53 +14,85 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import de.atp.controller.Alarm;
 import de.atp.controller.DataController;
 import de.atp.requester.R;
 
-public class TimetableActivity extends Activity implements OnClickListener {
+public class TimetableActivity extends Activity {
 
     private List<RowButton> timeButtons = new ArrayList<RowButton>();
+    private Map<LocalTime, RowButton> buttonsByTime = new HashMap<LocalTime, RowButton>();
+    private SparseArray<RowButton> buttonsById = new SparseArray<RowButton>();
+
     private Button button_done;
     private Button button_cancel;
+
+    private final static int ROW_1 = 0;
+    private final static int ROW_2 = 1;
+    private final static int ROW_3 = 2;
+    private final static int ROW_4 = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
 
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_9am), 0, 9));
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_10am), 0, 10));
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_11am), 0, 11));
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_12pm), 0, 12));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_9am), ROW_1, new LocalTime(9, 00)));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_10am), ROW_1, new LocalTime(10, 00)));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_11am), ROW_1, new LocalTime(11, 00)));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_12pm), ROW_1, new LocalTime(12, 00)));
 
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_1pm), 1, 13));
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_2pm), 1, 14));
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_3pm), 1, 15));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_1pm), ROW_2, new LocalTime(13, 00)));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_2pm), ROW_2, new LocalTime(14, 00)));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_3pm), ROW_2, new LocalTime(15, 00)));
 
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_4pm), 2, 16));
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_5pm), 2, 17));
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_6pm), 2, 18));
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_7pm), 2, 19));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_4pm), ROW_3, new LocalTime(16, 00)));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_5pm), ROW_3, new LocalTime(17, 00)));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_6pm), ROW_3, new LocalTime(18, 00)));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_7pm), ROW_3, new LocalTime(19, 00)));
 
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_8pm), 3, 20));
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_9pm), 3, 21));
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_10pm), 3, 22));
-        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_11pm), 3, 23));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_8pm), ROW_4, new LocalTime(20, 00)));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_9pm), ROW_4, new LocalTime(21, 00)));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_10pm), ROW_4, new LocalTime(22, 00)));
+        timeButtons.add(new RowButton((ToggleButton) findViewById(R.id.button_11pm), ROW_4, new LocalTime(23, 00)));
 
-        for (int i = 0; i < timeButtons.size(); i++)
-            timeButtons.get(i).getTogglebutton().setOnClickListener(this);
+        OnClickListener listener = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                handleTimeButtonClick(buttonsById.get(v.getId()));
+            }
+        };
+
+        for (RowButton button : timeButtons) {
+            button.togglebutton.setOnClickListener(listener);
+            this.buttonsByTime.put(button.time, button);
+            this.buttonsById.put(button.togglebutton.getId(), button);
+        }
 
         // Create done button
         button_done = (Button) findViewById(R.id.button_done);
-        button_done.setOnClickListener(this);
+        button_done.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleDoneButtonClick();
+            }
+        });
+
         // Create Cancel button
         button_cancel = (Button) findViewById(R.id.timetable_cancel);
-        button_cancel.setOnClickListener(this);
+        button_cancel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleCancelButtonClick();
+            }
+        });
     }
 
     @Override
@@ -70,123 +102,73 @@ public class TimetableActivity extends Activity implements OnClickListener {
         List<LocalTime> alarms = dc.getTodaysAlarms();
         for (int i = 0; i < alarms.size(); i++) {
             setButtonRowToRed(i);
-            getButtonFromTime(alarms.get(i).getHourOfDay()).getTogglebutton().setChecked(true);
+            buttonsByTime.get(alarms.get(i)).togglebutton.setChecked(true);
         }
     }
 
-    @Override
-    public void onClick(View v) {
+    private void handleTimeButtonClick(RowButton button) {
+        toggle(button.row, button.time.getHourOfDay());
+    }
 
-        switch (v.getId()) {
-        // row 1
-            case R.id.button_9am :
-                toggle(0, 9);
-                break;
-            case R.id.button_10am :
-                toggle(0, 10);
-                break;
-            case R.id.button_11am :
-                toggle(0, 11);
-                break;
-            case R.id.button_12pm :
-                toggle(0, 12);
-                break;
-            // row 2
-            case R.id.button_1pm :
-                toggle(1, 13);
-                break;
-            case R.id.button_2pm :
-                toggle(1, 14);
-                break;
-            case R.id.button_3pm :
-                toggle(1, 15);
-                break;
-            // row 3
-            case R.id.button_4pm :
-                toggle(2, 16);
-                break;
-            case R.id.button_5pm :
-                toggle(2, 17);
-                break;
-            case R.id.button_6pm :
-                toggle(2, 18);
-                break;
-            case R.id.button_7pm :
-                toggle(2, 19);
-                break;
-            // row 4
-            case R.id.button_8pm :
-                toggle(3, 20);
-                break;
-            case R.id.button_9pm :
-                toggle(3, 21);
-                break;
-            case R.id.button_10pm :
-                toggle(3, 22);
-                break;
-            case R.id.button_11pm :
-                toggle(3, 23);
-                break;
-
-            case R.id.timetable_cancel :
-                finish();
-                break;
-
-            case R.id.button_done :
-                if (!buttonCheck()) {
-                    Toast.makeText(this, R.string.timetableToastMessage, Toast.LENGTH_SHORT).show();
-                } else {
-                    // Persist next alarm times
-                    DataController controller = DataController.instance();
-                    List<LocalTime> oldAlarms = controller.getTodaysAlarms();
-                    // TODO: check => sometimes times don't get saved
-                    // (randomly?!) <=> csv gets fucked up
-                    for (int i = 0, numEntries = 0; i < timeButtons.size(); i++) {
-                        if (timeButtons.get(i).getTogglebutton().isChecked()) {
-                            if (oldAlarms.isEmpty())
-                                controller.createDummyRow(timeButtons.get(i).getTime(), 0);
-                            else if (timeChoiceIsValid(oldAlarms.get(numEntries).getHourOfDay(), timeButtons.get(i).getTime()))
-                                controller.changeAlarmTime(oldAlarms.get(numEntries).getHourOfDay(), 0, timeButtons.get(i).getTime(), 0);
-                            else
-                                Toast.makeText(this, "Zeiten wurden so gewaehlt, dass sie heute nicht mehr erreichbar bzw. wieder erreichbar sind", 6).show();
-                            numEntries++;
-                        }
-                    }
-                    setFirstAlarm();
-                    startActivity(new Intent(this, InfoActivity.class));
-                    finish();
+    private void handleDoneButtonClick() {
+        if (!buttonCheck()) {
+            Toast.makeText(this, R.string.timetableToastMessage, Toast.LENGTH_SHORT).show();
+        } else {
+            // Persist next alarm times
+            DataController controller = DataController.instance();
+            List<LocalTime> oldAlarms = controller.getTodaysAlarms();
+            // TODO: check => sometimes times don't get saved
+            // (randomly?!) <=> csv gets fucked up
+            for (int i = 0, numEntries = 0; i < timeButtons.size(); i++) {
+                if (timeButtons.get(i).togglebutton.isChecked()) {
+                    if (oldAlarms.isEmpty())
+                        controller.createDummyRow(timeButtons.get(i).time.getHourOfDay(), 0);
+                    else if (timeChoiceIsValid(oldAlarms.get(numEntries).getHourOfDay(), timeButtons.get(i).time.getHourOfDay()))
+                        controller.changeAlarmTime(oldAlarms.get(numEntries).getHourOfDay(), 0, timeButtons.get(i).time.getHourOfDay(), 0);
+                    else
+                        Toast.makeText(this, "Zeiten wurden so gewaehlt, dass sie heute nicht mehr erreichbar bzw. wieder erreichbar sind", Toast.LENGTH_LONG).show();
+                    numEntries++;
                 }
-
+            }
+            setFirstAlarm();
+            startActivity(new Intent(this, InfoActivity.class));
+            finish();
         }
+
     }
 
-    private RowButton getButtonFromTime(int time) {
-        for (int i = 0; i < timeButtons.size(); i++)
-            if (timeButtons.get(i).getTime() == time)
-                return timeButtons.get(i);
-        return null;
+    private void handleCancelButtonClick() {
+        finish();
     }
 
     private void setButtonRowToRed(int row) {
         for (int i = 0; i < timeButtons.size(); i++)
-            if (timeButtons.get(i).getRow() == row)
-                timeButtons.get(i).getTogglebutton().setChecked(false);
+            if (timeButtons.get(i).row == row)
+                timeButtons.get(i).togglebutton.setChecked(false);
     }
 
     private void toggle(int row, int hour) {
         setButtonRowToRed(row);
-        getButtonFromTime(hour).getTogglebutton().setChecked(true);
+        buttonsByTime.get(new LocalTime(hour, 0)).togglebutton.setChecked(true);
     }
 
     private boolean timeChoiceIsValid(int oldTime, int newTime) {
         DataController dc = DataController.instance();
-        if (!dc.getTodaysAlarms().isEmpty()) {
-            if (dc.getTodaysAlarms().get(getButtonFromTime(oldTime).getRow()).isAfter(LocalTime.now()) && new LocalTime(newTime, 0, 0).isBefore(LocalTime.now()))
-                return false;
-            if (dc.getTodaysAlarms().get(getButtonFromTime(oldTime).getRow()).isBefore(LocalTime.now()) && new LocalTime(newTime, 0, 0).isAfter(LocalTime.now()))
-                return false;
+        if (dc == null) {
+            Toast.makeText(this, "Controller Error", Toast.LENGTH_LONG).show();
+            return false;
         }
-        return true;
+
+        List<LocalTime> todayAlarms = dc.getTodaysAlarms();
+        if (todayAlarms.isEmpty())
+            return true;
+
+        LocalTime alarmTime = new LocalTime(newTime, 0);
+        int row = buttonsByTime.get(new LocalTime(oldTime, 0)).row;
+        LocalTime rowTime = todayAlarms.get(row);
+        LocalTime now = LocalTime.now();
+
+        return !((rowTime.isAfter(now) && alarmTime.isBefore(now)) || rowTime.isBefore(now) && alarmTime.isAfter(now));
     }
 
     private boolean buttonCheck() {
@@ -196,14 +178,14 @@ public class TimetableActivity extends Activity implements OnClickListener {
         boolean row4 = false;
 
         for (int i = 0; i < timeButtons.size(); i++) {
-            if (timeButtons.get(i).getRow() == 0)
-                row1 = row1 || timeButtons.get(i).getTogglebutton().isChecked();
-            else if (timeButtons.get(i).getRow() == 1)
-                row2 = row2 || timeButtons.get(i).getTogglebutton().isChecked();
-            else if (timeButtons.get(i).getRow() == 2)
-                row3 = row3 || timeButtons.get(i).getTogglebutton().isChecked();
-            else if (timeButtons.get(i).getRow() == 3)
-                row4 = row4 || timeButtons.get(i).getTogglebutton().isChecked();
+            if (timeButtons.get(i).row == ROW_1)
+                row1 = row1 || timeButtons.get(i).togglebutton.isChecked();
+            else if (timeButtons.get(i).row == ROW_2)
+                row2 = row2 || timeButtons.get(i).togglebutton.isChecked();
+            else if (timeButtons.get(i).row == ROW_3)
+                row3 = row3 || timeButtons.get(i).togglebutton.isChecked();
+            else if (timeButtons.get(i).row == ROW_4)
+                row4 = row4 || timeButtons.get(i).togglebutton.isChecked();
         }
 
         return row1 && row2 && row3 && row4;
@@ -235,28 +217,15 @@ public class TimetableActivity extends Activity implements OnClickListener {
     }
 
     private class RowButton {
-        private ToggleButton togglebutton;
-        private int row;
-        private int time;
+        private final ToggleButton togglebutton;
+        private final int row;
+        private final LocalTime time;
 
-        public RowButton(ToggleButton togglebutton, int row, int time) {
+        public RowButton(ToggleButton togglebutton, int row, LocalTime time) {
             this.togglebutton = togglebutton;
             this.row = row;
             this.time = time;
         }
-
-        public ToggleButton getTogglebutton() {
-            return togglebutton;
-        }
-
-        public int getRow() {
-            return row;
-        }
-
-        public int getTime() {
-            return time;
-        }
-
     }
 
 }
