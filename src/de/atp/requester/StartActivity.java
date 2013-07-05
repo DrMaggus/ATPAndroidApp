@@ -12,34 +12,50 @@ import android.widget.EditText;
 import android.widget.Toast;
 import de.atp.controller.DataController;
 
-public class StartActivity extends Activity implements OnClickListener {
+public class StartActivity extends Activity {
+
+    private Button button;
+    private EditText codeField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!DataController.isProbandFileExisting()) {
-            setContentView(R.layout.activity_start);
-            Button button = (Button) findViewById(R.id.button1);
-            button.setOnClickListener((OnClickListener) this);
-        } else {
+
+        this.button = (Button) findViewById(R.id.button1);
+        this.button.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                handleCodeInput();
+
+            }
+        });
+
+        codeField = (EditText) findViewById(R.id.editTextCode);
+
+        if (DataController.isProbandFileExisting()) {
             startActivity(new Intent(this, InfoActivity.class));
             finish();
+        } else {
+            setContentView(R.layout.activity_start);
         }
     }
 
-    private static final Pattern p = Pattern.compile("\\p{Alpha}{5}");
+    private void handleCodeInput() {
 
-    private boolean codeIsValid(String c) {
-        return p.matcher(c).matches();
-    }
-
-    public void onClick(View v) {
-        String code = ((EditText) findViewById(R.id.editTextCode)).getText().toString();
+        String code = codeField.getText().toString();
         if (codeIsValid(code)) {
             DataController.instance(code);
             startActivity(new Intent(this, TimetableActivity.class));
             finish();
+        } else {
+            Toast.makeText(this, "Falsche Eingabe!", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private static final Pattern INPUT_PATTERN = Pattern.compile("\\p{Alpha}{5}");
+
+    private boolean codeIsValid(String c) {
+        return INPUT_PATTERN.matcher(c).matches();
+    }
 }
