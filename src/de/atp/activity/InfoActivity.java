@@ -73,7 +73,7 @@ public class InfoActivity extends Activity {
         String text = "";
         // Check if the next alarm is tomorrow
         if (alarmTime.getDayOfMonth() != LocalDate.now().getDayOfMonth()) {
-            text = "Morgen um ";
+            text = "Morgen\n";
         }
         text += TIME_FORMAT.print(new LocalTime(alarmTime));
 
