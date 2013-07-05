@@ -1,4 +1,4 @@
-package de.atp.requester;
+package de.atp.activity;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import de.atp.controller.Alarm;
 import de.atp.controller.DataController;
+import de.atp.requester.R;
 
 public class SurveyActivity extends Activity {
     AlarmManager alarmManager;

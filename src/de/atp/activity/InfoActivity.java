@@ -1,4 +1,4 @@
-package de.atp.requester;
+package de.atp.activity;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.atp.controller.DataController;
+import de.atp.requester.R;
 
 public class InfoActivity extends Activity {
 

@@ -18,7 +18,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/ATP" >
         <activity
-            android:name="de.atp.requester.StartActivity"
+            android:name="de.atp.activity.StartActivity"
             android:label="@string/ATP"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.atp.requester.TimetableActivity"
+            android:name="de.atp.activity.TimetableActivity"
             android:label=""
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.atp.requester.SurveyActivity"
+            android:name="de.atp.activity.SurveyActivity"
             android:label=""
             android:screenOrientation="portrait" >
         </activity>
@@ -44,7 +44,7 @@
         <service android:name="de.atp.controller.Alarm" />
 
         <activity
-            android:name="de.atp.requester.InfoActivity"
+            android:name="de.atp.activity.InfoActivity"
             android:label=""
             android:screenOrientation="portrait" >
         </activity>

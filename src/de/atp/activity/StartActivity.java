@@ -1,4 +1,4 @@
-package de.atp.requester;
+package de.atp.activity;
 
 import java.util.regex.Pattern;
 
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import de.atp.controller.DataController;
+import de.atp.requester.R;
 
 public class StartActivity extends Activity {
 

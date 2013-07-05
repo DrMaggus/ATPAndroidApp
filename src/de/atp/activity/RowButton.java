@@ -1,4 +1,4 @@
-package de.atp.requester;
+package de.atp.activity;
 
 
 import android.widget.ToggleButton;

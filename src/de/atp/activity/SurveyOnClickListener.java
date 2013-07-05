@@ -1,4 +1,4 @@
-package de.atp.requester;
+package de.atp.activity;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 import de.atp.controller.DataController;
+import de.atp.requester.R;
 
 public class SurveyOnClickListener implements OnClickListener {
     private SurveyActivity activity;

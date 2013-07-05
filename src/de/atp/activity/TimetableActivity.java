@@ -1,4 +1,4 @@
-package de.atp.requester;
+package de.atp.activity;
 
 import de.atp.controller.Alarm;
 
@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import de.atp.controller.DataController;
+import de.atp.requester.R;
 
 public class TimetableActivity extends Activity implements OnClickListener {
 
