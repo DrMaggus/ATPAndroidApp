@@ -186,7 +186,7 @@ public class DataController {
      * @param alarmMinute
      *            Time from 1-59
      */
-    public void createDummyRow(int alarmHour, int alarmMinute) {
+    public void createFirstAlarms(int alarmHour, int alarmMinute) {
 
         LocalDate date = new LocalDate();
 
@@ -195,6 +195,7 @@ public class DataController {
         Row row = new Row(probandCode, date, alarmTime);
 
         table.addRow(row);
+        generateNextAlarm(row);
         parser.write(table.getRows());
     }
 

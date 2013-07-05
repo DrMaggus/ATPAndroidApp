@@ -122,7 +122,7 @@ public class TimetableActivity extends Activity {
             for (int i = 0, numEntries = 0; i < timeButtons.size(); i++) {
                 if (timeButtons.get(i).togglebutton.isChecked()) {
                     if (oldAlarms.isEmpty())
-                        controller.createDummyRow(timeButtons.get(i).time.getHourOfDay(), 0);
+                        controller.createFirstAlarms(timeButtons.get(i).time.getHourOfDay(), timeButtons.get(i).time.getMinuteOfHour());
                     else if (timeChoiceIsValid(oldAlarms.get(numEntries).getHourOfDay(), timeButtons.get(i).time.getHourOfDay()))
                         controller.changeAlarmTime(oldAlarms.get(numEntries).getHourOfDay(), 0, timeButtons.get(i).time.getHourOfDay(), 0);
                     else

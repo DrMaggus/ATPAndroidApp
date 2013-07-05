@@ -1,6 +1,8 @@
 package de.atp.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class DataTable {
@@ -20,11 +22,11 @@ public class DataTable {
     public DataTable() {
         this(new ArrayList<Row>());
     }
-    
+
     public DataTable(List<Row> rows) {
         this.table = rows;
     }
- 
+
     /**
      * @return Get a copy of the table
      */
@@ -60,6 +62,7 @@ public class DataTable {
      */
     public void updateRow(Row row) {
         table.set(row.index, row);
+        onUpdate();
     }
 
     /**
@@ -73,7 +76,20 @@ public class DataTable {
 
         row.index = table.size();
         table.add(row);
+        onUpdate();
     }
+
+    private void onUpdate() {
+        Collections.sort(table, COMPARATOR);
+    }
+
+    private final static Comparator<Row> COMPARATOR = new Comparator<Row>() {
+
+        @Override
+        public int compare(Row lhs, Row rhs) {
+            return lhs.getAlarmTime().compareTo(rhs.getAlarmTime());
+        }
+    };
 
     /**
      * @return Copy of the last row of the table
